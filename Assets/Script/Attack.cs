@@ -7,9 +7,13 @@ public class Attack : MonoBehaviour
     public LayerMask target;
     public GameObject bullet;
     private bool alreadyShoot = false;
+    private bool destroy = false;
     // Start is called before the first frame update
     void Start()
     {
+
+        alreadyShoot = false;
+        destroy = false;
 
         if(gameObject.layer == 3)
             target = 9;
@@ -32,20 +36,23 @@ public class Attack : MonoBehaviour
     }
 
     private IEnumerator CreateBullet(GameObject target){
-        yield return new WaitForSeconds(6);
-        GameObject b = Instantiate(bullet, transform.position, Quaternion.Euler(GetComponent<Nanobot>().AsVector()));
-        Vector2 velocity = -target.transform.position + transform.position;
-        Debug.Log(velocity);
-        b.GetComponent<Rigidbody2D>().velocity = velocity.normalized * 0.1f;
+        yield return new WaitForSeconds(1);
         alreadyShoot = false; 
+        if(!destroy && target != null){
+            GameObject b = Instantiate(bullet, transform.position, Quaternion.Euler(GetComponent<Nanobot>().AsVector()));
+            b.transform.localScale = new Vector3(0.3f, 0.3f, 0);
+            Vector2 velocity = target.transform.position - transform.position;
+            b.GetComponent<Rigidbody2D>().velocity = velocity.normalized * 3;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision2D){
-        if((collision2D.gameObject.layer == 10 && gameObject.layer == 3) || (((collision2D.gameObject.layer == 11 && gameObject.layer == 9)))){
-            gameObject.GetComponent<Nanobot>().life -= 10;
+        if(((collision2D.gameObject.layer == 10 && gameObject.layer == 3) || (((collision2D.gameObject.layer == 11 && gameObject.layer == 9)))) && collision2D.otherCollider.gameObject.layer != 8){
+            gameObject.GetComponent<Nanobot>().life -= 20;
             Destroy(collision2D.gameObject);
-            if(gameObject.GetComponent<Nanobot>().life <= 0)
-                Destroy(gameObject);
+            if(gameObject.GetComponent<Nanobot>().life <= 0){
+                destroy = true;
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstacleAvoidance : MonoBehaviour
 {
-    public float speed;
+    public float speed = 5;
     public float avoidDistance;
     public float lookahead;
     public LayerMask obstacleLayer;
@@ -20,6 +20,7 @@ public class ObstacleAvoidance : MonoBehaviour
         seekBehaviour = GetComponent<KinematicSeekBehaviour>();
         wander = GetComponent<KinematicWander>();
         character = GetComponent<Nanobot>();
+        
     }
 
     // Update is called once per frame

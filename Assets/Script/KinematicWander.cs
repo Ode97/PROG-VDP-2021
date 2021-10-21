@@ -23,13 +23,8 @@ public class KinematicWander : MonoBehaviour
 
     public void GetSteering(){
 
-        //rb.velocity = speed * character.AsVector();
-
         rb.rotation += RandomBinomial() * rotation;
-
         character.orientation = rb.rotation * Mathf.PI / 180;
-
-        //character.position = rb.position;
     }
 
     private float RandomBinomial(){

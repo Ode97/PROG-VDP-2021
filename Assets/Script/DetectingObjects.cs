@@ -12,6 +12,7 @@ public class DetectingObjects : MonoBehaviour
     {
         movment = GetComponentInParent<ObstacleAvoidance>();
         rb = GetComponentInParent<Rigidbody2D>();
+        busy = false;
     }
 
     // Update is called once per frame
@@ -21,28 +22,31 @@ public class DetectingObjects : MonoBehaviour
     }
 
     private void OnCollisionStay2D(Collision2D collision){
-        if(collision.gameObject.layer != transform.parent.gameObject.layer && collision.gameObject.layer != 6){
+        if(collision.gameObject.layer != transform.parent.gameObject.layer && collision.gameObject.layer != 6 && collision.gameObject.layer != 10 && collision.gameObject.layer != 11){
             
             busy = true;
 
             Vector2 target = (Vector2)collision.gameObject.transform.position - rb.position;
 
-            if(target.magnitude > 2 || collision.gameObject.layer == 7){
-                movment.speed = 5;
-                rb.velocity = target.normalized * movment.speed;
-                movment.GetSeekBehaviour().GetSteering();
-            }else
+            rb.velocity = target.normalized * movment.speed;
+                
+            if(collision.gameObject.layer == GetComponentInParent<Attack>().target) {
                 movment.speed = 0;
-
-            if(collision.gameObject.layer == GetComponentInParent<Attack>().target)
                 GetComponentInParent<Attack>().Shoot(collision.gameObject);
+                GetComponentInParent<Nanobot>().SetGoal(true);
+            }
             
-            GetComponentInParent<Nanobot>().SetGoal(true);
+            movment.GetSeekBehaviour().GetSteering();
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision){
         busy = false;
-        movment.SetOrientation(movment.GetSeekBehaviour().NewOrientation(movment.GetOrientation(), rb.velocity));
+        if(collision.gameObject.layer == GetComponentInParent<Attack>().target){
+            movment.speed = 5;
+            rb.velocity = movment.speed*rb.velocity;
+            movment.SetOrientation(movment.GetSeekBehaviour().NewOrientation(movment.GetOrientation(), rb.velocity));
+            GetComponentInParent<Nanobot>().SetGoal(false);
+        }
     }
 }

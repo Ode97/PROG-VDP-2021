@@ -10,9 +10,25 @@ public class Nanobot : MonoBehaviour
     public int energy = 0;
     public int life = 100;
     private Signal signal;
-
+    private bool pregnant = false;
     void Start(){
         signal = GetComponent<Signal>();
+        energy = 0;
+        life = 100;
+        hasGoal = false;
+        pregnant = false;
+    }
+
+    void Update(){
+        if(energy >= 2 && !pregnant){
+            pregnant = true;
+            energy -= 2;
+            StartCoroutine(Reproduction());
+        }
+
+        if(life <= 0){
+            Destroy(gameObject);
+        }
     }
 
     public Vector2 AsVector(){
@@ -20,10 +36,11 @@ public class Nanobot : MonoBehaviour
     }
 
     private IEnumerator Reproduction(){
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
+        pregnant = false;
         GameObject copy = Instantiate(gameObject, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(-1, 1f), 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
-        copy.GetComponent<Signal>().LineDrawer.enabled = false;
-        copy.GetComponent<Signal>().enabled = false;
+        //copy.GetComponent<Signal>().LineDrawer.enabled = false;
+        //copy.GetComponent<Signal>().enabled = false;
         copy.GetComponent<Nanobot>().hasGoal = false;
     }
 
@@ -35,10 +52,7 @@ public class Nanobot : MonoBehaviour
                 hasGoal = false;
             
             energy += 1;
-            if(energy == 3){
-                StartCoroutine(Reproduction());
-                energy = 0;
-            }
+        
             Destroy(collision2D.gameObject);
             signal.enabled = true;
             

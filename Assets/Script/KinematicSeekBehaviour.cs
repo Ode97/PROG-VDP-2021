@@ -22,10 +22,8 @@ public class KinematicSeekBehaviour : MonoBehaviour
     }
 
     public void GetSteering(){
-        //KinematicSteeringOutput result = new KinematicSteeringOutput();
 
         orientation = NewOrientation(orientation, rb.velocity);
-
         rb.rotation = orientation * 180 / Mathf.PI; 
 
     }

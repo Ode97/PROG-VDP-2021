@@ -17,10 +17,13 @@ public class Signal : MonoBehaviour {
     void Start() {
         radius = 3f;
         rb = GetComponent<Rigidbody2D>();
+        LineDrawer.enabled = false;
+        this.enabled = false;
+        alreadySignaling = false;
     }
 
     void Update() {
-        if(radius < 100){
+        if(radius < 20){
             alreadySignaling = true;
             Theta = 0f;
             Size = (int)((1f / ThetaScale) + 1f);
@@ -42,7 +45,7 @@ public class Signal : MonoBehaviour {
                     if(c != GetComponent<Collider2D>() && nanoBot.layer == gameObject.layer && !nanoBot.GetComponent<Nanobot>().HasGoal() && !copy.Contains(c)){
                         copy.Add(c);
                         Vector2 v = Center - nanoBot.GetComponent<Rigidbody2D>().position;
-                        nanoBot.GetComponent<Rigidbody2D>().velocity = v.normalized;
+                        nanoBot.GetComponent<Rigidbody2D>().velocity = v.normalized * 5;
                         nanoBot.GetComponent<Nanobot>().orientation = nanoBot.GetComponent<KinematicSeekBehaviour>().NewOrientation(nanoBot.GetComponent<Nanobot>().orientation, nanoBot.GetComponent<Rigidbody2D>().velocity);
                         nanoBot.GetComponent<Rigidbody2D>().rotation = nanoBot.GetComponent<Nanobot>().orientation * 180 / Mathf.PI; 
                         nanoBot.GetComponent<Nanobot>().SetGoal(true);
@@ -65,7 +68,8 @@ public class Signal : MonoBehaviour {
 
     private IEnumerator searchingTime(GameObject n){
         yield return new WaitForSeconds(3);
-        n.GetComponent<Nanobot>().SetGoal(false);
+        if(n != null)
+            n.GetComponent<Nanobot>().SetGoal(false);
     }
 
     public void SetCenter(Vector2 center){
