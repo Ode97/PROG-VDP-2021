@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Obstacle
   - Food
-  - View
+  - 
   - EnemyAi
   - EnemyBullet
   - PlayerBullet

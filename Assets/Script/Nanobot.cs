@@ -1,85 +1,180 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Nanobot : MonoBehaviour
+public class NanoBot : MonoBehaviour
 {
-    public float orientation;
-    private bool hasGoal = false;
-    private GameObject coneOfSight;
-    public int energy = 0;
-    public int life = 100;
-    private Signal signal;
+    private float orientation;
+    public Transform playerSpawn;
+    public float avoidDistance;
+    public float lookahead;
+    public int reproductionTime;
+    public int attackDamage;
+    public int attackSpeed;
+    public int signalSearchingTime;
+    public int speed;
+    public int rotation;
+    public int life;
+    private int actualLife;
+    public int lifeEarnByEating;
+
+    public int lifeLossByReproduction;
+    public int lifeForReproduction;
+    private bool signalDetection = false;
     private bool pregnant = false;
-    void Start(){
+    private bool hasGoal = false;
+    private bool inCombat = false;
+    private GameObject target = null;
+    private Vector2 targetPos;
+    private Rigidbody2D rb;
+    private Signal signal;
+    private List<Collider2D> colliders;
+    private DecisionTreeNode decision;
+    // Start is called before the first frame update
+    void Start()
+    {
+        actualLife = life;
+        rb = GetComponent<Rigidbody2D>();
+        decision = GetComponent<DetectionDecision>();
         signal = GetComponent<Signal>();
-        energy = 0;
-        life = 100;
-        hasGoal = false;
         pregnant = false;
+        hasGoal = false;
+        inCombat = false;
+        target = null;
+        colliders = new List<Collider2D>();
     }
 
-    void Update(){
-        if(energy >= 2 && !pregnant){
-            pregnant = true;
-            energy -= 2;
+    // Update is called once per frame
+    void Update()
+    {
+        if(actualLife >= lifeForReproduction && !pregnant){
             StartCoroutine(Reproduction());
         }
+        Action action = (Action)decision.MakeDecision();
 
-        if(life <= 0){
-            Destroy(gameObject);
-        }
+        action.DoIt();
+
+        //Debug.Log(action);
     }
 
     public Vector2 AsVector(){
         return new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation));
     }
 
-    private IEnumerator Reproduction(){
-        yield return new WaitForSeconds(3f);
-        pregnant = false;
-        GameObject copy = Instantiate(gameObject, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(-1, 1f), 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
-        //copy.GetComponent<Signal>().LineDrawer.enabled = false;
-        //copy.GetComponent<Signal>().enabled = false;
-        copy.GetComponent<Nanobot>().hasGoal = false;
+    public bool HasGoal(){
+        colliders.AddRange(Physics2D.OverlapCircleAll(rb.position, lookahead)); 
+        colliders.FindAll(c => c != null && c.gameObject.layer != gameObject.layer); //= System.Array.Find(colliders.ToArray(), c => c != null && c.gameObject.layer != gameObject.layer);
+        if(colliders != null){
+            return true;
+        }else{
+            target = null;
+            targetPos = Vector2.zero;
+            return false;
+        }
     }
 
-    void OnCollisionEnter2D(Collision2D collision2D){
+    public bool IsInCombat(){
+        return inCombat;
+    }
 
-        if(collision2D.gameObject.layer == 7 && collision2D.otherCollider.gameObject.layer != 8){
+    public void InCombat(bool c){
+        inCombat = c;
+    }
 
-            if(hasGoal)
-                hasGoal = false;
-            
-            energy += 1;
-        
-            Destroy(collision2D.gameObject);
-            signal.enabled = true;
-            
+    public GameObject GetTarget(){
+        return target;
+    }
+
+    public float GetOrientation(){
+        return orientation;
+    }
+
+    public void SetOrientation(float o){
+        orientation = o;
+    }
+
+    public void SetTarget(GameObject t){
+        target = t;
+    }
+
+    public Vector2 GetTargetPos(){
+        return targetPos;
+    }
+
+    public void SetTargetPos(Vector2 v){
+        targetPos = v;
+    }
+
+    public void DetectSignal(){
+        if(!signalDetection){
+            signalDetection = true;
+            StartCoroutine(NoSignal());
+        }
+    }
+
+    public List<Collider2D> GetColliders(){
+        return colliders;
+    }
+
+    public bool GetSignalDetection(){
+        return signalDetection;
+    }
+
+    private IEnumerator NoSignal(){
+        yield return new WaitForSeconds(signalSearchingTime);
+        signalDetection = false;
+    }
+
+    public int GetActualLife(){
+        return actualLife;
+    }
+
+    public void SetChildStats(){
+        actualLife = life;
+        signalDetection = false;
+        pregnant = false;
+        hasGoal = false;
+        target = null;
+    }
+
+    private IEnumerator Reproduction(){
+        pregnant = true;
+        yield return new WaitForSeconds(reproductionTime);
+        actualLife -= lifeLossByReproduction;
+        pregnant = false;
+        GameObject copy = Instantiate(gameObject, new Vector3(playerSpawn.position.x, playerSpawn.position.y, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
+        copy.GetComponent<NanoBot>().SetChildStats();
+    }
+
+    void OnCollisionEnter2D(Collision2D collision){
+        if(collision.gameObject.layer == Constants.FOOD_LAYER){
+            colliders.Clear();
+            actualLife += lifeEarnByEating;
+            target = null;
+            collision.gameObject.SetActive(false);
+            Destroy(collision.gameObject);
+
             if(!signal.isSignaling()){
+                signal.enabled = true;
                 signal.radius = 3;
                 signal.SetCenter(transform.position);
+            
             }
         }
+
+        if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
+                gameObject.GetComponent<NanoBot>().actualLife -= attackDamage;
+                Destroy(collision.gameObject);
+                if(actualLife <= 0)
+                    Destroy(gameObject);
+            }
     }
 
-    public Signal GetSignal(){
-        return signal;
+    
+
+    void OnDrawGizmos(){
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(rb.position, 
+                rb.position + rb.velocity.normalized*lookahead);
     }
 
-    public bool HasGoal(){
-        return hasGoal;
-    }
-
-    public void SetGoal(bool goal){
-        hasGoal = goal;
-    }
-
-    private void ConeOfSight(){
-        float dotProduct = Vector3.Dot(GetComponent<Rigidbody2D>().velocity.normalized, transform.forward);
-        if (dotProduct > 0.1f) 
-        {
-                
-        }
-    }
 }

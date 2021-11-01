@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Signal : MonoBehaviour {   
 
+    public int maxRadius;
     public float ThetaScale = 0.01f;
     public float radius = 3f;
     private int Size;
@@ -13,6 +14,8 @@ public class Signal : MonoBehaviour {
     private Vector2 Center;
     private List<Collider2D> copy = new List<Collider2D>();
     private bool alreadySignaling = false;
+    private GradientColorKey[] colorKey = new GradientColorKey[2];
+    private GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
 
     void Start() {
         radius = 3f;
@@ -20,10 +23,12 @@ public class Signal : MonoBehaviour {
         LineDrawer.enabled = false;
         this.enabled = false;
         alreadySignaling = false;
+
     }
 
     void Update() {
-        if(radius < 20){
+        if(radius < maxRadius){
+
             alreadySignaling = true;
             Theta = 0f;
             Size = (int)((1f / ThetaScale) + 1f);
@@ -42,14 +47,11 @@ public class Signal : MonoBehaviour {
                 foreach (Collider2D c in colliders)
                 {
                     GameObject nanoBot = c.gameObject;
-                    if(c != GetComponent<Collider2D>() && nanoBot.layer == gameObject.layer && !nanoBot.GetComponent<Nanobot>().HasGoal() && !copy.Contains(c)){
+                    if(nanoBot.layer == gameObject.layer && !copy.Contains(c) && !nanoBot.GetComponent<NanoBot>().IsInCombat()){
                         copy.Add(c);
-                        Vector2 v = Center - nanoBot.GetComponent<Rigidbody2D>().position;
-                        nanoBot.GetComponent<Rigidbody2D>().velocity = v.normalized * 5;
-                        nanoBot.GetComponent<Nanobot>().orientation = nanoBot.GetComponent<KinematicSeekBehaviour>().NewOrientation(nanoBot.GetComponent<Nanobot>().orientation, nanoBot.GetComponent<Rigidbody2D>().velocity);
-                        nanoBot.GetComponent<Rigidbody2D>().rotation = nanoBot.GetComponent<Nanobot>().orientation * 180 / Mathf.PI; 
-                        nanoBot.GetComponent<Nanobot>().SetGoal(true);
-                        StartCoroutine(searchingTime(nanoBot));
+                        nanoBot.GetComponent<NanoBot>().SetTargetPos(rb.position);
+                        nanoBot.GetComponent<Seek>().DoIt();
+                        
                     }
                 }
             }
@@ -64,12 +66,6 @@ public class Signal : MonoBehaviour {
 
     public bool isSignaling(){
         return alreadySignaling;
-    }
-
-    private IEnumerator searchingTime(GameObject n){
-        yield return new WaitForSeconds(3);
-        if(n != null)
-            n.GetComponent<Nanobot>().SetGoal(false);
     }
 
     public void SetCenter(Vector2 center){
