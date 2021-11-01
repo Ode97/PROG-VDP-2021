@@ -26,8 +26,8 @@ public class MapGenerator : MonoBehaviour
         g - e. generator
         */
 
-        int mapH = 20;
-        int mapW = 40;
+        int mapH = 21;
+        int mapW = 41;
         // 20hx40w
         char[,] genMatrix = new char[mapH, mapW];
         for(int x=1;x<mapH-1;x++){
@@ -45,12 +45,6 @@ public class MapGenerator : MonoBehaviour
             genMatrix[0,i] = 'w';
             genMatrix[mapH-1,i] = 'w';
         }
-        
-        for(int x=0;x<mapH;x++){
-            for(int y=0;y<mapW;y++){
-                Debug.Log(genMatrix[x,y]);
-            }
-        }
         // Set map Seed/Type
         
         // * * * Preset Map
@@ -64,8 +58,8 @@ public class MapGenerator : MonoBehaviour
 
         // Place walls
         for(int y=8;y<12;y++){
-            genMatrix[9,y] = 'w';
-            genMatrix[31,y] = 'w';
+            genMatrix[y,9] = 'w';
+            genMatrix[y,31] = 'w';
         }
 
         // Place energys  4 13 15 17
@@ -82,7 +76,6 @@ public class MapGenerator : MonoBehaviour
         }
         // Place Energy generators 3x3
         setBig(10,20,genMatrix,'g');
-
         
         // * * * Randomized Map
         // Place spawns 3x3
@@ -93,13 +86,53 @@ public class MapGenerator : MonoBehaviour
         // Place Energy generators 3x3
 
         // Draw map with objects
-
+        instantiateMap(genMatrix);
     }
 
     void setBig(int x, int y, char[,] map, char tag){
         for(int i=-1;i<2;i++){
             for(int j=-1;j<2;j++){
                 map[x-i,y-j] = tag;
+            }
+        }
+    }
+
+    void instantiateMap(char[,] map){
+        for(int i=0; i<map.GetUpperBound(0)+1;i++){
+            for(int j=0; j<map.GetUpperBound(1)+1;j++){
+                GameObject tile;
+                switch(map[i,j]){
+                    case 'a':
+                        tile = Instantiate(spawnATemplate, new Vector2(j, i), Quaternion.identity);
+                        tile.transform.SetParent(this.transform);
+                        break;
+                    case 'b':
+                        tile = Instantiate(spawnBTemplate, new Vector2(j, i), Quaternion.identity);
+                        tile.transform.SetParent(this.transform);
+                        break;
+                    case 't':
+                        tile = Instantiate(trapTemplate, new Vector2(j, i), Quaternion.identity);
+                        tile.transform.SetParent(this.transform);
+                        break;
+                    case 'w':
+                        tile = Instantiate(wallTemplate, new Vector2(j, i), Quaternion.identity);
+                        tile.transform.SetParent(this.transform);
+                        break;
+                    case 'e':
+                        tile = Instantiate(energyTemplate, new Vector2(j, i), Quaternion.identity);
+                        tile.transform.SetParent(this.transform);
+                        break;
+                    case 'n':
+                        tile = Instantiate(neutralZoneTemplate, new Vector2(j, i), Quaternion.identity);
+                        tile.transform.SetParent(this.transform);
+                        break;
+                    case 'g':
+                        tile = Instantiate(energyGeneratorTemplate, new Vector2(j, i), Quaternion.identity);
+                        tile.transform.SetParent(this.transform);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
