@@ -2,27 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KinematicSeekBehaviour : MonoBehaviour
+public class Seek : Action
 {
     private Rigidbody2D rb;
     private float speed;
-    private float orientation;
+    private float orientation = 0;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        speed = GetComponent<ObstacleAvoidance>().speed;
-        orientation = GetComponent<Nanobot>().orientation;
+        speed = GetComponent<NanoBot>().speed;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public override void DoIt(){
 
-    public void GetSteering(){
+        Vector2 v = GetComponent<NanoBot>().GetTargetPos() - (Vector2)transform.position;
 
+        rb.velocity = v.normalized * GetComponent<NanoBot>().speed;
         orientation = NewOrientation(orientation, rb.velocity);
         rb.rotation = orientation * 180 / Mathf.PI; 
 
