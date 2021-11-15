@@ -4,7 +4,8 @@ using UnityEngine;
 public class NanoBot : MonoBehaviour
 {
     private float orientation;
-    public Transform playerSpawn;
+    [Range(0,360)]
+    public float viewAngle;
     public float avoidDistance;
     public float lookahead;
     public int reproductionTime;
@@ -49,25 +50,35 @@ public class NanoBot : MonoBehaviour
         if(actualLife >= lifeForReproduction && !pregnant){
             StartCoroutine(Reproduction());
         }
+
+        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.5)
+            signalDetection = false;
+
         Action action = (Action)decision.MakeDecision();
 
         action.DoIt();
 
-        //Debug.Log(action);
+        Debug.Log(action);
     }
 
     public Vector2 AsVector(){
         return new Vector2(Mathf.Cos(orientation), Mathf.Sin(orientation));
     }
 
+    public Vector2 DirFromAngle(float angle){
+        angle += transform.eulerAngles.z;
+        return new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+    }
+
     public bool HasGoal(){
+        colliders.Clear();
         colliders.AddRange(Physics2D.OverlapCircleAll(rb.position, lookahead)); 
-        colliders.FindAll(c => c != null && c.gameObject.layer != gameObject.layer); //= System.Array.Find(colliders.ToArray(), c => c != null && c.gameObject.layer != gameObject.layer);
-        if(colliders != null){
+        colliders = colliders.FindAll(c => c != null && c.gameObject.layer != gameObject.layer && (Vector2.Angle(transform.right, (c.transform.position - transform.position).normalized) < viewAngle/2 || c.gameObject.layer == Constants.OBSTACLE_LAYER));
+        if(colliders.Count >= 1){
             return true;
         }else{
-            target = null;
-            targetPos = Vector2.zero;
+            //target = null;
+            //targetPos = Vector2.zero;
             return false;
         }
     }
@@ -141,7 +152,7 @@ public class NanoBot : MonoBehaviour
         yield return new WaitForSeconds(reproductionTime);
         actualLife -= lifeLossByReproduction;
         pregnant = false;
-        GameObject copy = Instantiate(gameObject, new Vector3(playerSpawn.position.x, playerSpawn.position.y, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
+        GameObject copy = Instantiate(gameObject, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
         copy.GetComponent<NanoBot>().SetChildStats();
     }
 
@@ -171,10 +182,16 @@ public class NanoBot : MonoBehaviour
 
     
 
-    void OnDrawGizmos(){
+    /*void OnDrawGizmos(){
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(rb.position, 
                 rb.position + rb.velocity.normalized*lookahead);
-    }
+
+        Vector2 viewA = DirFromAngle(-viewAngle/2);
+        Vector2 viewB = DirFromAngle(viewAngle/2);
+
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + viewA * lookahead);
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position + viewB * lookahead);
+    }*/
 
 }

@@ -50,7 +50,8 @@ public class Signal : MonoBehaviour {
                     if(nanoBot.layer == gameObject.layer && !copy.Contains(c) && !nanoBot.GetComponent<NanoBot>().IsInCombat()){
                         copy.Add(c);
                         nanoBot.GetComponent<NanoBot>().SetTargetPos(rb.position);
-                        nanoBot.GetComponent<Seek>().DoIt();
+                        //nanoBot.GetComponent<Seek>().DoIt();
+                        nanoBot.GetComponent<NanoBot>().DetectSignal();
                         
                     }
                 }

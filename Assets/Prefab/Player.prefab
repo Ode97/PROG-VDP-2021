@@ -163,7 +163,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: f87ab511ebef48446915d39ecc1e169e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -231,7 +231,7 @@ LineRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -254,9 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f52c523b8fc22e45b917b28d5c40927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target:
-    serializedVersion: 2
-    m_Bits: 0
   bullet: {fileID: 746730838001726606, guid: 0f983ad7836f6c94198b64f5369f3347, type: 3}
 --- !u!114 &292258029
 MonoBehaviour:
@@ -354,18 +351,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668b80cde9de0ca489425f4f4619a4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpawn: {fileID: 0}
-  avoidDistance: 1
-  lookahead: 3
-  reproductionTime: 3
-  attackSpeed: 3
+  viewAngle: 60
+  avoidDistance: 2
+  lookahead: 4
+  reproductionTime: 2
+  attackDamage: 10
+  attackSpeed: 2
   signalSearchingTime: 3
   speed: 10
   rotation: 5
-  life: 20
+  life: 30
   lifeEarnByEating: 5
-  lifeLossByReproduction: 15
-  lifeForReproduction: 40
+  lifeLossByReproduction: 10
+  lifeForReproduction: 50
 --- !u!114 &292258037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,8 +388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70e1a8c8e32e284ebec12d81063d87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRadius: 20
   ThetaScale: 0.01
-  radius: 3
+  radius: 1
   LineDrawer: {fileID: 6368716511436482399}
 --- !u!1 &6368716512841930410
 GameObject:
@@ -403,7 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6368716512841930405}
   - component: {fileID: 6368716512841930404}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
