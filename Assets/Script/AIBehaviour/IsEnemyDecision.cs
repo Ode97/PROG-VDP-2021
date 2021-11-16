@@ -14,7 +14,7 @@ public class IsEnemyDecision : Decision
             targetLayer = Constants.PLAYER_LAYER;
         }
 
-        SetTrueNode(GetComponent<Combat>());
+        SetTrueNode(GetComponent<RangedAttackDecision>());
         SetFalseNode(GetComponent<IsFoodDecision>());
     }
     public override bool TestValue()
@@ -23,7 +23,13 @@ public class IsEnemyDecision : Decision
 
         if(col != null){
             GetComponent<NanoBot>().SetTarget(col.gameObject);
-            GetComponent<NanoBot>().InCombat(true);
+            GetComponent<NanoBot>().SetTargetPos(col.gameObject.transform.position);
+            if(!GetComponent<Signal>().isSignaling()){
+                GetComponent<Signal>().enabled = true;
+                GetComponent<Signal>().radius = 3;
+                GetComponent<Signal>().SetCenter(transform.position);
+            }
+
             return true;
         }else{
             GetComponent<NanoBot>().InCombat(false);

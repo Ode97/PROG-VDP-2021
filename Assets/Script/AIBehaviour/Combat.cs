@@ -18,6 +18,9 @@ public class Combat : Action
     // Update is called once per frame
     public override void DoIt()
     {
+
+        Vector2 velocity = GetComponent<NanoBot>().GetTarget().transform.position - transform.position;
+        GetComponent<Rigidbody2D>().velocity =  velocity.normalized * 0;
         if(!alreadyShoot){
             alreadyShoot = true;
             StartCoroutine(CreateBullet(GetComponent<NanoBot>().GetTarget()));
@@ -25,16 +28,19 @@ public class Combat : Action
     }
 
     private IEnumerator CreateBullet(GameObject target){
-        Vector2 velocity = target.transform.position - transform.position;
-        GetComponent<Rigidbody2D>().velocity =  velocity.normalized * 0;
-        yield return new WaitForSeconds(1);
-        alreadyShoot = false; 
         if(target != null){
             GameObject b = Instantiate(bullet, transform.position, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
-            b.transform.localScale = new Vector3(0.3f, 0.3f, 0);
-            //Vector2 velocity = target.transform.position - transform.position;
-            b.GetComponent<Rigidbody2D>().velocity = velocity.normalized * gameObject.GetComponent<NanoBot>().attackSpeed;
+            if(GetComponent<NanoBot>().splashAttack){
+                b.transform.localScale = new Vector3(2f, 2f, 0);
+                b.GetComponent<Bullet>().SetSplashBullet();
+            }else
+                b.transform.localScale = new Vector3(0.3f, 0.3f, 0);
+                
+            Vector2 velocityBullet = target.transform.position - transform.position;
+            b.GetComponent<Rigidbody2D>().velocity = velocityBullet.normalized * gameObject.GetComponent<NanoBot>().attackSpeed;
         }
+        yield return new WaitForSeconds(1);
+        alreadyShoot = false; 
     }
     
 }

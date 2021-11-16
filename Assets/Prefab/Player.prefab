@@ -24,6 +24,8 @@ GameObject:
   - component: {fileID: 292258036}
   - component: {fileID: 292258037}
   - component: {fileID: 292258043}
+  - component: {fileID: 1162270698}
+  - component: {fileID: 1162270699}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -351,19 +353,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 668b80cde9de0ca489425f4f4619a4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewAngle: 60
-  avoidDistance: 2
+  viewAngle: 120
+  avoidDistance: 1
   lookahead: 4
   reproductionTime: 2
+  rangedAttack: 0
+  splashAttack: 0
   attackDamage: 10
   attackSpeed: 2
   signalSearchingTime: 3
   speed: 10
-  rotation: 5
-  life: 30
-  lifeEarnByEating: 5
-  lifeLossByReproduction: 10
-  lifeForReproduction: 50
+  rotation: 2
+  life: 100
+  lifeLostPerSec: 2
+  lifeEarnByEating: 10
+  lifeLossByReproduction: 50
+  lifeForReproduction: 100
 --- !u!114 &292258037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,6 +397,30 @@ MonoBehaviour:
   ThetaScale: 0.01
   radius: 1
   LineDrawer: {fileID: 6368716511436482399}
+--- !u!114 &1162270698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6368716511436482340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d88088c2d11604aadb477b81effc62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1162270699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6368716511436482340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5db0da0e7f42a741a3617adab1421bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6368716512841930410
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    private bool splashBullet = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,5 +14,13 @@ public class Bullet : MonoBehaviour
     private IEnumerator DestroyBullet(){
         yield return new WaitForSeconds(5);
         Destroy(gameObject);
+    }
+
+    public void SetSplashBullet(){
+        splashBullet = true;
+    }
+    
+    public bool IsSplashBullet(){
+        return splashBullet;
     }
 }

@@ -11,10 +11,12 @@ public abstract class Decision : DecisionTreeNode
 
     private DecisionTreeNode GetBranch(){
         if(TestValue()){
-            //Debug.Log(trueNode);
+            /*if(gameObject.layer == 3)
+                Debug.Log(trueNode);*/
             return trueNode;
         }else{
-            //Debug.Log(falseNode);
+            /*if(gameObject.layer == 3)
+                Debug.Log(falseNode);*/
             return falseNode;
         }
     }

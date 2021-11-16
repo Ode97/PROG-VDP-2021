@@ -9,12 +9,15 @@ public class NanoBot : MonoBehaviour
     public float avoidDistance;
     public float lookahead;
     public int reproductionTime;
+    public bool rangedAttack;
+    public bool splashAttack;
     public int attackDamage;
     public int attackSpeed;
     public int signalSearchingTime;
     public int speed;
     public int rotation;
     public int life;
+    public int lifeLostPerSec;
     private int actualLife;
     public int lifeEarnByEating;
 
@@ -24,6 +27,7 @@ public class NanoBot : MonoBehaviour
     private bool pregnant = false;
     private bool hasGoal = false;
     private bool inCombat = false;
+    private bool timer = false;
     private GameObject target = null;
     private Vector2 targetPos;
     private Rigidbody2D rb;
@@ -33,13 +37,14 @@ public class NanoBot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        actualLife = life;
+        actualLife = life/2;
         rb = GetComponent<Rigidbody2D>();
         decision = GetComponent<DetectionDecision>();
         signal = GetComponent<Signal>();
         pregnant = false;
         hasGoal = false;
         inCombat = false;
+        signalDetection = false;
         target = null;
         colliders = new List<Collider2D>();
     }
@@ -47,9 +52,17 @@ public class NanoBot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(actualLife <= 0)
+            Destroy(gameObject);
+
         if(actualLife >= lifeForReproduction && !pregnant){
+            Debug.Log(gameObject.name);
             StartCoroutine(Reproduction());
         }
+
+
+        if(!timer)
+            StartCoroutine(LostEnergyPerSec());
 
         if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.5)
             signalDetection = false;
@@ -58,7 +71,14 @@ public class NanoBot : MonoBehaviour
 
         action.DoIt();
 
-        Debug.Log(action);
+        //Debug.Log(action);
+    }
+
+    private IEnumerator LostEnergyPerSec(){
+        timer = true;
+        yield return new WaitForSeconds(1);
+        timer = false;
+        actualLife -= lifeLostPerSec;
     }
 
     public Vector2 AsVector(){
@@ -140,7 +160,7 @@ public class NanoBot : MonoBehaviour
     }
 
     public void SetChildStats(){
-        actualLife = life;
+        actualLife = life/2;
         signalDetection = false;
         pregnant = false;
         hasGoal = false;
@@ -154,12 +174,16 @@ public class NanoBot : MonoBehaviour
         pregnant = false;
         GameObject copy = Instantiate(gameObject, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
         copy.GetComponent<NanoBot>().SetChildStats();
+        //Debug.Log(actualLife + " " + copy.GetComponent<NanoBot>().GetActualLife());
     }
 
     void OnCollisionEnter2D(Collision2D collision){
         if(collision.gameObject.layer == Constants.FOOD_LAYER){
             colliders.Clear();
             actualLife += lifeEarnByEating;
+            if(actualLife > life)
+                actualLife = life;
+
             target = null;
             collision.gameObject.SetActive(false);
             Destroy(collision.gameObject);
@@ -174,9 +198,9 @@ public class NanoBot : MonoBehaviour
 
         if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
                 gameObject.GetComponent<NanoBot>().actualLife -= attackDamage;
-                Destroy(collision.gameObject);
-                if(actualLife <= 0)
-                    Destroy(gameObject);
+                Debug.Log(gameObject.name + " " + actualLife);
+                if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
+                    Destroy(collision.gameObject);
             }
     }
 
