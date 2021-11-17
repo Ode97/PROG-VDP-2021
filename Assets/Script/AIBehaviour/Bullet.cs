@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public Type type;
+    public int atkDmg;
     private bool splashBullet = false;
     // Start is called before the first frame update
     void Start()
     {
+        atkDmg = GetComponentInParent<NanoBot>().attackDamage;
         StartCoroutine(DestroyBullet());
     }
 
@@ -19,7 +22,7 @@ public class Bullet : MonoBehaviour
     public void SetSplashBullet(){
         splashBullet = true;
     }
-    
+
     public bool IsSplashBullet(){
         return splashBullet;
     }
