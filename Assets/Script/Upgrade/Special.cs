@@ -23,5 +23,6 @@ public class Special : MonoBehaviour
         else if(firstAttackDealsMoreDMG)
             GetComponentInParent<NanoBot>().firstAttackDealsMoreDMG = firstAttackDealsMoreDMG;
 
+        Destroy(gameObject);
     }
 }

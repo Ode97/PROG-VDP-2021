@@ -30,6 +30,8 @@ public class Combat : Action
     private IEnumerator CreateBullet(GameObject target){
         if(target != null){
             GameObject b = Instantiate(bullet, transform.position, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
+            b.GetComponent<Bullet>().SetDMG(GetComponent<NanoBot>().attackDamage);
+            b.GetComponent<Bullet>().SetType(GetComponent<NanoBot>().typeOfAttk);
             if(GetComponent<NanoBot>().splashAttack){
                 b.transform.localScale = new Vector3(2f, 2f, 0);
                 b.GetComponent<Bullet>().SetSplashBullet();
@@ -37,9 +39,9 @@ public class Combat : Action
                 b.transform.localScale = new Vector3(0.3f, 0.3f, 0);
                 
             Vector2 velocityBullet = target.transform.position - transform.position;
-            b.GetComponent<Rigidbody2D>().velocity = velocityBullet.normalized * gameObject.GetComponent<NanoBot>().attackSpeed;
+            b.GetComponent<Rigidbody2D>().velocity = velocityBullet.normalized * 5;//velocità dei proiettili
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(10/GetComponent<NanoBot>().attackSpeed);
         alreadyShoot = false; 
     }
     

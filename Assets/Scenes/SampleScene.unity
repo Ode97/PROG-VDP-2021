@@ -2143,6 +2143,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovmentOBJ1
       objectReference: {fileID: 0}
+    - target: {fileID: 7933479348702508624, guid: b1b567e8cdc62bf4da0d7039e44eeeb2, type: 3}
+      propertyPath: speedBonus
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7933479348702508624, guid: b1b567e8cdc62bf4da0d7039e44eeeb2, type: 3}
+      propertyPath: precisionBonus
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b567e8cdc62bf4da0d7039e44eeeb2, type: 3}
 --- !u!1 &220644103
@@ -7706,6 +7714,22 @@ PrefabInstance:
     - target: {fileID: 3831860172005945994, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104105407887328622, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
+      propertyPath: splash
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104105407887328622, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
+      propertyPath: dmgBonus
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104105407887328622, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
+      propertyPath: typeOfAttack
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104105407887328622, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
+      propertyPath: attkSpeedBonus
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5695157053546248088, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
       propertyPath: m_Name
@@ -13751,24 +13775,52 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1626636342197312278, guid: 11c79683f593a01459e81d52c0fa56a1, type: 3}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: rotation
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: acidArmor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: fireArmor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: lookahead
-      value: 3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: trapArmor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: viewAngle
-      value: 50
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: attackSpeed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: attackDamage
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: rangedAttack
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: avoidDistance
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: electricArmor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: lifeEarnByEating
@@ -13788,7 +13840,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6368716511436482342, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45
+      value: 43
       objectReference: {fileID: 0}
     - target: {fileID: 6368716511436482342, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17058,6 +17110,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 677448702324891640, guid: d2c86a6b1778542488f986eb74a009e5, type: 3}
+      propertyPath: type1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 677448702324891640, guid: d2c86a6b1778542488f986eb74a009e5, type: 3}
+      propertyPath: level1
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9180478540047262036, guid: d2c86a6b1778542488f986eb74a009e5, type: 3}
       propertyPath: m_Name
       value: armorOBJ1
@@ -17595,6 +17655,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5248422697356997012}
     m_Modifications:
+    - target: {fileID: 503470920625045364, guid: 072435658e42ef04da7a736010a4d99d, type: 3}
+      propertyPath: FOVBonus
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 503470920625045364, guid: 072435658e42ef04da7a736010a4d99d, type: 3}
+      propertyPath: lookaheadBonus
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5991400395587411942, guid: 072435658e42ef04da7a736010a4d99d, type: 3}
       propertyPath: m_Name
       value: VisionOBJ1
@@ -21005,6 +21073,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MovmentOBJ1
       objectReference: {fileID: 0}
+    - target: {fileID: 7933479348702508624, guid: b1b567e8cdc62bf4da0d7039e44eeeb2, type: 3}
+      propertyPath: speedBonus
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7933479348702508624, guid: b1b567e8cdc62bf4da0d7039e44eeeb2, type: 3}
+      propertyPath: precisionBonus
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b567e8cdc62bf4da0d7039e44eeeb2, type: 3}
 --- !u!1001 &1626636343611613302
@@ -21073,7 +21149,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 503470920625045364, guid: 072435658e42ef04da7a736010a4d99d, type: 3}
       propertyPath: FOVBonus
-      value: 10
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 503470920625045364, guid: 072435658e42ef04da7a736010a4d99d, type: 3}
+      propertyPath: lookaheadBonus
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5991400395587411942, guid: 072435658e42ef04da7a736010a4d99d, type: 3}
       propertyPath: m_Name
@@ -21142,7 +21222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1203619222484186854, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -45
+      value: -43
       objectReference: {fileID: 0}
     - target: {fileID: 1203619222484186854, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -21185,16 +21265,56 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1626636342197312278, guid: 11c79683f593a01459e81d52c0fa56a1, type: 3}
     - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: rotation
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: acidArmor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: fireArmor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
       propertyPath: lookahead
-      value: 3
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: trapArmor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
       propertyPath: viewAngle
-      value: 50
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: attackSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: attackDamage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: rangedAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: splashAttack
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
       propertyPath: avoidDistance
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
+      propertyPath: electricArmor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5248422697225802036, guid: 07e9863bd79fa1a428ec87ccf1eed3d8, type: 3}
       propertyPath: visionUpgrade
@@ -21323,6 +21443,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 677448702324891640, guid: d2c86a6b1778542488f986eb74a009e5, type: 3}
+      propertyPath: type1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 677448702324891640, guid: d2c86a6b1778542488f986eb74a009e5, type: 3}
+      propertyPath: level1
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 9180478540047262036, guid: d2c86a6b1778542488f986eb74a009e5, type: 3}
       propertyPath: m_Name
       value: armorOBJ1
@@ -21379,6 +21507,26 @@ PrefabInstance:
     - target: {fileID: 3831860172005945994, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104105407887328622, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
+      propertyPath: ranged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104105407887328622, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
+      propertyPath: splash
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104105407887328622, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
+      propertyPath: dmgBonus
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104105407887328622, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
+      propertyPath: typeOfAttack
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104105407887328622, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
+      propertyPath: attkSpeedBonus
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5695157053546248088, guid: afdbbb251a86e604f86725c23346ee9e, type: 3}
       propertyPath: m_Name
