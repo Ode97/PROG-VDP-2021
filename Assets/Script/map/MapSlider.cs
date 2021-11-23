@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapGenerator : MonoBehaviour
+public class MapSlider : MonoBehaviour
 {
+    public Camera mainCamera;
+    public GameObject emptyTemplate;
     public GameObject wallTemplate;
     public GameObject spawnATemplate;
     public GameObject spawnBTemplate;
@@ -11,6 +13,7 @@ public class MapGenerator : MonoBehaviour
     public GameObject trapTemplate;
     public GameObject energyGeneratorTemplate;
     public GameObject neutralZoneTemplate;
+    private char[,] genMatrix;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +30,11 @@ public class MapGenerator : MonoBehaviour
         */
 
         int mapH = 21;
-        int mapW = 41;
-        // 20hx40w
-        char[,] genMatrix = new char[mapH, mapW];
+        int mapW = 21;
+        // 21hx41w
+        genMatrix = new char[mapH, mapW];
         for(int x=1;x<mapH-1;x++){
-            for(int y=1;y<mapW-1;y++){
+            for(int y=1;y<mapW;y++){
                 genMatrix[x,y] = 'v';
             }
         }
@@ -39,53 +42,11 @@ public class MapGenerator : MonoBehaviour
         // Place Map Borders
         for(int i=0;i<mapH;i++){
             genMatrix[i,0] = 'w';
-            genMatrix[i,mapW-1] = 'w';
         }
         for(int i=0;i<mapW;i++){
             genMatrix[0,i] = 'w';
             genMatrix[mapH-1,i] = 'w';
         }
-        // Set map Seed/Type
-        
-        // * * * Preset Map
-        // Place spawns 3x3
-        setBig(10, 2,genMatrix,'a');
-        setBig(10,38,genMatrix,'b');
-
-        // Place traps
-        genMatrix[10,7] = 't';
-        genMatrix[10,11] = 't';
-
-        // Place walls
-        for(int y=7;y<12;y++){
-            genMatrix[y,9] = 'w';
-            genMatrix[y,31] = 'w';
-        }
-
-        // Place energys  4 13 15 17
-        genMatrix[10,4] = 'e';
-        genMatrix[10,13] = 'e';
-        genMatrix[10,15] = 'e';
-        genMatrix[10,17] = 'e';
-
-        // Place neutrals 1-18 19-22
-        for(int x=1;x<20;x++){
-            for(int y=18;y<23;y++){
-                genMatrix[x,y] = 'n';
-            }
-        }
-        // Place Energy generators 3x3
-        setBig(10,20,genMatrix,'g');
-        
-        // * * * Randomized Map
-        // Place spawns 3x3
-        // Place traps
-        // Place walls
-        // Place energys
-        // Place neutrals
-        // Place Energy generators 3x3
-
-        // Draw map with objects
         instantiateMap(genMatrix);
     }
 
@@ -98,10 +59,13 @@ public class MapGenerator : MonoBehaviour
     }
 
     void instantiateMap(char[,] map){
-        for(int i=0; i<map.GetUpperBound(0)+1;i++){
-            for(int j=0; j<map.GetUpperBound(1)+1;j++){
+        float i, j; 
+        for(int x=0; x<map.GetUpperBound(0)+1;x++){
+            for(int y=0; y<map.GetUpperBound(1)+1;y++){
                 GameObject tile;
-                switch(map[i,j]){
+                j = x + this.transform.position.x;
+                i = y + this.transform.position.y;
+                switch(map[y,x]){
                     case 'a':
                         tile = Instantiate(spawnATemplate, new Vector2(j, i), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
@@ -130,6 +94,10 @@ public class MapGenerator : MonoBehaviour
                         tile = Instantiate(energyGeneratorTemplate, new Vector2(j, i), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
+                    case 'v':
+                        tile = Instantiate(emptyTemplate, new Vector2(j, i), Quaternion.identity);
+                        tile.transform.SetParent(this.transform);
+                        break;
                     default:
                         break;
                 }
@@ -141,6 +109,31 @@ public class MapGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0)) {
+            Vector2 mouseMapPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mouseMapPosition, Vector2.zero);
+ 
+            if(hit.collider != null)
+            {
+                GameObject obj = hit.collider.gameObject;
+                int coorX = (int)obj.transform.position.x;
+                int coorY = (int)obj.transform.position.y;
+                coorX -= 20;
+                coorY += 10;
+                if(obj.tag == "emptyTile") {
+                    GameObject tile = Instantiate(wallTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
+                    tile.transform.SetParent(this.transform);
+                    genMatrix[coorX,coorY] = 'w';
+                }
+            }
+        }
+        // Vector2 coords = getClick();
+        // Debug.Log(coords);
+    }
+
+    private Vector2 getClick(){
+        Vector2 mouseMapPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        return mouseMapPosition;
     }
 }
+
