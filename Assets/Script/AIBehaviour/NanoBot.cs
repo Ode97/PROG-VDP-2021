@@ -14,14 +14,23 @@ public class NanoBot : MonoBehaviour
     public bool leaveBombAfterDeath;
     public bool firstAttackDealsMoreDMG;
     public float chanceOfCrit;
+    [Range(0, 1)]
+    public float fireArmor;
+    [Range(0, 1)]
+    public float electricArmor;
+    [Range(0, 1)]
+    public float acidArmor;
+    [Range(0, 1)]
+    public float trapArmor;
     public int attackDamage;
     public int attackSpeed;
+    public Type typeOfAttk;
     public int signalSearchingTime;
     public float speed;
     public float rotation;
     public int life;
     public int lifeLostPerSec;
-    private int actualLife;
+    private float actualLife;
     public int lifeEarnByEating;
     public int lifeLossByReproduction;
     public int lifeForReproduction;
@@ -57,11 +66,12 @@ public class NanoBot : MonoBehaviour
         target = null;
         colliders = new List<Collider2D>();
 
-        visionUpgrade = GetComponentInChildren<Vision>();
+        /*visionUpgrade = GetComponentInChildren<Vision>();
         movmentUpgrade = GetComponentInChildren<Movment>();
         attackUpgrade = GetComponentInChildren<Attack>();
         armorUpgrade = GetComponentInChildren<Armor>();
-        specialUpgrade = GetComponentInChildren<Special>();
+        specialUpgrade = GetComponentInChildren<Special>();*/
+
     }
 
     // Update is called once per frame
@@ -173,7 +183,7 @@ public class NanoBot : MonoBehaviour
         signalDetection = false;
     }
 
-    public int GetActualLife(){
+    public float GetActualLife(){
         return actualLife;
     }
 
@@ -212,13 +222,23 @@ public class NanoBot : MonoBehaviour
                 signal.SetCenter(transform.position);
             
             }
+        }else if(collision.gameObject.layer == Constants.TRAP_LAYER){
+            actualLife -=  Constants.TRAP_DMG * (1 - trapArmor);
         }
 
         if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
-                actualLife -= collision.gameObject.GetComponent<Bullet>().atkDmg;
-                //Debug.Log(gameObject.name + " " + actualLife);
-                if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
-                    Destroy(collision.gameObject);
+            
+            Debug.Log(collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
+
+            if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire)
+                actualLife -= collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - fireArmor);
+            else if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid)
+                actualLife -= collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - acidArmor);
+            else if(collision.gameObject.GetComponent<Bullet>().type == Type.Electric)
+                actualLife -= collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - electricArmor);
+                
+            if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
+                Destroy(collision.gameObject);
             }
     }
 

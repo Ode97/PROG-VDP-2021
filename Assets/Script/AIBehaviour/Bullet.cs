@@ -5,13 +5,21 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Type type;
-    public int atkDmg;
+    public float atkDmg;
     private bool splashBullet = false;
     // Start is called before the first frame update
     void Start()
     {
-        atkDmg = GetComponentInParent<NanoBot>().attackDamage;
+        //atkDmg = GetComponentInParent<NanoBot>().attackDamage;
         StartCoroutine(DestroyBullet());
+    }
+
+    public void SetDMG(float dmg){
+        atkDmg = dmg;
+    }
+
+    public void SetType(Type t){
+        type = t;
     }
 
     private IEnumerator DestroyBullet(){

@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Constants : MonoBehaviour
 {
+    public const int TRAP_DMG = 10;
+
     //LAYER
     public const int PLAYER_LAYER = 3;
     public const int ENEMY_LAYER = 9;
     public const int FOOD_LAYER = 7;
     public const int OBSTACLE_LAYER = 6;
-    public const int VIEW_LAYER = 8;
+    public const int TRAP_LAYER = 8;
     public const int PLAYER_BULLET_LAYER = 11;
     public const int ENEMY_BULLET_LAYER = 10;
 
@@ -26,9 +28,9 @@ public class Constants : MonoBehaviour
     public const float LOW_MOV_PRECISION = -1;
     public const float MID_MOV_PRECISION = -3;
     public const float HIGH_MOV_PRECISION = -5;
-    public const float LOW_PROTECTION = -3;
-    public const float MID_PROTECTION = -10;
-    public const float HIGH_PROTECTION = -20;
+    public const float LOW_PROTECTION = 0.8f;
+    public const float MID_PROTECTION = 0.6f;
+    public const float HIGH_PROTECTION = 0.4f;
     public const float LOW_DMG = +5;
     public const float HIGH_DMG = +15;
     public const float LOW_RATE = +2;

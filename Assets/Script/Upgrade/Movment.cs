@@ -9,6 +9,8 @@ public class Movment : MonoBehaviour
 
     void Start(){
         GetComponentInParent<NanoBot>().speed += speedBonus;
-        GetComponentInParent<NanoBot>().rotation += precisionBonus;
+        GetComponentInParent<NanoBot>().rotation -= precisionBonus;
+
+        Destroy(gameObject);
     }
 }

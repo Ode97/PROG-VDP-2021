@@ -15,7 +15,7 @@ TagManager:
   - UI
   - Obstacle
   - Food
-  - 
+  - Trap
   - EnemyAi
   - EnemyBullet
   - PlayerBullet
