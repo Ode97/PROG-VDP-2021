@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - emptyTile
+  - palette
   layers:
   - Default
   - TransparentFX
