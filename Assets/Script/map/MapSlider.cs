@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapSlider : MonoBehaviour
 {
+    public GameObject selector;
     public Camera mainCamera;
     public GameObject emptyTemplate;
     public GameObject wallTemplate;
@@ -134,21 +135,25 @@ public class MapSlider : MonoBehaviour
                 if(obj.tag == "palette") {
                     switch(obj.name){
                         case ("Energy"):
+                            selector.transform.position = obj.transform.position;
                             selectedTemplate = energyTemplate;
                             code = 'e';
                             Debug.Log("e");
                             break;
                         case ("Spawn"):
+                            selector.transform.position = obj.transform.position;
                             selectedTemplate = spawnTemplate;
                             code = 's';
                             Debug.Log("s");
                             break;
                         case ("Trap"):
+                            selector.transform.position = obj.transform.position;
                             selectedTemplate = trapTemplate;
                             code = 't';
                             Debug.Log("t");
                             break;
                         case ("Wall"):
+                            selector.transform.position = obj.transform.position;
                             selectedTemplate = wallTemplate;
                             code = 'w';
                             Debug.Log("w");
