@@ -16,6 +16,8 @@ public class ObstAvoidance : Action
         rb.velocity = character.GetTargetPos() - (Vector2)rb.transform.position;
         character.SetOrientation(NewOrientation(character.GetOrientation(), rb.velocity));
         rb.rotation = character.GetOrientation() * 180 / Mathf.PI;
+        /*float rot = character.GetOrientation() * 180 / Mathf.PI;
+        rb.rotation = Mathf.Lerp(rb.rotation, rot, 1);*/
 
     }
 

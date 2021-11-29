@@ -37,7 +37,6 @@ public class NanoBot : MonoBehaviour
     public int foodSpawnAfterDeath;
     private bool signalDetection = false;
     private bool pregnant = false;
-    private bool hasGoal = false;
     private bool inCombat = false;
     private bool timer = false;
     private GameObject target = null;
@@ -47,11 +46,12 @@ public class NanoBot : MonoBehaviour
     private List<Collider2D> colliders;
     private DecisionTreeNode decision;
     public GameObject food;
-    private Vision visionUpgrade;
-    private Movment movmentUpgrade;
-    private Attack attackUpgrade;
-    private Armor armorUpgrade;
-    private Special specialUpgrade;
+    public GameObject bomb;
+    //private Vision visionUpgrade;
+    //private Movment movmentUpgrade;
+    //private Attack attackUpgrade;
+    //private Armor armorUpgrade;
+    //private Special specialUpgrade;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,11 +60,12 @@ public class NanoBot : MonoBehaviour
         decision = GetComponent<DetectionDecision>();
         signal = GetComponent<Signal>();
         pregnant = false;
-        hasGoal = false;
         inCombat = false;
         signalDetection = false;
         target = null;
         colliders = new List<Collider2D>();
+        if(firstAttackDealsMoreDMG)
+            GetComponent<Combat>().SetFirstShootBonus();
 
         /*visionUpgrade = GetComponentInChildren<Vision>();
         movmentUpgrade = GetComponentInChildren<Movment>();
@@ -77,10 +78,32 @@ public class NanoBot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float x;
+        if(actualLife > 90){
+            x = Mathf.Lerp(transform.localScale.x, 1.25f, 10 * Time.deltaTime);
+            transform.localScale = new Vector3(x, x, x);
+        }else if(actualLife > 70){
+            x = Mathf.Lerp(transform.localScale.x, 1, 10 * Time.deltaTime);
+            transform.localScale = new Vector3(x, x, x);
+        }else if(actualLife > 50){
+            x = Mathf.Lerp(transform.localScale.x, 0.75f, 10 * Time.deltaTime);
+            transform.localScale = new Vector3(x, x, x);
+        }else{
+            Debug.Log("as");
+            x = Mathf.Lerp(transform.localScale.x, 0.5f, 10 * Time.deltaTime);
+            transform.localScale = new Vector3(x, x, x);
+        }
         if(actualLife <= 0){
             for(int i = 0; i < foodSpawnAfterDeath; i++)
-                Instantiate(food, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, 0), Quaternion.identity);
+                Instantiate(food, new Vector3(transform.position.x + Random.Range(-1f, 1f), transform.position.y + Random.Range(-1f, 1f), 0), Quaternion.identity);
     
+            if(leaveBombAfterDeath){
+                GameObject b = Instantiate(bomb, transform.position, Quaternion.identity);
+                if(gameObject.layer == Constants.PLAYER_LAYER)
+                    b.GetComponent<Bomb>().SetTarget(Constants.ENEMY_LAYER);
+                else
+                    b.GetComponent<Bomb>().SetTarget(Constants.PLAYER_LAYER);
+            }
             Destroy(gameObject);
         }
 
@@ -191,7 +214,6 @@ public class NanoBot : MonoBehaviour
         actualLife = life/2;
         signalDetection = false;
         pregnant = false;
-        hasGoal = false;
         target = null;
     }
 
@@ -203,6 +225,11 @@ public class NanoBot : MonoBehaviour
         GameObject copy = Instantiate(gameObject, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
         copy.GetComponent<NanoBot>().SetChildStats();
         //Debug.Log(actualLife + " " + copy.GetComponent<NanoBot>().GetActualLife());
+    }
+
+    public void ApplyDMG(float dmg){
+        actualLife -= dmg;
+        DamagePopUp.Create(transform.position, dmg);
     }
 
     void OnCollisionEnter2D(Collision2D collision){
@@ -219,23 +246,23 @@ public class NanoBot : MonoBehaviour
             if(!signal.isSignaling()){
                 signal.enabled = true;
                 signal.radius = 3;
-                signal.SetCenter(transform.position);
+                signal.SetCenter();
             
             }
         }else if(collision.gameObject.layer == Constants.TRAP_LAYER){
-            actualLife -=  Constants.TRAP_DMG * (1 - trapArmor);
+            ApplyDMG(Constants.TRAP_DMG * (1 - trapArmor));
         }
 
         if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
             
-            Debug.Log(collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
+            //Debug.Log(collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
 
             if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire)
-                actualLife -= collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - fireArmor);
+                ApplyDMG(collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - fireArmor));
             else if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid)
-                actualLife -= collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - acidArmor);
+                ApplyDMG(collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - acidArmor));
             else if(collision.gameObject.GetComponent<Bullet>().type == Type.Electric)
-                actualLife -= collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - electricArmor);
+                ApplyDMG(collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - electricArmor));
                 
             if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
                 Destroy(collision.gameObject);

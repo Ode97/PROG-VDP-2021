@@ -27,7 +27,7 @@ public class IsEnemyDecision : Decision
             if(!GetComponent<Signal>().isSignaling()){
                 GetComponent<Signal>().enabled = true;
                 GetComponent<Signal>().radius = 3;
-                GetComponent<Signal>().SetCenter(transform.position);
+                GetComponent<Signal>().SetCenter();
             }
 
             return true;

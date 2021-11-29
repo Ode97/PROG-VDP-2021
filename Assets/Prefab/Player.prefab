@@ -55,7 +55,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6368716511436482340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -242,7 +242,7 @@ LineRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_UseWorldSpace: 1
+  m_UseWorldSpace: 0
   m_Loop: 0
 --- !u!114 &292258028
 MonoBehaviour:
@@ -359,8 +359,16 @@ MonoBehaviour:
   reproductionTime: 2
   rangedAttack: 0
   splashAttack: 0
+  leaveBombAfterDeath: 0
+  firstAttackDealsMoreDMG: 0
+  chanceOfCrit: 0
+  fireArmor: 0
+  electricArmor: 0
+  acidArmor: 0
+  trapArmor: 0
   attackDamage: 10
   attackSpeed: 2
+  typeOfAttk: 0
   signalSearchingTime: 3
   speed: 10
   rotation: 2
@@ -369,6 +377,9 @@ MonoBehaviour:
   lifeEarnByEating: 10
   lifeLossByReproduction: 50
   lifeForReproduction: 100
+  foodSpawnAfterDeath: 0
+  food: {fileID: 0}
+  bomb: {fileID: 0}
 --- !u!114 &292258037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,7 +470,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6368716512841930410}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
