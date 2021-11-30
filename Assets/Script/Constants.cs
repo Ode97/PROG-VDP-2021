@@ -5,6 +5,10 @@ using UnityEngine;
 public class Constants : MonoBehaviour
 {
     public const int TRAP_DMG = 10;
+    public const int FIRST_ATTK_DMG = 10;
+    public const int BOMB_TIMING = 3;
+    public const int BOMB_DISTANCE_EXPLOSION = 5;
+    public const int BOMB_DMG_EXPLOSION = 10;
 
     //LAYER
     public const int PLAYER_LAYER = 3;

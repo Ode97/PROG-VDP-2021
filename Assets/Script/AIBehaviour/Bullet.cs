@@ -18,12 +18,16 @@ public class Bullet : MonoBehaviour
         atkDmg = dmg;
     }
 
+    public float GetDMG(){
+        return atkDmg;
+    }
+
     public void SetType(Type t){
         type = t;
     }
 
     private IEnumerator DestroyBullet(){
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         Destroy(gameObject);
     }
 

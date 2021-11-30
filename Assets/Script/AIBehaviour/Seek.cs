@@ -21,6 +21,8 @@ public class Seek : Action
         rb.velocity = v.normalized * GetComponent<NanoBot>().speed;
         orientation = NewOrientation(orientation, rb.velocity);
         rb.rotation = orientation * 180 / Mathf.PI; 
+        /*float rot = orientation * 180 / Mathf.PI;
+        rb.rotation = Mathf.Lerp(rb.rotation, rot, 1);*/
 
     }
 

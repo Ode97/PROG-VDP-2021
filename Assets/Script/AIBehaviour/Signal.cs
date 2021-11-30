@@ -47,10 +47,9 @@ public class Signal : MonoBehaviour {
                 foreach (Collider2D c in colliders)
                 {
                     GameObject nanoBot = c.gameObject;
-                    if(nanoBot.layer == gameObject.layer && !copy.Contains(c) && !nanoBot.GetComponent<NanoBot>().IsInCombat()){
+                    if(nanoBot != null && nanoBot.layer == gameObject.layer && !copy.Contains(c) && !nanoBot.GetComponent<NanoBot>().IsInCombat()){
                         copy.Add(c);
                         nanoBot.GetComponent<NanoBot>().SetTargetPos(rb.position);
-                        //nanoBot.GetComponent<Seek>().DoIt();
                         nanoBot.GetComponent<NanoBot>().DetectSignal();
                         
                     }
@@ -69,8 +68,8 @@ public class Signal : MonoBehaviour {
         return alreadySignaling;
     }
 
-    public void SetCenter(Vector2 center){
-        Center = center;
+    public void SetCenter(){
+        Center = new Vector2(0, 0);
         LineDrawer = GetComponent<LineRenderer>();
         LineDrawer.enabled = true;
     }
