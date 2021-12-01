@@ -25,7 +25,7 @@ public class Bomb : MonoBehaviour
         if(colliders.Count >= 1)
             foreach (var collider2D in colliders)
             {
-                collider2D.gameObject.GetComponent<NanoBot>().ApplyDMG(Constants.BOMB_DMG_EXPLOSION);
+                collider2D.gameObject.GetComponent<NanoBot>().ApplyDMG(Constants.BOMB_DMG_EXPLOSION, Type.Trap);
             }
 
 

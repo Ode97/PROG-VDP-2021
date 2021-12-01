@@ -44,15 +44,15 @@ public class Combat : Action
             if(x > 100 - GetComponent<NanoBot>().chanceOfCrit)
                 b.GetComponent<Bullet>().SetDMG(b.GetComponent<Bullet>().GetDMG()*2);
 
-            b.GetComponent<Bullet>().SetType(GetComponent<NanoBot>().typeOfAttk);
+            //b.GetComponent<Bullet>().SetType(GetComponent<NanoBot>().typeOfAttk);
             if(GetComponent<NanoBot>().splashAttack){
-                b.transform.localScale = new Vector3(2f, 2f, 0);
+                b.transform.localScale = new Vector3(10f, 10f, 1);
                 b.GetComponent<Bullet>().SetSplashBullet();
             }else
-                b.transform.localScale = new Vector3(0.3f, 0.3f, 0);
+                b.transform.localScale = new Vector3(8f, 8f, 1);
                 
             Vector2 velocityBullet = target.transform.position - transform.position;
-            b.GetComponent<Rigidbody2D>().velocity = velocityBullet.normalized * 20;//velocità dei proiettili
+            b.GetComponent<Rigidbody2D>().velocity = velocityBullet.normalized * Constants.BULLET_VELOCITY;
         }
         yield return new WaitForSeconds(10/GetComponent<NanoBot>().attackSpeed);
         alreadyShoot = false; 

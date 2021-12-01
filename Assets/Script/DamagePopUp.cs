@@ -7,7 +7,7 @@ public class DamagePopUp : MonoBehaviour
 {
     private TextMeshPro textMesh;
     private float disappearTimer = 1;
-    private Color textColor;
+    public Color textColor;
     // Start is called before the first frame update
     public static DamagePopUp Create(Vector3 pos, float damageAmount){
         Transform dmgPopUpTransform = Instantiate(GameAssets.i.dmgPopUp, pos, Quaternion.identity);

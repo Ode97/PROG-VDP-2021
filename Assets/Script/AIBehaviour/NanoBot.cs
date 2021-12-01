@@ -39,6 +39,8 @@ public class NanoBot : MonoBehaviour
     private bool pregnant = false;
     private bool inCombat = false;
     private bool timer = false;
+    private bool electricTarget = false;
+    private bool acidSplash = false;
     private GameObject target = null;
     private Vector2 targetPos;
     private Rigidbody2D rb;
@@ -79,20 +81,20 @@ public class NanoBot : MonoBehaviour
     void Update()
     {
         float x;
-        if(actualLife > 90){
-            x = Mathf.Lerp(transform.localScale.x, 1.25f, 10 * Time.deltaTime);
+        /*if(actualLife > 90){
+            x = Mathf.Lerp(transform.localScale.x, 14, 10 * Time.deltaTime);
             transform.localScale = new Vector3(x, x, x);
         }else if(actualLife > 70){
-            x = Mathf.Lerp(transform.localScale.x, 1, 10 * Time.deltaTime);
+            x = Mathf.Lerp(transform.localScale.x, 12, 10 * Time.deltaTime);
             transform.localScale = new Vector3(x, x, x);
         }else if(actualLife > 50){
-            x = Mathf.Lerp(transform.localScale.x, 0.75f, 10 * Time.deltaTime);
+            x = Mathf.Lerp(transform.localScale.x, 10, 10 * Time.deltaTime);
             transform.localScale = new Vector3(x, x, x);
         }else{
             Debug.Log("as");
-            x = Mathf.Lerp(transform.localScale.x, 0.5f, 10 * Time.deltaTime);
+            x = Mathf.Lerp(transform.localScale.x, 8, 10 * Time.deltaTime);
             transform.localScale = new Vector3(x, x, x);
-        }
+        }*/
         if(actualLife <= 0){
             for(int i = 0; i < foodSpawnAfterDeath; i++)
                 Instantiate(food, new Vector3(transform.position.x + Random.Range(-1f, 1f), transform.position.y + Random.Range(-1f, 1f), 0), Quaternion.identity);
@@ -121,8 +123,6 @@ public class NanoBot : MonoBehaviour
         Action action = (Action)decision.MakeDecision();
 
         action.DoIt();
-
-        //Debug.Log(action);
     }
 
     private IEnumerator LostEnergyPerSec(){
@@ -227,9 +227,42 @@ public class NanoBot : MonoBehaviour
         //Debug.Log(actualLife + " " + copy.GetComponent<NanoBot>().GetActualLife());
     }
 
-    public void ApplyDMG(float dmg){
+    public void ElectricWave(float dmg){
+        if(!electricTarget){
+            electricTarget = true;
+            List<Collider2D> targets = new List<Collider2D>();
+            targets.AddRange(Physics2D.OverlapCircleAll(rb.position, Constants.ELECTRIC_BULLET_AREA_EFFECT));
+            targets = targets.FindAll(c => c != null && c.gameObject.layer == gameObject.layer && c.gameObject != gameObject);
+            foreach(Collider2D c in targets){
+                c.gameObject.GetComponent<NanoBot>().ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
+                c.gameObject.GetComponent<NanoBot>().ElectricWave(dmg);
+            }
+            electricTarget = false;
+        }
+    }
+
+    public void FireDmg(float dmg){
+        StartCoroutine(Fire(dmg));
+    }
+
+    private IEnumerator Fire(float dmg){
+        for(int i = 1; i <= 3; i++){
+            yield return new WaitForSeconds(1);
+            ApplyDMG(dmg * (1 - fireArmor), Type.Fire);
+        }
+    }
+
+    public void ApplyDMG(float dmg, Type type){
         actualLife -= dmg;
-        DamagePopUp.Create(transform.position, dmg);
+        DamagePopUp d = DamagePopUp.Create(transform.position, dmg);
+        if(type == Type.Electric)
+            d.textColor = Color.yellow;
+        else if(type == Type.Acid)
+            d.textColor = Color.magenta;
+        else if(type == Type.Fire)
+            d.textColor = Color.red;
+        else
+            d.textColor = Color.black;
     }
 
     void OnCollisionEnter2D(Collision2D collision){
@@ -250,23 +283,28 @@ public class NanoBot : MonoBehaviour
             
             }
         }else if(collision.gameObject.layer == Constants.TRAP_LAYER){
-            ApplyDMG(Constants.TRAP_DMG * (1 - trapArmor));
+            ApplyDMG(Constants.TRAP_DMG * (1 - trapArmor), Type.Trap);
         }
 
         if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
             
-            //Debug.Log(collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
-
-            if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire)
-                ApplyDMG(collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - fireArmor));
-            else if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid)
-                ApplyDMG(collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - acidArmor));
-            else if(collision.gameObject.GetComponent<Bullet>().type == Type.Electric)
-                ApplyDMG(collision.gameObject.GetComponent<Bullet>().atkDmg * (1 - electricArmor));
-                
-            if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
-                Destroy(collision.gameObject);
+            Debug.Log(gameObject.layer + " " + collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
+            float dmg;
+            dmg = collision.gameObject.GetComponent<Bullet>().atkDmg;
+            if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire){
+                ApplyDMG(dmg * (1 - fireArmor), Type.Fire);
+                FireDmg(dmg/2);
+            }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid){
+                ApplyDMG(dmg * (1 - acidArmor), Type.Acid);
+                collision.gameObject.GetComponent<Bullet>().shooted = true;
+            }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Electric){
+                ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
+                ElectricWave(dmg/3);
             }
+            //if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
+            if(collision.gameObject.GetComponent<Bullet>().type != Type.Acid)
+                Destroy(collision.gameObject);
+        }
     }
 
     
