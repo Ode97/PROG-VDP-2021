@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: Assets/Scenes/CharacterCreation.unity
+    guid: 60d82f616817be44ba9c54861963547c
+  - enabled: 1
+    path: Assets/Scenes/LabScene.unity
+    guid: 5d46e49f5cdf5d54882db12933a2d1c3
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9fc03df057ef00741956ae58d6dbc862
+  - enabled: 1
+    path: Assets/Scenes/MapTester.unity
+    guid: 185528a904eeb094ab3934c03dc94eb2
   m_configObjects: {}

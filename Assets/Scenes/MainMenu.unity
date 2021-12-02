@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: 127299503}
   - component: {fileID: 127299502}
   m_Layer: 5
-  m_Name: ATK (1)
+  m_Name: Profile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 172486585}
   - component: {fileID: 172486584}
   - component: {fileID: 172486583}
+  - component: {fileID: 172486587}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -427,6 +428,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &172486587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172486582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e810f4539100d4b82d20a68ac72269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
+  sceneName: 
 --- !u!1 &391238787
 GameObject:
   m_ObjectHideFlags: 0
@@ -668,7 +683,7 @@ GameObject:
   - component: {fileID: 794894978}
   - component: {fileID: 794894977}
   m_Layer: 5
-  m_Name: ATK
+  m_Name: Setting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -788,8 +803,9 @@ GameObject:
   - component: {fileID: 860495765}
   - component: {fileID: 860495764}
   - component: {fileID: 860495763}
+  - component: {fileID: 860495766}
   m_Layer: 5
-  m_Name: VIS
+  m_Name: Story
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -897,6 +913,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 860495761}
   m_CullTransparentMesh: 1
+--- !u!114 &860495766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 860495761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e810f4539100d4b82d20a68ac72269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 860495763}
+  sceneName: story
 --- !u!1 &896517739
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,8 +939,9 @@ GameObject:
   - component: {fileID: 896517743}
   - component: {fileID: 896517742}
   - component: {fileID: 896517741}
+  - component: {fileID: 896517744}
   m_Layer: 5
-  m_Name: MOV
+  m_Name: Lab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1018,6 +1049,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 896517739}
   m_CullTransparentMesh: 1
+--- !u!114 &896517744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896517739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e810f4539100d4b82d20a68ac72269, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 896517741}
+  sceneName: lab
 --- !u!1 &1109784554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,7 +1155,7 @@ GameObject:
   - component: {fileID: 1274971516}
   - component: {fileID: 1274971515}
   m_Layer: 5
-  m_Name: Special
+  m_Name: Versus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
