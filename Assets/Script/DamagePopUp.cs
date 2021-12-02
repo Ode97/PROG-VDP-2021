@@ -9,27 +9,28 @@ public class DamagePopUp : MonoBehaviour
     private float disappearTimer = 1;
     public Color textColor;
     // Start is called before the first frame update
-    public static DamagePopUp Create(Vector3 pos, float damageAmount){
+    public static DamagePopUp Create(Vector3 pos, float damageAmount, Color color){
         Transform dmgPopUpTransform = Instantiate(GameAssets.i.dmgPopUp, pos, Quaternion.identity);
         DamagePopUp damagePopUp = dmgPopUpTransform.GetComponent<DamagePopUp>();
-        damagePopUp.Setup(damageAmount);
+        damagePopUp.Setup(damageAmount, color);
         return damagePopUp;
     }
     void Awake(){
         textMesh = transform.GetComponent<TextMeshPro>();
     }
 
-    public void Setup(float damageAmount){
+    public void Setup(float damageAmount, Color color){
         textMesh.SetText(damageAmount.ToString());
+        textMesh.color = color;
     }
 
     private void Update(){
-        float moveYspeed = 6f;
+        float moveYspeed = 10f;
         transform.position += new Vector3(0, moveYspeed) * Time.deltaTime;
 
         disappearTimer -= Time.deltaTime;
         if(disappearTimer < 0){
-            float disappearSpeed = 3f;
+            float disappearSpeed = 0.5f;
             textColor.a -= disappearSpeed*Time.deltaTime;
             textMesh.color = textColor;
             if(textColor.a < 0)

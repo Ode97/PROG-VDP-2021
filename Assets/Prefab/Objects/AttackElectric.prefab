@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5080881199257130426}
   - component: {fileID: 5430175799064748638}
   m_Layer: 0
-  m_Name: attackOBJ1 1
+  m_Name: AttackElectric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfAttack: 1
   bullet: {fileID: 6831131473996125909, guid: cbe4174d434ba0440a4ad9c7b4e790fb, type: 3}
+  effect: {fileID: 1628744458893394, guid: e243632bb3aff9549abdcfcc2ef0c4f0, type: 3}
   ranged: 1
   attkSpeedBonus: 10
   dmgBonus: 4

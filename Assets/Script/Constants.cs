@@ -10,7 +10,7 @@ public class Constants : MonoBehaviour
     public const int BOMB_TIMING = 3;
     public const int BOMB_DISTANCE_EXPLOSION = 5;
     public const int BOMB_DMG_EXPLOSION = 10;
-    public const int ELECTRIC_BULLET_AREA_EFFECT = 3;
+    public const int ELECTRIC_BULLET_AREA_EFFECT = 8;
 
     //LAYER
     public const int PLAYER_LAYER = 3;

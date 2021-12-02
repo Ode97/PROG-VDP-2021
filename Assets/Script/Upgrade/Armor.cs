@@ -29,7 +29,7 @@ public class Armor : MonoBehaviour
                     else if(type1 == Type.Acid)
                         GetComponentInParent<NanoBot>().acidArmor = Constants.MID_PROTECTION;
                     else if(type1 == Type.Fire)
-                        GetComponentInParent<NanoBot>().electricArmor = Constants.MID_PROTECTION;
+                        GetComponentInParent<NanoBot>().fireArmor = Constants.MID_PROTECTION;
                     else if(type1 == Type.Trap)
                         GetComponentInParent<NanoBot>().trapArmor = Constants.MID_PROTECTION;
                 else if(level1 == ArmorLevel.Low)
@@ -38,7 +38,7 @@ public class Armor : MonoBehaviour
                     else if(type1 == Type.Acid)
                         GetComponentInParent<NanoBot>().acidArmor = Constants.LOW_PROTECTION;
                     else if(type1 == Type.Fire)
-                        GetComponentInParent<NanoBot>().electricArmor = Constants.LOW_PROTECTION;
+                        GetComponentInParent<NanoBot>().fireArmor = Constants.LOW_PROTECTION;
                     else if(type1 == Type.Trap)
                         GetComponentInParent<NanoBot>().trapArmor = Constants.LOW_PROTECTION;
                 else if(level1 == ArmorLevel.High)
@@ -47,7 +47,7 @@ public class Armor : MonoBehaviour
                     else if(type1 == Type.Acid)
                         GetComponentInParent<NanoBot>().acidArmor = Constants.HIGH_PROTECTION;
                     else if(type1 == Type.Fire)
-                        GetComponentInParent<NanoBot>().electricArmor = Constants.HIGH_PROTECTION;
+                        GetComponentInParent<NanoBot>().fireArmor = Constants.HIGH_PROTECTION;
                     else if(type1 == Type.Trap)
                         GetComponentInParent<NanoBot>().trapArmor = Constants.HIGH_PROTECTION;
             }
@@ -59,7 +59,7 @@ public class Armor : MonoBehaviour
                     else if(type2 == Type.Acid)
                         GetComponentInParent<NanoBot>().acidArmor = Constants.MID_PROTECTION;
                     else if(type2 == Type.Fire)
-                        GetComponentInParent<NanoBot>().electricArmor = Constants.MID_PROTECTION;
+                        GetComponentInParent<NanoBot>().fireArmor = Constants.MID_PROTECTION;
                     else if(type2 == Type.Trap)
                         GetComponentInParent<NanoBot>().trapArmor = Constants.MID_PROTECTION;
                 else if(level2 == ArmorLevel.Low)
@@ -68,7 +68,7 @@ public class Armor : MonoBehaviour
                     else if(type2 == Type.Acid)
                         GetComponentInParent<NanoBot>().acidArmor = Constants.LOW_PROTECTION;
                     else if(type2 == Type.Fire)
-                        GetComponentInParent<NanoBot>().electricArmor = Constants.LOW_PROTECTION;
+                        GetComponentInParent<NanoBot>().fireArmor = Constants.LOW_PROTECTION;
                     else if(type2 == Type.Trap)
                         GetComponentInParent<NanoBot>().trapArmor = Constants.LOW_PROTECTION;
                 else if(level2 == ArmorLevel.High)
@@ -77,7 +77,7 @@ public class Armor : MonoBehaviour
                     else if(type2 == Type.Acid)
                         GetComponentInParent<NanoBot>().acidArmor = Constants.HIGH_PROTECTION;
                     else if(type2 == Type.Fire)
-                        GetComponentInParent<NanoBot>().electricArmor = Constants.HIGH_PROTECTION;
+                        GetComponentInParent<NanoBot>().fireArmor = Constants.HIGH_PROTECTION;
                     else if(type2 == Type.Trap)
                         GetComponentInParent<NanoBot>().trapArmor = Constants.HIGH_PROTECTION;
             }

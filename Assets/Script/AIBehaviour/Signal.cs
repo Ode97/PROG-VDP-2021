@@ -40,14 +40,15 @@ public class Signal : MonoBehaviour {
                 LineDrawer.SetPosition(i, new Vector3(x, y, 0));
             }
 
-            Collider2D[] colliders = Physics2D.OverlapCircleAll(Center, radius);
-
+            List<Collider2D> colliders = new List<Collider2D>();
+            colliders.AddRange(Physics2D.OverlapCircleAll(Center, radius));
+            colliders = colliders.FindAll(c => c != null && c.gameObject.layer == gameObject.layer && c.gameObject != gameObject);
 
             if(colliders != null ){
                 foreach (Collider2D c in colliders)
                 {
                     GameObject nanoBot = c.gameObject;
-                    if(nanoBot != null && nanoBot.layer == gameObject.layer && !copy.Contains(c) && !nanoBot.GetComponent<NanoBot>().IsInCombat()){
+                    if(!copy.Contains(c)){
                         copy.Add(c);
                         nanoBot.GetComponent<NanoBot>().SetTargetPos(rb.position);
                         nanoBot.GetComponent<NanoBot>().DetectSignal();
@@ -56,7 +57,7 @@ public class Signal : MonoBehaviour {
                 }
             }
 
-            radius += 0.2f;
+            radius += 0.1f;
         }else{
             LineDrawer.enabled = false;
             alreadySignaling = false;
@@ -69,7 +70,7 @@ public class Signal : MonoBehaviour {
     }
 
     public void SetCenter(){
-        Center = new Vector2(0, 0);
+        Center = new Vector2(GetComponent<NanoBot>().GetTargetPos().x, GetComponent<NanoBot>().GetTargetPos().y);
         LineDrawer = GetComponent<LineRenderer>();
         LineDrawer.enabled = true;
     }

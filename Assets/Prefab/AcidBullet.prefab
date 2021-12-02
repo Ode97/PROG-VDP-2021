@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -465064907107691283}
   - component: {fileID: -4828651031460279045}
   - component: {fileID: 7721754806458325914}
-  m_Layer: 11
+  m_Layer: 10
   m_Name: AcidBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 0.09, y: 0.09}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &-465064907107691283

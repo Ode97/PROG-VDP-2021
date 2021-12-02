@@ -39,8 +39,9 @@ public class NanoBot : MonoBehaviour
     private bool pregnant = false;
     private bool inCombat = false;
     private bool timer = false;
-    private bool electricTarget = false;
-    private bool acidSplash = false;
+    public bool electricTarget = false;
+    private bool onFire = false;
+    private int fireTimer = 1;
     private GameObject target = null;
     private Vector2 targetPos;
     private Rigidbody2D rb;
@@ -49,6 +50,7 @@ public class NanoBot : MonoBehaviour
     private DecisionTreeNode decision;
     public GameObject food;
     public GameObject bomb;
+    public Effects effects;
     //private Vision visionUpgrade;
     //private Movment movmentUpgrade;
     //private Attack attackUpgrade;
@@ -81,20 +83,7 @@ public class NanoBot : MonoBehaviour
     void Update()
     {
         float x;
-        /*if(actualLife > 90){
-            x = Mathf.Lerp(transform.localScale.x, 14, 10 * Time.deltaTime);
-            transform.localScale = new Vector3(x, x, x);
-        }else if(actualLife > 70){
-            x = Mathf.Lerp(transform.localScale.x, 12, 10 * Time.deltaTime);
-            transform.localScale = new Vector3(x, x, x);
-        }else if(actualLife > 50){
-            x = Mathf.Lerp(transform.localScale.x, 10, 10 * Time.deltaTime);
-            transform.localScale = new Vector3(x, x, x);
-        }else{
-            Debug.Log("as");
-            x = Mathf.Lerp(transform.localScale.x, 8, 10 * Time.deltaTime);
-            transform.localScale = new Vector3(x, x, x);
-        }*/
+        
         if(actualLife <= 0){
             for(int i = 0; i < foodSpawnAfterDeath; i++)
                 Instantiate(food, new Vector3(transform.position.x + Random.Range(-1f, 1f), transform.position.y + Random.Range(-1f, 1f), 0), Quaternion.identity);
@@ -117,7 +106,7 @@ public class NanoBot : MonoBehaviour
         if(!timer)
             StartCoroutine(LostEnergyPerSec());
 
-        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.5)
+        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.3)
             signalDetection = false;
 
         Action action = (Action)decision.MakeDecision();
@@ -227,42 +216,62 @@ public class NanoBot : MonoBehaviour
         //Debug.Log(actualLife + " " + copy.GetComponent<NanoBot>().GetActualLife());
     }
 
-    public void ElectricWave(float dmg){
-        if(!electricTarget){
-            electricTarget = true;
-            List<Collider2D> targets = new List<Collider2D>();
-            targets.AddRange(Physics2D.OverlapCircleAll(rb.position, Constants.ELECTRIC_BULLET_AREA_EFFECT));
-            targets = targets.FindAll(c => c != null && c.gameObject.layer == gameObject.layer && c.gameObject != gameObject);
-            foreach(Collider2D c in targets){
-                c.gameObject.GetComponent<NanoBot>().ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
-                c.gameObject.GetComponent<NanoBot>().ElectricWave(dmg);
-            }
-            electricTarget = false;
+    public void ElectricWave(float dmg){    
+        electricTarget = true;
+        List<Collider2D> targets = new List<Collider2D>();
+        targets.AddRange(Physics2D.OverlapCircleAll(rb.position, Constants.ELECTRIC_BULLET_AREA_EFFECT));
+        targets = targets.FindAll(c => c != null && c.gameObject.layer == gameObject.layer && c.gameObject != gameObject && !c.gameObject.GetComponent<NanoBot>().electricTarget);
+        foreach(Collider2D c in targets){
+            Debug.Log(c.gameObject.name);
+            GameObject e = Instantiate(effects.electricWaveEffect, gameObject.transform.position, Quaternion.identity, c.gameObject.transform);
+            e.transform.localScale = new Vector3(4, 4, 4);        
+            c.gameObject.GetComponent<NanoBot>().ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
+            c.gameObject.GetComponent<NanoBot>().ElectricWave(dmg);
         }
+        StartCoroutine(electricTargetStop());
+        
+    }
+
+    IEnumerator electricTargetStop(){
+        yield return new WaitForSeconds(0.5f);
+        electricTarget = false;
     }
 
     public void FireDmg(float dmg){
-        StartCoroutine(Fire(dmg));
+        if(!onFire){
+            StartCoroutine(Fire(dmg));
+            onFire = true;
+        }else
+            fireTimer = 1;
+
     }
 
     private IEnumerator Fire(float dmg){
-        for(int i = 1; i <= 3; i++){
+        GameObject e;
+        for(fireTimer = 1; fireTimer <= 3; fireTimer++){
             yield return new WaitForSeconds(1);
+            e = Instantiate(effects.FireBurstEffect, gameObject.transform.position, new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, gameObject.transform.rotation.w), gameObject.transform);
+            e.transform.localScale = new Vector3(2, 2, 2);
             ApplyDMG(dmg * (1 - fireArmor), Type.Fire);
         }
+        onFire = false;
     }
 
     public void ApplyDMG(float dmg, Type type){
         actualLife -= dmg;
-        DamagePopUp d = DamagePopUp.Create(transform.position, dmg);
+        Debug.Log(dmg + " " + type);
+
+        Color color;
         if(type == Type.Electric)
-            d.textColor = Color.yellow;
+            color = Color.yellow;
         else if(type == Type.Acid)
-            d.textColor = Color.magenta;
+            color = Color.blue;
         else if(type == Type.Fire)
-            d.textColor = Color.red;
+            color = Color.red;
         else
-            d.textColor = Color.black;
+            color = Color.black;
+
+        DamagePopUp.Create(transform.position, dmg, color);
     }
 
     void OnCollisionEnter2D(Collision2D collision){
@@ -288,16 +297,21 @@ public class NanoBot : MonoBehaviour
 
         if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
             
-            Debug.Log(gameObject.layer + " " + collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
+            //Debug.Log(gameObject.layer + " " + collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
             float dmg;
             dmg = collision.gameObject.GetComponent<Bullet>().atkDmg;
             if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire){
+                Instantiate(effects.FireEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
                 ApplyDMG(dmg * (1 - fireArmor), Type.Fire);
                 FireDmg(dmg/2);
             }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid){
+                GameObject g = Instantiate(effects.acidEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                g.transform.localScale = new Vector3(2, 2, 2);
                 ApplyDMG(dmg * (1 - acidArmor), Type.Acid);
                 collision.gameObject.GetComponent<Bullet>().shooted = true;
             }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Electric){
+                GameObject g = Instantiate(effects.electricEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                g.transform.localScale = new Vector3(3, 3, 3);
                 ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
                 ElectricWave(dmg/3);
             }
@@ -306,7 +320,6 @@ public class NanoBot : MonoBehaviour
                 Destroy(collision.gameObject);
         }
     }
-
     
 
     /*void OnDrawGizmos(){

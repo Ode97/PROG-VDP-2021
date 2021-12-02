@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7492092049567440553}
   - component: {fileID: 7647240396585380173}
   m_Layer: 3
-  m_Name: attackOBJ1
+  m_Name: AttackAcid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeOfAttack: 2
   bullet: {fileID: 1209412788079137290, guid: 2e7fdd076afbe8443a6a09c68c0ba523, type: 3}
+  effect: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
   ranged: 1
   attkSpeedBonus: 5
   dmgBonus: 20

@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   atkDmg: 0
+  shooted: 0
 --- !u!61 &-819234206380303975
 BoxCollider2D:
   m_ObjectHideFlags: 0
