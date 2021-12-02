@@ -18,10 +18,10 @@ public class PartsBuilder : MonoBehaviour
     public int tailValue = 15;
     // maximum values for creator
     private int max_Value = 30;
-    private GameObject [] legsr;
-    private GameObject [] legsl;
-    private GameObject [] eyesr;
-    private GameObject [] eyesl;
+    private GameObject [] legsr = new GameObject[8];
+    private GameObject [] legsl = new GameObject[8];
+    private GameObject [] eyesr = new GameObject[8];
+    private GameObject [] eyesl = new GameObject[8];
     private GameObject body;
     private GameObject tail;
     public bool change = true;
@@ -55,23 +55,61 @@ public class PartsBuilder : MonoBehaviour
     void Update()
     {
         if (change){
-            int legsNumber = (legValue / legTresHold) + 1;
+            int legsNumber = (legValue / legTresHold) + 2;
             int eyesNumber = (eyesValue / eyesTresHold) + 1;
+            Destroy(body);
+            Destroy(tail);
+            for(int i=0; i<legsr.Length; i++){
+                Destroy(legsr[i]);
+                Destroy(legsl[i]);
+            }
+            for(int i=0; i<eyesr.Length; i++){
+                Destroy(eyesr[i]);
+                Destroy(eyesl[i]);
+            }
             legsr = new GameObject[legsNumber];
             legsl = new GameObject[legsNumber];
             eyesr = new GameObject[eyesNumber];
             eyesl = new GameObject[eyesNumber];
 
             body = Instantiate(BodyModel, new Vector3(0f, 0f, 0f), Quaternion.identity);
-            tail = Instantiate(TailModel, new Vector3(-1f, 0f, 0f), Quaternion.identity);
+            body.transform.SetParent(this.transform);
+            tail = Instantiate(TailModel, new Vector3(0f, -0.25f, -0.16f), Quaternion.identity);
+            tail.transform.SetParent(this.transform);
 
-            for(int i=0; i<legsNumber; i++){
-                legsr[i] = Instantiate(LegModel, new Vector3(0f, i*1f, 0f), Quaternion.identity);
-                legsl[i] = Instantiate(LegModel, new Vector3(0f, i*-1f, 0f), Quaternion.identity);
+            for(int i=0; i<legsNumber; i++) {
+                if(legsNumber!=4){
+                    legsr[i] = Instantiate(LegModel, new Vector3( 0.12f, (i-1)* 0.12f, 0.12f), Quaternion.Euler(0f, 0f, (-30f + i*30f) + 180f));
+                    legsl[i] = Instantiate(LegModel, new Vector3(-0.12f, (i-1)*-0.12f, 0.12f), Quaternion.Euler(0f, 0f, (-30f + i*30f)));
+                }
+                else {
+                    legsr[i] = Instantiate(LegModel, new Vector3( 0.12f, (i-1.5f)* 0.10f, 0.12f), Quaternion.Euler(0f, 0f, (-35f + i*20f) + 180f));
+                    legsl[i] = Instantiate(LegModel, new Vector3(-0.12f, (i-1.5f)* 0.10f, 0.12f), Quaternion.Euler(0f, 0f, (35f + i*-20f)));
+                }
+                legsr[i].transform.SetParent(this.transform);
+                legsl[i].transform.SetParent(this.transform);
             }
             for(int i=0; i<eyesNumber; i++){
-                eyesr[i] = Instantiate(EyesModel, new Vector3(i*0.2f, 0f, 0f), Quaternion.identity);
-                eyesl[i] = Instantiate(EyesModel, new Vector3(i*-0.2f, 0f, 0f), Quaternion.identity);
+                eyesr[i] = Instantiate(EyesModel, new Vector3((1 + i)* 0.04f, 0.25f-(i*0.03f), -0.1f), Quaternion.identity);
+                eyesl[i] = Instantiate(EyesModel, new Vector3((1 + i)*-0.04f, 0.25f-(i*0.03f), -0.1f), Quaternion.identity);
+                eyesr[i].transform.SetParent(this.transform);
+                eyesl[i].transform.SetParent(this.transform);
+            }
+            if(legsNumber == 2) {
+                legsr[1].transform.position = new Vector3( 0.12f, 0.12f, 0.12f);
+                legsl[1].transform.position = new Vector3(-0.12f,-0.12f, 0.12f);
+                legsr[1].transform.rotation = Quaternion.Euler(0f, 0f, 210f);
+                legsl[1].transform.rotation = Quaternion.Euler(0f, 0f, 30f);
+            }
+            if(eyesNumber == 3) {
+                eyesr[2].transform.position = new Vector3(0.12f,0.19f,-0.07f);
+                eyesl[2].transform.position = new Vector3(-0.12f,0.19f,-0.07f);
+            }
+            else if(eyesNumber == 4) {
+                eyesr[2].transform.position = new Vector3(0.12f,0.19f,-0.07f);
+                eyesl[2].transform.position = new Vector3(-0.12f,0.19f,-0.07f);
+                eyesr[3].transform.position = new Vector3(0.1f,0.24f,-0.05f);
+                eyesl[3].transform.position = new Vector3(-0.1f,0.24f,-0.05f);
             }
             change = false;
         }
