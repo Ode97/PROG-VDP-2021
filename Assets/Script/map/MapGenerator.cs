@@ -53,20 +53,56 @@ public class MapGenerator : MonoBehaviour
         setBig(10,38,genMatrix,'b');
 
         // Place traps
-        genMatrix[10,7] = 't';
-        genMatrix[10,11] = 't';
+        for(int y=1;y<4;y++){
+            genMatrix[y,10] = 't';
+        }
+
+        for(int y=9;y<12;y++){
+            genMatrix[y,10] = 't';
+        }
+
+        for(int y=17;y<20;y++){
+            genMatrix[y,10] = 't';
+        }
 
         // Place walls
-        for(int y=7;y<12;y++){
+        for(int y=1;y<4;y++){
             genMatrix[y,9] = 'w';
-            genMatrix[y,31] = 'w';
+        }
+
+        for(int y=9;y<12;y++){
+            genMatrix[y,9] = 'w';
+        }
+
+        for(int y=17;y<20;y++){
+            genMatrix[y,9] = 'w';
         }
 
         // Place energys  4 13 15 17
-        genMatrix[10,4] = 'e';
-        genMatrix[10,13] = 'e';
-        genMatrix[10,15] = 'e';
-        genMatrix[10,17] = 'e';
+        for(int x = 7; x < 9; x++){
+            for(int y=1;y<4;y++){
+                genMatrix[y,x] = 'e';
+            }
+            for(int y=9;y<12;y++){
+                genMatrix[y,x] = 'e';
+            }
+            for(int y=17;y<20;y++){
+                genMatrix[y,x] = 'e';
+            }
+        }
+
+        for(int y=5;y<8;y++){
+                genMatrix[y,10] = 'e';
+        }
+        for(int y=13;y<16;y++){
+                genMatrix[y,10] = 'e';
+        }
+        for(int y=9;y<12;y++){
+                genMatrix[y,12] = 'e';
+        }
+        for(int y=9;y<12;y++){
+                genMatrix[y,13] = 'e';
+        }
 
         // Place neutrals 1-18 19-22
         for(int x=1;x<20;x++){
@@ -87,6 +123,7 @@ public class MapGenerator : MonoBehaviour
 
         // Draw map with objects
         instantiateMap(genMatrix);
+        
     }
 
     void setBig(int x, int y, char[,] map, char tag){
