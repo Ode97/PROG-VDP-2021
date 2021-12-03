@@ -100,8 +100,8 @@ public class MapGenerator : MonoBehaviour
         for(int y=9;y<12;y++){
                 genMatrix[y,12] = 'e';
         }
-        for(int y=9;y<12;y++){
-                genMatrix[y,13] = 'e';
+        for(int x=4;x<7;x++){
+                genMatrix[10,x] = 'e';
         }
 
         // Place neutrals 1-18 19-22
@@ -123,7 +123,7 @@ public class MapGenerator : MonoBehaviour
 
         // Draw map with objects
         instantiateMap(genMatrix);
-        
+
     }
 
     void setBig(int x, int y, char[,] map, char tag){

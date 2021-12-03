@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 995019245524602624}
   - component: {fileID: 3337575771365900291}
   m_Layer: 0
-  m_Name: MovmentOBJ1 1
+  m_Name: MovmentOBJ2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c95d790a59cc3147b04a4d474e5b818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBonus: 15
-  precisionBonus: 40
+  speedBonus: 1.2
+  precisionBonus: 60

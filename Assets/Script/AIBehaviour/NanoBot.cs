@@ -95,11 +95,13 @@ public class NanoBot : MonoBehaviour
                 else
                     b.GetComponent<Bomb>().SetTarget(Constants.PLAYER_LAYER);
             }
+            GameManager.instance.death(gameObject.layer);
             Destroy(gameObject);
         }
 
         if(actualLife >= lifeForReproduction && !pregnant){
             StartCoroutine(Reproduction());
+            GameManager.instance.newChild(gameObject.layer);
         }
 
 
@@ -211,9 +213,8 @@ public class NanoBot : MonoBehaviour
         yield return new WaitForSeconds(reproductionTime);
         actualLife -= lifeLossByReproduction;
         pregnant = false;
-        GameObject copy = Instantiate(gameObject, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.5f, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
+        GameObject copy = Instantiate(gameObject, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
         copy.GetComponent<NanoBot>().SetChildStats();
-        //Debug.Log(actualLife + " " + copy.GetComponent<NanoBot>().GetActualLife());
     }
 
     public void ElectricWave(float dmg){    

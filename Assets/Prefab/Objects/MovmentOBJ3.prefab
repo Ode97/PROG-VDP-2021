@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c95d790a59cc3147b04a4d474e5b818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedBonus: 5
-  precisionBonus: 80
+  speedBonus: 1.6
+  precisionBonus: 35

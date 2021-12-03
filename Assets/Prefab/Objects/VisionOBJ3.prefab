@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8291382997517694428}
   - component: {fileID: 727028898653142420}
   m_Layer: 0
-  m_Name: VisionOBJ1 2
+  m_Name: VisionOBJ3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3096184ef0ae4242854f0c73e20efa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FOVBonus: 120
-  lookaheadBonus: 5
+  FOVBonus: 115
+  lookaheadBonus: 0.5

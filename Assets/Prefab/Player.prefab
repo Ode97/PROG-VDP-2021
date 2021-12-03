@@ -301,9 +301,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 0
-  avoidDistance: 1
+  avoidDistance: 0.1
   lookahead: 0
-  reproductionTime: 2
+  reproductionTime: 1
   rangedAttack: 0
   splashAttack: 0
   leaveBombAfterDeath: 0
@@ -316,12 +316,12 @@ MonoBehaviour:
   attackDamage: 0
   attackSpeed: 0
   typeOfAttk: 0
-  signalSearchingTime: 3
+  signalSearchingTime: 2
   speed: 0
   rotation: 100
   life: 100
-  lifeLostPerSec: 2
-  lifeEarnByEating: 10
+  lifeLostPerSec: 1
+  lifeEarnByEating: 20
   lifeLossByReproduction: 50
   lifeForReproduction: 100
   foodSpawnAfterDeath: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b70e1a8c8e32e284ebec12d81063d87c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRadius: 30
+  maxRadius: 8
   ThetaScale: 0.01
   radius: 1
   LineDrawer: {fileID: 6368716511436482399}

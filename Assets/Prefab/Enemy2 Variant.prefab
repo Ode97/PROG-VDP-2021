@@ -43,9 +43,21 @@ PrefabInstance:
       propertyPath: attackDamage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: avoidDistance
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: lifeEarnByEating
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: signalSearchingTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 292258043, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: maxRadius
-      value: 30
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4963578575814531339, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_RootOrder
@@ -57,19 +69,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6368716511436482339, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_Size.x
-      value: 5.7297173
+      value: 1.4325218
       objectReference: {fileID: 0}
     - target: {fileID: 6368716511436482339, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_Size.y
-      value: 2.681035
+      value: 0.8332412
       objectReference: {fileID: 0}
     - target: {fileID: 6368716511436482339, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_Offset.x
-      value: -0.86963844
+      value: 0.16168785
       objectReference: {fileID: 0}
     - target: {fileID: 6368716511436482339, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_Offset.y
-      value: 0.045995235
+      value: -0.16886461
       objectReference: {fileID: 0}
     - target: {fileID: 6368716511436482339, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x

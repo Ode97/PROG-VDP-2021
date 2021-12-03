@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1898856788556020137}
   - component: {fileID: 1419997134844973223}
   m_Layer: 3
-  m_Name: armorOBJ1
+  m_Name: ArmorMidElectric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type1: 1
-  level1: 2
+  level1: 1
   type2: 0
   level2: 0
   generalArmor: 0
