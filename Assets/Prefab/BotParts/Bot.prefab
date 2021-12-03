@@ -43,10 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33392d07041f564c938859dcf5a6012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyModel: {fileID: 0}
-  EyesModel: {fileID: 0}
-  LegModel: {fileID: 0}
-  TailModel: {fileID: 0}
+  BodyModel: {fileID: 119969633495982444, guid: 8a90669b5f7cf7549b0fb37f89021158, type: 3}
+  EyesModel: {fileID: 1452620173015047373, guid: 695ec5311717b004490645d1c2f3280f, type: 3}
+  LegModel: {fileID: 7257090213999474033, guid: b4f7058485bb686488b37b5847289503, type: 3}
+  TailModel: {fileID: 3726634824611772911, guid: 84ca3485ec5b8134cadde0168212c374, type: 3}
   bodyValue: 15
   eyesValue: 5
   legValue: 15

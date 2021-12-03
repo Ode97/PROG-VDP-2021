@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MainLab : MonoBehaviour
+public class SceneNavigation : MonoBehaviour
 {
     public Button button;
     public string sceneName = "";

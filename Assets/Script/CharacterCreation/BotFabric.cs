@@ -16,8 +16,6 @@ public class BotFabric : MonoBehaviour
     public int eyesValue = 5;
     public int legValue = 15;
     public int tailValue = 15;
-    // maximum values for creator
-    private int max_Value = 30;
     public GameObject creature;
     private GameObject [] legsr;
     private GameObject [] legsl;
@@ -53,6 +51,16 @@ public class BotFabric : MonoBehaviour
         */
 
         // Read file P1Bot to get all the numeric "Value"s
+        BotData bot = Save.loadPlayerBotFile();
+        if (bot!= null) {
+            eyesTresHold = bot.eyesTh;
+            legTresHold = bot.legTh;
+            eyesValue = bot.eyesV;
+            legValue = bot.legV;
+            tailValue = bot.tailV;
+            bodyValue = bot.bodyV;
+        }
+
         int legsNumber = (legValue / legTresHold) + 2;
         int eyesNumber = (eyesValue / eyesTresHold) + 1;
         legsr = new GameObject[legsNumber];
