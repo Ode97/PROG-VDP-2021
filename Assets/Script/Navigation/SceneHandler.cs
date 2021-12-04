@@ -18,4 +18,10 @@ public class SceneHandler : MonoBehaviour
     public static void GameScene() {
         SceneManager.LoadScene("BattleScene");  
     }
+    public static void LoseScreen(){
+        SceneManager.LoadScene("EndLoseGame");  
+    }
+    public static void WinScreen(){
+        SceneManager.LoadScene("EndWinGame");  
+    }
 }

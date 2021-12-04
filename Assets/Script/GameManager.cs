@@ -83,11 +83,12 @@ public class GameManager : MonoBehaviour
         e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
 
         if(nPlayer == 0){
-            
-            result.transform.GetComponent<TextMeshPro>().SetText("You Lose");
+            // result.transform.GetComponent<TextMeshPro>().SetText("You Lose");
+            SceneHandler.LoseScreen();
         }else if(nEnemy == 0){
-            GetComponentInChildren<Button>().enabled = true;
-            result.transform.GetComponent<TextMeshPro>().SetText("You Win");
+            // GetComponentInChildren<Button>().enabled = true;
+            // result.transform.GetComponent<TextMeshPro>().SetText("You Win");
+            SceneHandler.WinScreen();
         }
     }
 }
