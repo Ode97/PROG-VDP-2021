@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 976c0569feab9cc4fac09df23a71bfd1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - BodyModel: {fileID: 119969633495982444, guid: 8a90669b5f7cf7549b0fb37f89021158, type: 3}
+  - EyesModel: {fileID: 1452620173015047373, guid: 695ec5311717b004490645d1c2f3280f, type: 3}
+  - LegModel: {fileID: 7257090213999474033, guid: b4f7058485bb686488b37b5847289503, type: 3}
+  - TailModel: {fileID: 3726634824611772911, guid: 84ca3485ec5b8134cadde0168212c374, type: 3}
+  - creature: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
