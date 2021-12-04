@@ -18,7 +18,7 @@ PrefabInstance:
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: food
       value: 
-      objectReference: {fileID: 1626636342197312278, guid: 11c79683f593a01459e81d52c0fa56a1, type: 3}
+      objectReference: {fileID: 5681847486816169599, guid: 54a4c096c5590e84594b69e72baa7555, type: 3}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: speed
       value: 0

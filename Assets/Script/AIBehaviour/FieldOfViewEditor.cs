@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,3 +17,4 @@ public class FieldOfViewEditor : Editor
         Handles.DrawLine(n.transform.position, (Vector2)n.transform.position + viewB * n.lookahead);
     }
 }
+*/
