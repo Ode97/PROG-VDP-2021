@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     public TextMeshPro p;
     public TextMeshPro e;
     public TextMeshPro c;
+    public TextMeshPro result;
     public float timeRemaining = 10;
     private bool timerIsRunning = true;
 
@@ -79,5 +81,13 @@ public class GameManager : MonoBehaviour
 
         p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
         e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
+
+        if(nPlayer == 0){
+            
+            result.transform.GetComponent<TextMeshPro>().SetText("You Lose");
+        }else if(nEnemy == 0){
+            GetComponentInChildren<Button>().enabled = true;
+            result.transform.GetComponent<TextMeshPro>().SetText("You Win");
+        }
     }
 }
