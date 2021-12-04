@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MapEditor : MonoBehaviour
 {
-    public int maxEnergy;
-    public int maxTraps;
-    public int maxSpawn;
-    public int maxWalls;
+    public int maxEnergy = 30;
+    public int maxTraps = 9;
+    public int maxSpawn = 1;
+    public int maxWalls = 9;
     public GameObject selector;
     public Camera mainCamera;
     public GameObject emptyTemplate;
@@ -170,16 +170,21 @@ public class MapEditor : MonoBehaviour
                     }
                 }
                 else if(obj.tag == "emptyTile") {
-                    Destroy(map[coorX,coorY]);
-                    Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
-                    if(code != 's'){
-                        map[coorX,coorY] = Instantiate(selectedTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
-                        map[coorX,coorY].transform.SetParent(this.transform);
-                        genMatrix[coorX,coorY] = code;
-                    }
-                    else{
-                        setBig(coorX, coorY, genMatrix, code);
-                        instantiateBig(coorX, coorY, selectedTemplate, obj.transform.position.x, obj.transform.position.y);
+                    if( (code == 'e' && maxEnergy > 0) ||
+                        (code == 's' && maxSpawn > 0) ||
+                        (code == 't' && maxTraps > 0) ||
+                        (code == 'w' && maxWalls > 0) ){
+                        Destroy(map[coorX,coorY]);
+                        Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
+                        if(code != 's'){
+                            map[coorX,coorY] = Instantiate(selectedTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
+                            map[coorX,coorY].transform.SetParent(this.transform);
+                            genMatrix[coorX,coorY] = code;
+                        }
+                        else{
+                            setBig(coorX, coorY, genMatrix, code);
+                            instantiateBig(coorX, coorY, selectedTemplate, obj.transform.position.x, obj.transform.position.y);
+                        }
                     }
                 }
             }
