@@ -26,8 +26,10 @@ public class MapGenerator : MonoBehaviour
         g - e. generator
         */
 
+        char [,] playerMap = MapManager.playerMapMatrix; 
         int mapH = 21;
         int mapW = 41;
+
         // 20hx40w
         char[,] genMatrix = new char[mapH, mapW];
         for(int x=1;x<mapH-1;x++){
@@ -46,40 +48,39 @@ public class MapGenerator : MonoBehaviour
             genMatrix[mapH-1,i] = 'w';
         }
         // Set map Seed/Type
-        
         // * * * Preset Map
         // Place spawns 3x3
-        setBig(10, 2,genMatrix,'a');
         setBig(10,38,genMatrix,'b');
 
         // Place traps
         for(int y=1;y<4;y++){
-            genMatrix[y,10] = 't';
+            genMatrix[y,30] = 't';
         }
 
         for(int y=9;y<12;y++){
-            genMatrix[y,10] = 't';
+            genMatrix[y,30] = 't';
         }
 
         for(int y=17;y<20;y++){
-            genMatrix[y,10] = 't';
+            genMatrix[y,30] = 't';
         }
 
         // Place walls
         for(int y=1;y<4;y++){
-            genMatrix[y,9] = 'w';
+            genMatrix[y,31] = 'w';
         }
 
         for(int y=9;y<12;y++){
-            genMatrix[y,9] = 'w';
+            genMatrix[y,31] = 'w';
         }
 
         for(int y=17;y<20;y++){
-            genMatrix[y,9] = 'w';
+            genMatrix[y,31] = 'w';
         }
 
         // Place energys  4 13 15 17
-        for(int x = 7; x < 9; x++){
+        //for(int x = 7; x < 9; x++){
+        for(int x = 33; x > 31; x--){
             for(int y=1;y<4;y++){
                 genMatrix[y,x] = 'e';
             }
@@ -92,21 +93,23 @@ public class MapGenerator : MonoBehaviour
         }
 
         for(int y=5;y<8;y++){
-                genMatrix[y,10] = 'e';
-        }
-        for(int y=13;y<16;y++){
-                genMatrix[y,10] = 'e';
+                genMatrix[y,30] = 'e';
         }
         for(int y=9;y<12;y++){
-                genMatrix[y,12] = 'e';
+                genMatrix[y,28] = 'e';
         }
-        for(int x=4;x<7;x++){
+        for(int y=13;y<16;y++){
+                genMatrix[y,30] = 'e';
+        }
+        
+        // for(int x=4;x<7;x++){
+        for(int x = 36; x > 33; x--){
                 genMatrix[10,x] = 'e';
         }
 
         // Place neutrals 1-18 19-22
         for(int x=1;x<20;x++){
-            for(int y=18;y<23;y++){
+            for(int y=19;y<22;y++){
                 genMatrix[x,y] = 'n';
             }
         }
@@ -122,8 +125,15 @@ public class MapGenerator : MonoBehaviour
         // Place Energy generators 3x3
 
         // Draw map with objects
-        instantiateMap(genMatrix);
 
+        int rh = playerMap.GetUpperBound(0)+1;
+        int rw = playerMap.GetUpperBound(1)+1;
+        for(int i=0; i<rh;i++){
+            for(int j=0; j<rw;j++){
+                genMatrix[i,j] = playerMap[i,j];
+            }
+        }
+        instantiateMap(genMatrix);
     }
 
     void setBig(int x, int y, char[,] map, char tag){
@@ -152,6 +162,10 @@ public class MapGenerator : MonoBehaviour
                         tile.transform.SetParent(this.transform);
                         break;
                     case 'w':
+                        tile = Instantiate(wallTemplate, new Vector2(j, i), Quaternion.identity);
+                        tile.transform.SetParent(this.transform);
+                        break;
+                    case 'W':
                         tile = Instantiate(wallTemplate, new Vector2(j, i), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;

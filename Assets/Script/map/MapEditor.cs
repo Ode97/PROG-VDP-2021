@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapEditor : MonoBehaviour
 {
@@ -8,11 +9,16 @@ public class MapEditor : MonoBehaviour
     public int maxTraps = 9;
     public int maxSpawn = 1;
     public int maxWalls = 9;
+    public Text maxEnergyLabel;
+    public Text maxTrapsLabel;
+    public Text maxSpawnLabel;
+    public Text maxWallsLabel;
     public GameObject selector;
     public Camera mainCamera;
     public GameObject emptyTemplate;
     public GameObject wallTemplate;
     public GameObject staticWallTemplate;
+    public GameObject staticVoidTemplate;
     public GameObject spawnTemplate;
     public GameObject energyTemplate;
     public GameObject trapTemplate;
@@ -37,6 +43,7 @@ public class MapEditor : MonoBehaviour
         g - e. generator
         */
 
+        // Inverted, idk why
         int mapH = 21;
         int mapW = 21;
         // 21hx41w
@@ -50,6 +57,7 @@ public class MapEditor : MonoBehaviour
         // Place Map Borders
         for(int i=0;i<mapH;i++){
             genMatrix[i,0] = 'W';
+            genMatrix[i,mapW-1] = 'V';
         }
         for(int i=0;i<mapW;i++){
             genMatrix[0,i] = 'W';
@@ -118,6 +126,10 @@ public class MapEditor : MonoBehaviour
                         map[x,y] = Instantiate(emptyTemplate, new Vector2(j, i), Quaternion.identity);
                         map[x,y].transform.SetParent(this.transform);
                         break;
+                    case 'V':
+                        map[x,y] = Instantiate(staticVoidTemplate, new Vector2(j, i), Quaternion.identity);
+                        map[x,y].transform.SetParent(this.transform);
+                        break;
                     default:
                         break;
                 }
@@ -174,6 +186,15 @@ public class MapEditor : MonoBehaviour
                         (code == 's' && maxSpawn > 0) ||
                         (code == 't' && maxTraps > 0) ||
                         (code == 'w' && maxWalls > 0) ){
+                        if (code == 'e') maxEnergy--;
+                        if (code == 's') maxSpawn--;
+                        if (code == 't') maxTraps--;
+                        if (code == 'w') maxWalls--;
+                        if(genMatrix[coorX,coorY] == 'e') maxEnergy++;
+                        if(genMatrix[coorX,coorY] == 's') maxSpawn++;
+                        if(genMatrix[coorX,coorY] == 't') maxTraps++;
+                        if(genMatrix[coorX,coorY] == 'w') maxWalls++;
+
                         Destroy(map[coorX,coorY]);
                         Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
                         if(code != 's'){
@@ -189,6 +210,11 @@ public class MapEditor : MonoBehaviour
                 }
             }
         }
+
+        maxEnergyLabel.text = "Energy: " +  maxEnergy;
+        maxSpawnLabel.text = "Spawn: " +  maxSpawn;
+        maxTrapsLabel.text = "Traps: " +  maxTraps;
+        maxWallsLabel.text = "Walls: " +  maxWalls;
         // Vector2 coords = getClick();
         // Debug.Log(coords);
         MapManager.playerMapMatrix = genMatrix;
