@@ -22,7 +22,7 @@ public class VisionButton : MonoBehaviour
         options = new string[]{"Long", "Balanced", "Wide"};
         fov = new float[]{Constants.MID_FOV, Constants.HIGH_FOV, Constants.LOW_FOV};
         distance = new float[]{Constants.MID_LOOKAHEAD, Constants.LOW_LOOKAHEAD, Constants.HIGH_LOOKAHEAD};
-        eyeValue = new int[]{16,30,6};
+        eyeValue = new int[]{6,16,30};
         text.text = options[actual];
         BotManager.fov = fov[actual];
         BotManager.viewDistance = distance[actual];

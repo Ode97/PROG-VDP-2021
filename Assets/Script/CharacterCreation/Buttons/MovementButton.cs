@@ -23,7 +23,7 @@ public class MovementButton : MonoBehaviour
         options = new string[]{"Precise", "Balanced", "Fast"};
         movSpeed = new float[]{Constants.LOW_SPEED, Constants.MID_SPEED, Constants.LOW_SPEED, Constants.HIGH_SPEED};
         movAccuracy = new float[]{Constants.MID_MOV_PRECISION, Constants.MID_MOV_PRECISION, Constants.HIGH_MOV_PRECISION, Constants.LOW_MOV_PRECISION};
-        speedValue = new int[]{0,10,20,30};
+        speedValue = new int[]{0,20,30};
         text.text = options[actual];
         BotManager.movementSpeed = movSpeed[actual];
         BotManager.movementAccuracy = movAccuracy[actual];
