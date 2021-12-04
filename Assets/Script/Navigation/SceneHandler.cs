@@ -13,6 +13,9 @@ public class SceneHandler : MonoBehaviour
         SceneManager.LoadScene("LabScene");  
     }  
     public static void StoryScene() {
-        SceneManager.LoadScene("MapTester");  
+        SceneManager.LoadScene("MapEditor");  
+    }
+    public static void GameScene() {
+        SceneManager.LoadScene("BattleScene");  
     }
 }

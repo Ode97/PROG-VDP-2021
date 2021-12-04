@@ -23,7 +23,6 @@ public class BotFabric : MonoBehaviour
     private GameObject [] eyesl;
     private GameObject body;
     private GameObject tail;
-    public bool change = true;
 
     // Start is called before the first frame update
     void Start()
@@ -61,35 +60,56 @@ public class BotFabric : MonoBehaviour
             bodyValue = bot.bodyV;
         }
 
+        Vector3 itemScale = creature.transform.localScale;
+        Quaternion itemRotation = creature.transform.rotation;
+        creature.transform.localScale = new Vector3(1,1,1);
+        creature.transform.rotation = Quaternion.Euler(0, 0, 0);
+        
         int legsNumber = (legValue / legTresHold) + 2;
         int eyesNumber = (eyesValue / eyesTresHold) + 1;
+
         legsr = new GameObject[legsNumber];
         legsl = new GameObject[legsNumber];
         eyesr = new GameObject[eyesNumber];
         eyesl = new GameObject[eyesNumber];
 
-        body = Instantiate(BodyModel, new Vector3(0f, 0f, 0f), Quaternion.identity);
+        body = Instantiate(BodyModel);
         body.transform.SetParent(creature.transform);
-        tail = Instantiate(TailModel, new Vector3(0f, -0.25f, -0.16f), Quaternion.identity);
+        body.transform.localPosition = new Vector3(0f, 0f, 0f);
+        body.transform.rotation = Quaternion.identity;
+        tail = Instantiate(TailModel); 
         tail.transform.SetParent(creature.transform);
+        tail.transform.localPosition = new Vector3(0f, -0.25f, -0.16f);
+        tail.transform.rotation = Quaternion.identity;
 
         for(int i=0; i<legsNumber; i++) {
-            if(legsNumber!=4){
-                legsr[i] = Instantiate(LegModel, new Vector3( 0.12f, (i-1)* 0.12f, 0.12f), Quaternion.Euler(0f, 0f, (-30f + i*30f) + 180f));
-                legsl[i] = Instantiate(LegModel, new Vector3(-0.12f, (i-1)*-0.12f, 0.12f), Quaternion.Euler(0f, 0f, (-30f + i*30f)));
-            }
-            else {
-                legsr[i] = Instantiate(LegModel, new Vector3( 0.12f, (i-1.5f)* 0.10f, 0.12f), Quaternion.Euler(0f, 0f, (-35f + i*20f) + 180f));
-                legsl[i] = Instantiate(LegModel, new Vector3(-0.12f, (i-1.5f)* 0.10f, 0.12f), Quaternion.Euler(0f, 0f, (35f + i*-20f)));
-            }
+            legsr[i] = Instantiate(LegModel);
+            legsl[i] = Instantiate(LegModel);
             legsr[i].transform.SetParent(creature.transform);
             legsl[i].transform.SetParent(creature.transform);
+
+            if(legsNumber!=4){
+                legsr[i].transform.localPosition = new Vector3(0.12f, (i-1)* 0.12f, 0.12f);
+                legsl[i].transform.localPosition = new Vector3(-0.12f, (i-1)*-0.12f, 0.12f);
+                legsr[i].transform.rotation = Quaternion.Euler(0f, 0f, (-30f + i*30f) + 180f);
+                legsl[i].transform.rotation = Quaternion.Euler(0f, 0f, (-30f + i*30f));
+            }
+            else {
+                legsr[i].transform.localPosition = new Vector3( 0.12f, (i-1.5f)* 0.10f, 0.12f);
+                legsl[i].transform.localPosition = new Vector3(-0.12f, (i-1.5f)* 0.10f, 0.12f);
+                legsr[i].transform.rotation = Quaternion.Euler(0f, 0f, (-35f + i*20f) + 180f);
+                legsl[i].transform.rotation = Quaternion.Euler(0f, 0f, (35f + i*-20f));
+            }
         }
         for(int i=0; i<eyesNumber; i++){
-            eyesr[i] = Instantiate(EyesModel, new Vector3((1 + i)* 0.04f, 0.25f-(i*0.03f), -0.1f), Quaternion.identity);
-            eyesl[i] = Instantiate(EyesModel, new Vector3((1 + i)*-0.04f, 0.25f-(i*0.03f), -0.1f), Quaternion.identity);
+            eyesr[i] = Instantiate(EyesModel);
+            eyesl[i] = Instantiate(EyesModel);
             eyesr[i].transform.SetParent(creature.transform);
             eyesl[i].transform.SetParent(creature.transform);
+            eyesr[i].transform.localPosition = new Vector3((1 + i)* 0.04f, 0.25f-(i*0.03f), -0.1f);
+            eyesl[i].transform.localPosition = new Vector3((1 + i)*-0.04f, 0.25f-(i*0.03f), -0.1f);
+            eyesr[i].transform.rotation = Quaternion.identity;
+            eyesl[i].transform.rotation = Quaternion.identity;
         }
         if(legsNumber == 2) {
             legsr[1].transform.position = new Vector3( 0.12f, 0.12f, 0.12f);
@@ -98,15 +118,18 @@ public class BotFabric : MonoBehaviour
             legsl[1].transform.rotation = Quaternion.Euler(0f, 0f, 30f);
         }
         if(eyesNumber == 3) {
-            eyesr[2].transform.position = new Vector3(0.12f,0.19f,-0.07f);
-            eyesl[2].transform.position = new Vector3(-0.12f,0.19f,-0.07f);
+            eyesr[2].transform.localPosition = new Vector3(0.12f,0.19f,-0.07f);
+            eyesl[2].transform.localPosition = new Vector3(-0.12f,0.19f,-0.07f);
         }
         else if(eyesNumber == 4) {
-            eyesr[2].transform.position = new Vector3(0.12f,0.19f,-0.07f);
-            eyesl[2].transform.position = new Vector3(-0.12f,0.19f,-0.07f);
-            eyesr[3].transform.position = new Vector3(0.1f,0.24f,-0.05f);
-            eyesl[3].transform.position = new Vector3(-0.1f,0.24f,-0.05f);
+            eyesr[2].transform.localPosition = new Vector3(0.12f,0.19f,-0.07f);
+            eyesl[2].transform.localPosition = new Vector3(-0.12f,0.19f,-0.07f);
+            eyesr[3].transform.localPosition = new Vector3(0.1f,0.24f,-0.05f);
+            eyesl[3].transform.localPosition = new Vector3(-0.1f,0.24f,-0.05f);
         }
+
+        creature.transform.localScale = itemScale;
+        creature.transform.rotation = itemRotation;
         Destroy(this.gameObject);
     }
 

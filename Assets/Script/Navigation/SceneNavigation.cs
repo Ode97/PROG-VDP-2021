@@ -15,6 +15,7 @@ public class SceneNavigation : MonoBehaviour
     void changeScene(){
         if (sceneName=="lab") SceneHandler.LabScene();
         if (sceneName=="story") SceneHandler.StoryScene();
+        if (sceneName=="battle") SceneHandler.GameScene();
         if (sceneName=="main") SceneHandler.MainMenu();
     }
 }

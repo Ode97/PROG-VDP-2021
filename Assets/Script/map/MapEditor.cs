@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MapEditor : MonoBehaviour
 {
+    public int maxEnergy;
+    public int maxTraps;
+    public int maxSpawn;
+    public int maxWalls;
     public GameObject selector;
     public Camera mainCamera;
     public GameObject emptyTemplate;
@@ -182,6 +186,7 @@ public class MapEditor : MonoBehaviour
         }
         // Vector2 coords = getClick();
         // Debug.Log(coords);
+        MapManager.playerMapMatrix = genMatrix;
     }
 
     private Vector2 getClick(){
