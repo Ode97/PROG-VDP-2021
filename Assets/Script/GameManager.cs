@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     private int nEnemy = 1;
     public TextMeshPro p;
     public TextMeshPro e;
-    public TextMeshPro c;
+    // public TextMeshPro c;
+    public Text tc;
     public TextMeshPro result;
     public float timeRemaining = 10;
     private bool timerIsRunning = true;
@@ -58,7 +59,8 @@ public class GameManager : MonoBehaviour
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
-        c.SetText(string.Format("{0:00}:{1:00}", minutes, seconds));
+        // c.SetText(string.Format("{0:00}:{1:00}", minutes, seconds));
+        tc.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
     
 
