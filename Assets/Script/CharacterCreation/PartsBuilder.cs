@@ -119,8 +119,8 @@ public class PartsBuilder : MonoBehaviour
                 eyesl[i].transform.rotation = Quaternion.identity;
             }
             if(legsNumber == 2) {
-                legsr[1].transform.position = new Vector3( 0.12f, 0.12f, 0.12f);
-                legsl[1].transform.position = new Vector3(-0.12f,-0.12f, 0.12f);
+                legsr[1].transform.localPosition = new Vector3( 0.12f, 0.12f, 0.12f);
+                legsl[1].transform.localPosition = new Vector3(-0.12f,-0.12f, 0.12f);
                 legsr[1].transform.rotation = Quaternion.Euler(0f, 0f, 210f);
                 legsl[1].transform.rotation = Quaternion.Euler(0f, 0f, 30f);
             }
