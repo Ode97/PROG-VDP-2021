@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     private int nEnemy = 1;
     public TextMeshPro p;
     public TextMeshPro e;
+    public TextMeshPro c;
+    public float timeRemaining = 10;
+    private bool timerIsRunning = true;
 
     // Start is called before the first frame update
     public static GameManager instance=null;
@@ -27,8 +30,36 @@ public class GameManager : MonoBehaviour
         e.transform.GetComponent<TextMeshPro>().color = Color.red;
         p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
         e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
-
     }
+
+    void Update()
+    {
+       if (timerIsRunning)
+        {
+            if (timeRemaining > 0)
+            {
+                timeRemaining -= Time.deltaTime;
+                DisplayTime(timeRemaining);
+            }
+            else
+            {
+                timeRemaining = 0;
+                DisplayTime(timeRemaining);
+                timerIsRunning = false;
+                GetComponent<Signal>().enabled = true;
+                GetComponent<Signal>().FinalSignal();
+            }
+        }
+    }
+
+    void DisplayTime(float timeToDisplay) {
+        float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
+        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+
+        c.SetText(string.Format("{0:00}:{1:00}", minutes, seconds));
+    }
+    
+
 
     public void newChild(int layer){
         if(layer == Constants.PLAYER_LAYER)

@@ -16,6 +16,7 @@ public class Signal : MonoBehaviour {
     private bool alreadySignaling = false;
     private GradientColorKey[] colorKey = new GradientColorKey[2];
     private GradientAlphaKey[] alphaKey = new GradientAlphaKey[2];
+    private bool final = false;
 
     void Start() {
         radius = 3f;
@@ -42,7 +43,14 @@ public class Signal : MonoBehaviour {
 
             List<Collider2D> colliders = new List<Collider2D>();
             colliders.AddRange(Physics2D.OverlapCircleAll(Center, radius));
-            colliders = colliders.FindAll(c => c != null && c.gameObject.layer == gameObject.layer && c.gameObject != gameObject);
+            Vector2 p = new Vector2();
+            if(!final){
+                colliders = colliders.FindAll(c => c != null && c.gameObject.layer == gameObject.layer && c.gameObject != gameObject);
+                p = rb.position; 
+            }else{
+                colliders = colliders.FindAll(c => c != null && (c.gameObject.layer == Constants.PLAYER_LAYER ||c.gameObject.layer == Constants.ENEMY_LAYER));
+                p = new Vector2(20, 10);
+            }
 
             if(colliders != null ){
                 foreach (Collider2D c in colliders)
@@ -50,7 +58,7 @@ public class Signal : MonoBehaviour {
                     GameObject nanoBot = c.gameObject;
                     if(!copy.Contains(c)){
                         copy.Add(c);
-                        nanoBot.GetComponent<NanoBot>().SetTargetPos(rb.position);
+                        nanoBot.GetComponent<NanoBot>().SetTargetPos(p);
                         nanoBot.GetComponent<NanoBot>().DetectSignal();
                         
                     }
@@ -59,6 +67,8 @@ public class Signal : MonoBehaviour {
 
             radius += 0.1f;
         }else{
+            if(final)
+                final = false;
             LineDrawer.enabled = false;
             alreadySignaling = false;
             copy.Clear();
@@ -73,5 +83,13 @@ public class Signal : MonoBehaviour {
         Center = new Vector2(GetComponent<NanoBot>().GetTargetPos().x, GetComponent<NanoBot>().GetTargetPos().y);
         LineDrawer = GetComponent<LineRenderer>();
         LineDrawer.enabled = true;
+    }
+
+    public void FinalSignal(){
+        Center = new Vector2(20, 10);
+        radius = 3;
+        LineDrawer = GetComponent<LineRenderer>();
+        LineDrawer.enabled = true;
+        final = true;
     }
 }
