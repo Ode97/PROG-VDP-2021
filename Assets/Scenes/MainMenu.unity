@@ -1463,7 +1463,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1944,10 +1944,8 @@ MonoBehaviour:
     not present in the prototype).
 
 
-
     2) The prototype consists of a battle with
     the first scientist of the story mode.
-
 
 
     3)At the beginning of the fight
@@ -1955,21 +1953,18 @@ MonoBehaviour:
     arena, be careful not to end up in your traps!
 
 
-
     4) When the nanobot reaches
     maximum energy, it will split into two, creating a copy of itself.
 
 
-
-    5)
-    The nanobot moves aimlessly until an energy or an enemy enters its visual range,
+    5) The
+    nanobot moves aimlessly until an energy or an enemy enters its visual range,
     and every time this happens a signal to call its companions back to its position
     is launched.
 
 
-
-    6) After 45 seconds from the start, if the battle is not
-    over yet, a signal is launched to call all nanobots to the center.'
+    6) After 45 seconds from the start, if the battle is not over
+    yet, a signal is launched to call all nanobots to the center.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
