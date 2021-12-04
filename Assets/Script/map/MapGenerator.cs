@@ -105,14 +105,8 @@ public class MapGenerator : MonoBehaviour
                 genMatrix[10,x] = 'e';
         }
 
-        // Place neutrals 1-18 19-22
-        for(int x=1;x<20;x++){
-            for(int y=19;y<22;y++){
-                genMatrix[x,y] = 'n';
-            }
-        }
         // Place Energy generators 3x3
-        setBig(10,20,genMatrix,'g');
+        // setBig(10,20,genMatrix,'g');
         
         // * * * Randomized Map
         // Place spawns 3x3
