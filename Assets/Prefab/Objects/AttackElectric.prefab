@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeOfAttack: 1
-  bullet: {fileID: 6831131473996125909, guid: cbe4174d434ba0440a4ad9c7b4e790fb, type: 3}
+  bullet: {fileID: 6831131473996125909, guid: aa9407e45f768924887247881d1d50ee, type: 3}
   ranged: 1
   attkSpeedBonus: 10
   dmgBonus: 12
