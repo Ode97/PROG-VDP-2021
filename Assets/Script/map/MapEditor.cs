@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapEditor : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class MapEditor : MonoBehaviour
     public int maxTraps = 9;
     public int maxSpawn = 1;
     public int maxWalls = 9;
+    public Text maxEnergyLabel;
+    public Text maxTrapsLabel;
+    public Text maxSpawnLabel;
+    public Text maxWallsLabel;
     public GameObject selector;
     public Camera mainCamera;
     public GameObject emptyTemplate;
@@ -174,6 +179,15 @@ public class MapEditor : MonoBehaviour
                         (code == 's' && maxSpawn > 0) ||
                         (code == 't' && maxTraps > 0) ||
                         (code == 'w' && maxWalls > 0) ){
+                        if (code == 'e') maxEnergy--;
+                        if (code == 's') maxSpawn--;
+                        if (code == 't') maxTraps--;
+                        if (code == 'w') maxWalls--;
+                        if(genMatrix[coorX,coorY] == 'e') maxEnergy++;
+                        if(genMatrix[coorX,coorY] == 's') maxSpawn++;
+                        if(genMatrix[coorX,coorY] == 't') maxTraps++;
+                        if(genMatrix[coorX,coorY] == 'w') maxWalls++;
+
                         Destroy(map[coorX,coorY]);
                         Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
                         if(code != 's'){
@@ -189,6 +203,11 @@ public class MapEditor : MonoBehaviour
                 }
             }
         }
+
+        maxEnergyLabel.text = "Energy" +  maxEnergy;
+        maxSpawnLabel.text = "Spawn" +  maxSpawn;
+        maxTrapsLabel.text = "Traps" +  maxTraps;
+        maxWallsLabel.text = "Walls" +  maxWalls;
         // Vector2 coords = getClick();
         // Debug.Log(coords);
         MapManager.playerMapMatrix = genMatrix;
