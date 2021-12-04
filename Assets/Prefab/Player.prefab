@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447248941314376164}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6368716511436482342}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!114 &9216531354803395695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,13 +77,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3624063254836235130}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6368716511436482342}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &6368716511436482340
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 292258043}
   - component: {fileID: 1162270698}
   - component: {fileID: 1162270699}
-  - component: {fileID: 550267386033070210}
+  - component: {fileID: -5432630475192109315}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5db0da0e7f42a741a3617adab1421bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &550267386033070210
+--- !u!114 &-5432630475192109315
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -480,3 +480,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4cec58e7c0f87942868d4d8d43a5be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visions:
+  - {fileID: 4872952425194290519, guid: bc39a2d25cf3cb34cabccbefa00adc81, type: 3}
+  - {fileID: 5010347340875452876, guid: 01882b4f8779b8349a2a59a266a1368d, type: 3}
+  - {fileID: 6903989807101156614, guid: d323922bfccabb14e88c9e0fb9fade39, type: 3}
+  attacks:
+  - {fileID: 3682144486038883168, guid: a34d3e386d50d824ea6a99754ccb2bf3, type: 3}
+  - {fileID: 4370225756062617768, guid: 46a33345a498d4540984d19e5cbc9bc0, type: 3}
+  armours:
+  - {fileID: 8534174516021497468, guid: 12e77a863caaa8841b6bb0dfc399b878, type: 3}
+  - {fileID: 7328908313951940107, guid: 88f88a3a3fda3a44e984aab1f3d746b8, type: 3}
+  movements:
+  - {fileID: 4142396736927987186, guid: 47851e1b4b4f3b1419b2c94542844468, type: 3}
+  - {fileID: 1208367869266491441, guid: 0c5b1c76af187cf4fb40a785ec5dadfb, type: 3}
+  - {fileID: 8456010776900690618, guid: 555baf06eb6f09845ba90b13e2d3917f, type: 3}

@@ -20,7 +20,7 @@ public class MovementButton : MonoBehaviour
     void Start()
     {
         actual = 0;
-        options = new string[]{"Turtle", "Runner", "Precise", "Fast"};
+        options = new string[]{"Precise", "Balanced", "Fast"};
         movSpeed = new float[]{Constants.LOW_SPEED, Constants.MID_SPEED, Constants.LOW_SPEED, Constants.HIGH_SPEED};
         movAccuracy = new float[]{Constants.MID_MOV_PRECISION, Constants.MID_MOV_PRECISION, Constants.HIGH_MOV_PRECISION, Constants.LOW_MOV_PRECISION};
         speedValue = new int[]{0,10,20,30};
@@ -28,6 +28,7 @@ public class MovementButton : MonoBehaviour
         BotManager.movementSpeed = movSpeed[actual];
         BotManager.movementAccuracy = movAccuracy[actual];
         BotManager.movType = options[actual];
+        BotManager.mov = actual;
         buttonUp.onClick.AddListener(next);
         buttonDown.onClick.AddListener(prev);
         builder = bot.GetComponent<PartsBuilder>();
@@ -41,6 +42,7 @@ public class MovementButton : MonoBehaviour
             text.text = options[actual];
             builder.legValue = speedValue[actual];
             builder.change = true;
+            BotManager.mov = actual;
             BotManager.movementSpeed = movSpeed[actual];
             BotManager.movementAccuracy = movAccuracy[actual];
             BotManager.movType = options[actual];
@@ -53,6 +55,7 @@ public class MovementButton : MonoBehaviour
             text.text = options[actual];
             builder.legValue = speedValue[actual];
             builder.change = true;
+            BotManager.mov = actual;
             BotManager.movementSpeed = movSpeed[actual];
             BotManager.movementAccuracy = movAccuracy[actual];
             BotManager.movType = options[actual];

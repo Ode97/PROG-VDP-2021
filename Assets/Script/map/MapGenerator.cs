@@ -124,7 +124,6 @@ public class MapGenerator : MonoBehaviour
 
         // Draw map with objects
 
-/*
         int rh = playerMap.GetUpperBound(0)+1;
         int rw = playerMap.GetUpperBound(1)+1;
         for(int i=1; i<rh-1;i++){
@@ -132,8 +131,6 @@ public class MapGenerator : MonoBehaviour
                 genMatrix[i,j] = playerMap[j,i];
             }
         }
-*/
-
         instantiateMap(genMatrix);
     }
 

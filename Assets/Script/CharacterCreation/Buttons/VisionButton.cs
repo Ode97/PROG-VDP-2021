@@ -19,7 +19,7 @@ public class VisionButton : MonoBehaviour
     void Start()
     {
         actual = 0;
-        options = new string[]{"Balanced", "Wide", "Long"};
+        options = new string[]{"Long", "Balanced", "Wide"};
         fov = new float[]{Constants.MID_FOV, Constants.HIGH_FOV, Constants.LOW_FOV};
         distance = new float[]{Constants.MID_LOOKAHEAD, Constants.LOW_LOOKAHEAD, Constants.HIGH_LOOKAHEAD};
         eyeValue = new int[]{16,30,6};
@@ -27,6 +27,7 @@ public class VisionButton : MonoBehaviour
         BotManager.fov = fov[actual];
         BotManager.viewDistance = distance[actual];
         BotManager.visType = options[actual];
+        BotManager.vis = actual;
         
         buttonUp.onClick.AddListener(next);
         buttonDown.onClick.AddListener(prev);
@@ -42,6 +43,7 @@ public class VisionButton : MonoBehaviour
             text.text = options[actual];
             builder.eyesValue = eyeValue[actual];
             builder.change = true;
+            BotManager.vis = actual;
             BotManager.fov = fov[actual];
             BotManager.viewDistance = distance[actual];
             BotManager.visType = options[actual];
@@ -54,6 +56,7 @@ public class VisionButton : MonoBehaviour
             text.text = options[actual];
             builder.eyesValue = eyeValue[actual];
             builder.change = true;
+            BotManager.vis = actual;
             BotManager.fov = fov[actual];
             BotManager.viewDistance = distance[actual];
             BotManager.visType = options[actual];

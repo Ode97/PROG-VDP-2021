@@ -19,13 +19,13 @@ public class ArmorButton : MonoBehaviour
     void Start()
     {
         actual = 0;
-        options = new string[]{"Medium"," Light", "Armored"};
+        options = new string[]{"Fireproof","Anti-Electric"};
         thickness = new float[]{Constants.MID_PROTECTION, Constants.LOW_PROTECTION, Constants.HIGH_PROTECTION};
         bodyValue = new int[]{16,30,6};
         text.text = options[actual];
-        builder.bodyValue = bodyValue[actual];
         BotManager.bodyThickness = thickness[actual];
         BotManager.armType = options[actual];
+        BotManager.arm = actual;
 
         buttonUp.onClick.AddListener(next);
         buttonDown.onClick.AddListener(prev);
@@ -40,6 +40,7 @@ public class ArmorButton : MonoBehaviour
             text.text = options[actual];
             builder.change = true;
             builder.bodyValue = bodyValue[actual];
+            BotManager.arm = actual;
             BotManager.bodyThickness = thickness[actual];
             BotManager.armType = options[actual];
         }
@@ -51,6 +52,7 @@ public class ArmorButton : MonoBehaviour
             text.text = options[actual];
             builder.change = true;
             builder.bodyValue = bodyValue[actual];
+            BotManager.arm = actual;
             BotManager.bodyThickness = thickness[actual];
             BotManager.armType = options[actual];
         }

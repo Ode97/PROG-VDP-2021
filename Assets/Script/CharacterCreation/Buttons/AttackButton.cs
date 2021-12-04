@@ -21,7 +21,7 @@ public class AttackButton : MonoBehaviour
     void Start()
     {
         actual = 0;
-        options = new string[]{"Electric", "Fire"};
+        options = new string[]{"Fire", "Electric"};
         atkSpeed = new float[]{Constants.LOW_DMG, Constants.HIGH_DMG};
         atkDamage = new float[]{Constants.HIGH_RATE, Constants.LOW_RATE};
         atkType = new float[]{Constants.HIGH_RATE, Constants.LOW_RATE};
@@ -31,6 +31,7 @@ public class AttackButton : MonoBehaviour
         BotManager.attackDamage = atkSpeed[actual];
         BotManager.attackType = atkType[actual];
         BotManager.atkType = options[actual];
+        BotManager.atk = actual;
         
         buttonUp.onClick.AddListener(next);
         buttonDown.onClick.AddListener(prev);
@@ -45,6 +46,7 @@ public class AttackButton : MonoBehaviour
             text.text = options[actual];
             builder.tailValue = atkValue[actual];
             builder.change = true;
+            BotManager.atk = actual;
             BotManager.attackSpeed = atkSpeed[actual];
             BotManager.attackDamage = atkSpeed[actual];
             BotManager.attackType = atkType[actual];
@@ -58,6 +60,7 @@ public class AttackButton : MonoBehaviour
             text.text = options[actual];
             builder.tailValue = atkValue[actual];
             builder.change = true;
+            BotManager.atk = actual;
             BotManager.attackSpeed = atkSpeed[actual];
             BotManager.attackDamage = atkSpeed[actual];
             BotManager.attackType = atkType[actual];
