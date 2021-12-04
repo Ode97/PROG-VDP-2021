@@ -128,11 +128,13 @@ public class MapGenerator : MonoBehaviour
 
         int rh = playerMap.GetUpperBound(0)+1;
         int rw = playerMap.GetUpperBound(1)+1;
-        for(int i=0; i<rh;i++){
+        for(int i=1; i<rh-1;i++){
             for(int j=0; j<rw;j++){
-                genMatrix[i,j] = playerMap[i,j];
+                genMatrix[i,j] = playerMap[j,i];
             }
         }
+
+
         instantiateMap(genMatrix);
     }
 
