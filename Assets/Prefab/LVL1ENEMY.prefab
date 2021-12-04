@@ -316,6 +316,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 9216531354803395695, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: LegModel
+      value: 
+      objectReference: {fileID: 3245727712306273036, guid: faeeb82da4321454abfa1baef7d2539a, type: 3}
+    - target: {fileID: 9216531354803395695, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: BodyModel
+      value: 
+      objectReference: {fileID: 648667303950435855, guid: e33247a25dbe7ca4a8ceca563f3303dd, type: 3}
+    - target: {fileID: 9216531354803395695, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: EyesModel
+      value: 
+      objectReference: {fileID: 2184339146996871465, guid: 8bf851ed5ad9a0447b73bc24e66146dd, type: 3}
+    - target: {fileID: 9216531354803395695, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: TailModel
+      value: 
+      objectReference: {fileID: 619263536327125437, guid: b816800e2cd838f49bdd4dc797ace288, type: 3}
     m_RemovedComponents:
     - {fileID: 1125541113395303376, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
     - {fileID: -5432630475192109315, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
