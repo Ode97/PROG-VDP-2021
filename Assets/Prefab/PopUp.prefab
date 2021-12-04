@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8348286781047808464}
   - component: {fileID: 5168410987838006005}
   - component: {fileID: 6641649839039489058}
-  - component: {fileID: -820131848484775236}
+  - component: {fileID: 5671598464600166193}
   m_Layer: 0
   m_Name: PopUp
   m_TagString: Untagged
@@ -168,9 +168,10 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 5168410987838006005}
   m_maskType: 0
+  _SortingLayer: 0
   _SortingLayerID: -2017984847
   _SortingOrder: 1
---- !u!114 &-820131848484775236
+--- !u!114 &5671598464600166193
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,7 +180,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5203226768382098996}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bd3bac5d4c6eb443b4ab2eac713cd45, type: 3}
+  m_Script: {fileID: 11500000, guid: a994047003054ac49a93eca96c07237b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   textColor: {r: 0, g: 0, b: 0, a: 0}
