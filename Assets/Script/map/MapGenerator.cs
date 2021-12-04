@@ -79,7 +79,6 @@ public class MapGenerator : MonoBehaviour
         }
 
         // Place energys  4 13 15 17
-        //for(int x = 7; x < 9; x++){
         for(int x = 33; x > 31; x--){
             for(int y=1;y<4;y++){
                 genMatrix[y,x] = 'e';
@@ -102,7 +101,6 @@ public class MapGenerator : MonoBehaviour
                 genMatrix[y,30] = 'e';
         }
         
-        // for(int x=4;x<7;x++){
         for(int x = 36; x > 33; x--){
                 genMatrix[10,x] = 'e';
         }
@@ -126,14 +124,15 @@ public class MapGenerator : MonoBehaviour
 
         // Draw map with objects
 
+/*
         int rh = playerMap.GetUpperBound(0)+1;
         int rw = playerMap.GetUpperBound(1)+1;
         for(int i=1; i<rh-1;i++){
-            for(int j=0; j<rw;j++){
+            for(int j=0; j<rw-1;j++){
                 genMatrix[i,j] = playerMap[j,i];
             }
         }
-
+*/
 
         instantiateMap(genMatrix);
     }

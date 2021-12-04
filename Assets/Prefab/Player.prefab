@@ -1,60 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2892818255921190655
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3907904817249122998}
-  - component: {fileID: 1125541113395303376}
-  m_Layer: 0
-  m_Name: BotMaker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3907904817249122998
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2892818255921190655}
-  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
-  m_LocalPosition: {x: -31.431564, y: -9.867476, z: 0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6368716511436482342}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1125541113395303376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2892818255921190655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 976c0569feab9cc4fac09df23a71bfd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BodyModel: {fileID: 119969633495982444, guid: 8a90669b5f7cf7549b0fb37f89021158, type: 3}
-  EyesModel: {fileID: 1452620173015047373, guid: 695ec5311717b004490645d1c2f3280f, type: 3}
-  LegModel: {fileID: 7257090213999474033, guid: b4f7058485bb686488b37b5847289503, type: 3}
-  TailModel: {fileID: 3726634824611772911, guid: 84ca3485ec5b8134cadde0168212c374, type: 3}
-  eyesTresHold: 10
-  legTresHold: 15
-  bodyValue: 15
-  eyesValue: 5
-  legValue: 15
-  tailValue: 15
-  creature: {fileID: 8474259231492307653}
-  change: 1
 --- !u!1 &6368716511436482340
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,9 +42,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3907904817249122998}
-  - {fileID: 9010073714883381333}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
@@ -438,33 +381,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5db0da0e7f42a741a3617adab1421bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &8474259231492307653
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9010073714883381333}
-  m_Layer: 0
-  m_Name: 3dModel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9010073714883381333
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8474259231492307653}
-  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0}
-  m_LocalPosition: {x: -31.431564, y: -9.867476, z: 0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 6368716511436482342}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
