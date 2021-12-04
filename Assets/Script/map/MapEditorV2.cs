@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapEditor : MonoBehaviour
+public class MapEditorV2 : MonoBehaviour
 {
     public int maxEnergy = 30;
     public int maxTraps = 9;
+    public int maxSpawn = 1;
     public int maxWalls = 9;
     public Text maxEnergyLabel;
     public Text maxTrapsLabel;
+    public Text maxSpawnLabel;
     public Text maxWallsLabel;
     public GameObject selector;
     public Camera mainCamera;
@@ -17,6 +19,7 @@ public class MapEditor : MonoBehaviour
     public GameObject wallTemplate;
     public GameObject staticWallTemplate;
     public GameObject staticVoidTemplate;
+    public GameObject spawnTemplate;
     public GameObject energyTemplate;
     public GameObject trapTemplate;
     public GameObject energyGeneratorTemplate;
@@ -91,6 +94,10 @@ public class MapEditor : MonoBehaviour
                 j = x + this.transform.position.x;
                 i = y + this.transform.position.y;
                 switch(matrix[y,x]){
+                    case 'a':
+                        map[x,y] = Instantiate(spawnTemplate, new Vector2(j, i), Quaternion.identity);
+                        map[x,y].transform.SetParent(this.transform);
+                        break;
                     case 't':
                         map[x,y] = Instantiate(trapTemplate, new Vector2(j, i), Quaternion.identity);
                         map[x,y].transform.SetParent(this.transform);
@@ -154,6 +161,12 @@ public class MapEditor : MonoBehaviour
                             code = 'e';
                             Debug.Log("e");
                             break;
+                        case ("SpawnSelect"):
+                            selector.transform.position = obj.transform.position;
+                            selectedTemplate = spawnTemplate;
+                            code = 's';
+                            Debug.Log("s");
+                            break;
                         case ("TrapSelect"):
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = trapTemplate;
@@ -170,12 +183,15 @@ public class MapEditor : MonoBehaviour
                 }
                 else if(obj.tag == "emptyTile") {
                     if( (code == 'e' && maxEnergy > 0) ||
+                        (code == 's' && maxSpawn > 0) ||
                         (code == 't' && maxTraps > 0) ||
                         (code == 'w' && maxWalls > 0) ){
                         if (code == 'e') maxEnergy--;
+                        if (code == 's') maxSpawn--;
                         if (code == 't') maxTraps--;
                         if (code == 'w') maxWalls--;
                         if(genMatrix[coorX,coorY] == 'e') maxEnergy++;
+                        if(genMatrix[coorX,coorY] == 's') maxSpawn++;
                         if(genMatrix[coorX,coorY] == 't') maxTraps++;
                         if(genMatrix[coorX,coorY] == 'w') maxWalls++;
 
@@ -196,6 +212,7 @@ public class MapEditor : MonoBehaviour
         }
 
         maxEnergyLabel.text = "Energy: " +  maxEnergy;
+        maxSpawnLabel.text = "Spawn: " +  maxSpawn;
         maxTrapsLabel.text = "Traps: " +  maxTraps;
         maxWallsLabel.text = "Walls: " +  maxWalls;
         // Vector2 coords = getClick();
