@@ -603,11 +603,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 841882028}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380, y: -260}
+  m_AnchoredPosition: {x: -410, y: -260}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &411342978
@@ -907,11 +907,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 841882028}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380, y: 260}
+  m_AnchoredPosition: {x: -400, y: 260}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &795971099
@@ -947,7 +947,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Energy: '
+  m_Text: 'Walls: '
 --- !u!222 &795971100
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1049,10 +1049,10 @@ RectTransform:
   m_Children:
   - {fileID: 575864189}
   - {fileID: 110946140}
+  - {fileID: 795971098}
+  - {fileID: 1387221028}
   - {fileID: 1978365080}
   - {fileID: 411342977}
-  - {fileID: 1387221028}
-  - {fileID: 795971098}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1709,11 +1709,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 841882028}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380, y: -130}
+  m_AnchoredPosition: {x: -400, y: 85}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1387221029
@@ -1749,7 +1749,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Energy: '
+  m_Text: 'Traps:'
 --- !u!222 &1387221030
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1800,6 +1800,7 @@ MonoBehaviour:
   emptyTemplate: {fileID: 337542777058978175, guid: 1aa174671b8271d4d9b56c360692d4da, type: 3}
   wallTemplate: {fileID: 1304970119}
   staticWallTemplate: {fileID: 9072512313801673152, guid: 7a76ea4f96a7f4741a2bb7edf3eb8b24, type: 3}
+  staticVoidTemplate: {fileID: 6019457415938525311, guid: c247d8cad3586d545add30d04d98709f, type: 3}
   spawnTemplate: {fileID: 2008003056}
   energyTemplate: {fileID: 1239501209}
   trapTemplate: {fileID: 1166680755}
@@ -2071,11 +2072,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 841882028}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380, y: 120}
+  m_AnchoredPosition: {x: -400, y: -85}
   m_SizeDelta: {x: 160, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1978365081

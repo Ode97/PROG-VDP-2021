@@ -18,6 +18,7 @@ public class MapEditor : MonoBehaviour
     public GameObject emptyTemplate;
     public GameObject wallTemplate;
     public GameObject staticWallTemplate;
+    public GameObject staticVoidTemplate;
     public GameObject spawnTemplate;
     public GameObject energyTemplate;
     public GameObject trapTemplate;
@@ -42,6 +43,7 @@ public class MapEditor : MonoBehaviour
         g - e. generator
         */
 
+        // Inverted, idk why
         int mapH = 21;
         int mapW = 21;
         // 21hx41w
@@ -55,6 +57,7 @@ public class MapEditor : MonoBehaviour
         // Place Map Borders
         for(int i=0;i<mapH;i++){
             genMatrix[i,0] = 'W';
+            genMatrix[i,mapW-1] = 'V';
         }
         for(int i=0;i<mapW;i++){
             genMatrix[0,i] = 'W';
@@ -121,6 +124,10 @@ public class MapEditor : MonoBehaviour
                         break;
                     case 'v':
                         map[x,y] = Instantiate(emptyTemplate, new Vector2(j, i), Quaternion.identity);
+                        map[x,y].transform.SetParent(this.transform);
+                        break;
+                    case 'V':
+                        map[x,y] = Instantiate(staticVoidTemplate, new Vector2(j, i), Quaternion.identity);
                         map[x,y].transform.SetParent(this.transform);
                         break;
                     default:
@@ -204,10 +211,10 @@ public class MapEditor : MonoBehaviour
             }
         }
 
-        maxEnergyLabel.text = "Energy" +  maxEnergy;
-        maxSpawnLabel.text = "Spawn" +  maxSpawn;
-        maxTrapsLabel.text = "Traps" +  maxTraps;
-        maxWallsLabel.text = "Walls" +  maxWalls;
+        maxEnergyLabel.text = "Energy: " +  maxEnergy;
+        maxSpawnLabel.text = "Spawn: " +  maxSpawn;
+        maxTrapsLabel.text = "Traps: " +  maxTraps;
+        maxWallsLabel.text = "Walls: " +  maxWalls;
         // Vector2 coords = getClick();
         // Debug.Log(coords);
         MapManager.playerMapMatrix = genMatrix;
