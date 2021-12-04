@@ -50,7 +50,6 @@ public class MapGenerator : MonoBehaviour
         // Set map Seed/Type
         // * * * Preset Map
         // Place spawns 3x3
-        setBig(10,38,genMatrix,'b');
 
         // Place traps
         for(int y=1;y<4;y++){

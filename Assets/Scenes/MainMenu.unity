@@ -458,7 +458,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c9520aea578316e4391075021224d0d8, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.599
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1943,33 +1943,33 @@ MonoBehaviour:
     will change its attack, armor, vision, movement and special abilities (the latter
     not present in the prototype).
 
-    
 
-    2) The prototype consists of a battle
-    with the first scientist of the story mode.
 
-    
+    2) The prototype consists of a battle with
+    the first scientist of the story mode.
 
-    3)At the beginning of
-    the fight you will have to place energies, walls and traps on your half of the
-    nanobot arena, be careful not to end up in your traps!
 
-    
 
-    4) When the
-    nanobot reaches maximum energy, it will split into two, creating a copy of itself.
+    3)At the beginning of the fight
+    you will have to place energies, walls and traps on your half of the nanobot
+    arena, be careful not to end up in your traps!
 
-    
+
+
+    4) When the nanobot reaches
+    maximum energy, it will split into two, creating a copy of itself.
+
+
 
     5)
     The nanobot moves aimlessly until an energy or an enemy enters its visual range,
     and every time this happens a signal to call its companions back to its position
     is launched.
 
-    
 
-    6) After 45 seconds from the start, if the battle is
-    not over yet, a signal is launched to call all nanobots to the center.'
+
+    6) After 45 seconds from the start, if the battle is not
+    over yet, a signal is launched to call all nanobots to the center.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
