@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapSlider : MonoBehaviour
+public class MapEditor : MonoBehaviour
 {
     public GameObject selector;
     public Camera mainCamera;
     public GameObject emptyTemplate;
     public GameObject wallTemplate;
+    public GameObject staticWallTemplate;
     public GameObject spawnTemplate;
     public GameObject energyTemplate;
     public GameObject trapTemplate;
@@ -44,11 +45,11 @@ public class MapSlider : MonoBehaviour
 
         // Place Map Borders
         for(int i=0;i<mapH;i++){
-            genMatrix[i,0] = 'w';
+            genMatrix[i,0] = 'W';
         }
         for(int i=0;i<mapW;i++){
-            genMatrix[0,i] = 'w';
-            genMatrix[mapH-1,i] = 'w';
+            genMatrix[0,i] = 'W';
+            genMatrix[mapH-1,i] = 'W';
         }
         instantiateMap(genMatrix);
         selectedTemplate = wallTemplate;
@@ -93,6 +94,10 @@ public class MapSlider : MonoBehaviour
                         map[x,y] = Instantiate(wallTemplate, new Vector2(j, i), Quaternion.identity);
                         map[x,y].transform.SetParent(this.transform);
                         break;
+                    case 'W':
+                        map[x,y] = Instantiate(staticWallTemplate, new Vector2(j, i), Quaternion.identity);
+                        map[x,y].transform.SetParent(this.transform);
+                        break;
                     case 'e':
                         map[x,y] = Instantiate(energyTemplate, new Vector2(j, i), Quaternion.identity);
                         map[x,y].transform.SetParent(this.transform);
@@ -134,25 +139,25 @@ public class MapSlider : MonoBehaviour
                 
                 if(obj.tag == "palette") {
                     switch(obj.name){
-                        case ("Energy"):
+                        case ("EnergySelect"):
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = energyTemplate;
                             code = 'e';
                             Debug.Log("e");
                             break;
-                        case ("Spawn"):
+                        case ("SpawnSelect"):
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = spawnTemplate;
                             code = 's';
                             Debug.Log("s");
                             break;
-                        case ("Trap"):
+                        case ("TrapSelect"):
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = trapTemplate;
                             code = 't';
                             Debug.Log("t");
                             break;
-                        case ("Wall"):
+                        case ("WallSelect"):
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = wallTemplate;
                             code = 'w';
