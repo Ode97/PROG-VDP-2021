@@ -56,7 +56,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 2180264, guid: 416ee09c1fa1bd04faae571dfc933f1b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,8 +100,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 416ee09c1fa1bd04faae571dfc933f1b, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 416ee09c1fa1bd04faae571dfc933f1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -178,8 +178,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1065702428272158049}
-  - component: {fileID: 1065702428272158048}
   - component: {fileID: 1065702428272158078}
+  - component: {fileID: 721501455413611399}
   - component: {fileID: 1065702428272158079}
   m_Layer: 0
   m_Name: GameManager
@@ -205,22 +205,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1065702428272158048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065702428272158050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47d062cce6ede624891f2194eb6bdef0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  p: {fileID: 1065702427584350348}
-  e: {fileID: 1065702428976363606}
-  c: {fileID: 1065702428668389550}
-  timeRemaining: 5
 --- !u!114 &1065702428272158078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +221,22 @@ MonoBehaviour:
   ThetaScale: 0.01
   radius: 3
   LineDrawer: {fileID: 1065702428272158079}
+--- !u!114 &721501455413611399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065702428272158050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907bdea6cb91ed14593a3273cb07c870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  p: {fileID: 1065702427584350348}
+  e: {fileID: 1065702428976363606}
+  c: {fileID: 1065702428668389550}
+  timeRemaining: 10
 --- !u!120 &1065702428272158079
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -391,7 +391,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 2180264, guid: 416ee09c1fa1bd04faae571dfc933f1b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -435,8 +435,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 416ee09c1fa1bd04faae571dfc933f1b, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 416ee09c1fa1bd04faae571dfc933f1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -560,7 +560,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: 2180264, guid: 416ee09c1fa1bd04faae571dfc933f1b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -604,8 +604,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 416ee09c1fa1bd04faae571dfc933f1b, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 416ee09c1fa1bd04faae571dfc933f1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

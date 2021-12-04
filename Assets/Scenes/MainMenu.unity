@@ -910,6 +910,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01e810f4539100d4b82d20a68ac72269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 860495763}
+  sceneName: story
 --- !u!1 &896517739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1041,7 +1043,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 896517739}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 880c84acf8754f04aa492ae0195fbd11, type: 3}
+  m_Script: {fileID: 11500000, guid: 01e810f4539100d4b82d20a68ac72269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 896517741}

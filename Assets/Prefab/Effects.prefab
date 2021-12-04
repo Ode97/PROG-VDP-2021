@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1079499240045579663}
-  - component: {fileID: 1079499240045579660}
+  - component: {fileID: 7249853636224055550}
   m_Layer: 0
   m_Name: Effects
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1079499240045579660
+--- !u!114 &7249853636224055550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,11 +40,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1079499240045579661}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ea725b2f0959d24d8065c4a9ceaee17, type: 3}
+  m_Script: {fileID: 11500000, guid: 861474398bab16c4da4c46993acca345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  electricEffect: {fileID: 1628744458893394, guid: e243632bb3aff9549abdcfcc2ef0c4f0, type: 3}
-  electricWaveEffect: {fileID: 100000, guid: 77ec3c4e07a36814fb3169ecef41b50a, type: 3}
-  acidEffect: {fileID: 1965343156803978, guid: 0d4878ff3a90ebe40a6aaffc41b09e03, type: 3}
-  FireEffect: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
-  FireBurstEffect: {fileID: 100004, guid: 1c20c7996d683754db1f0f62a361952c, type: 3}
+  electricEffect: {fileID: 1628744458893394, guid: c8949c53754bb2d418d240b7e9ef8b2a, type: 3}
+  electricWaveEffect: {fileID: 100000, guid: f36899cf2f52ef14c94c95ce4cae8d00, type: 3}
+  acidEffect: {fileID: 1965343156803978, guid: 0a7a7287701d52248a00e8cf4e6531e8, type: 3}
+  FireEffect: {fileID: 1134129239631916, guid: d581041c907906f4dab93106dca912fd, type: 3}
+  FireBurstEffect: {fileID: 100004, guid: 7595e864a89aedc4d869f00fec180fc7, type: 3}
