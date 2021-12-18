@@ -13,6 +13,8 @@ public class MapEditor : MonoBehaviour
     public Text maxWallsLabel;
     public GameObject selector;
     public Camera mainCamera;
+    public int xoffset = 18;
+    public int yoffset = 10;
     public GameObject emptyTemplate;
     public GameObject wallTemplate;
     public GameObject staticWallTemplate;
@@ -143,8 +145,8 @@ public class MapEditor : MonoBehaviour
                 GameObject obj = hit.collider.gameObject;
                 int coorX = (int)obj.transform.position.x;
                 int coorY = (int)obj.transform.position.y;
-                coorX -= 20;
-                coorY += 10;
+                coorX -= xoffset;
+                coorY += yoffset;
                 
                 if(obj.tag == "palette") {
                     switch(obj.name){
