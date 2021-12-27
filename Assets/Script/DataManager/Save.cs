@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Photon.Pun;
+using PlayFab;
+using PlayFab.ClientModels;
  
  public class Save : MonoBehaviour {
     public static void savePlayerBotFile(BotData bot){
-        string destination = Application.persistentDataPath + "/playerBot.dat";
+        
+        string destination = Application.persistentDataPath + "/" + PlayFabMan.username + "_playerBot.dat";
         FileStream file;
 
         if(File.Exists(destination)) 
@@ -22,7 +26,7 @@ using System.Runtime.Serialization.Formatters.Binary;
     }
 
     public static BotData loadPlayerBotFile(){
-        string destination = Application.persistentDataPath + "/playerBot.dat";
+        string destination = Application.persistentDataPath + "/" + PlayFabMan.username + "_playerBot.dat";
         FileStream file;
 
         if(File.Exists(destination)) file = File.OpenRead(destination);

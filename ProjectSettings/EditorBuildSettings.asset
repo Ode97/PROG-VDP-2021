@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
+    path: Assets/Scenes/Online/LoginScene.unity
+    guid: f94b6cdba5becc34896da70817b9a5b2
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 9fc03df057ef00741956ae58d6dbc862
   - enabled: 1
@@ -32,4 +35,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndWinGame.unity
     guid: ef17c6e590589fb448d05a7486108073
+  - enabled: 1
+    path: Assets/Scenes/Online/Lobby.unity
+    guid: 66ba4581c1fca3a4b856a6ebff8a5e2a
+  - enabled: 1
+    path: Assets/Scenes/Online/Loading.unity
+    guid: f1680390282064b4d8431199793ad2f4
+  - enabled: 1
+    path: Assets/Scenes/Online/BattleTest.unity
+    guid: 73b5f91102658664c8afda5fbab6c04a
+  - enabled: 1
+    path: Assets/Scenes/Online/MapEditorOnline.unity
+    guid: fe987f8b55849e846930904f97f9ebf6
   m_configObjects: {}

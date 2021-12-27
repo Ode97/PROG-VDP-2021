@@ -25,6 +25,7 @@ public class Attack : MonoBehaviour
         GetComponentInParent<NanoBot>().attackSpeed += attkSpeedBonus;
         GetComponentInParent<NanoBot>().rangedAttack = ranged;
         GetComponentInParent<NanoBot>().splashAttack = splash;
+        GetComponentInParent<NanoBot>().typeOfAttk = typeOfAttack;
     
         Destroy(gameObject);
     }

@@ -17,5 +17,7 @@ public class SceneNavigation : MonoBehaviour
         if (sceneName=="story") SceneHandler.StoryScene();
         if (sceneName=="battle") SceneHandler.GameScene();
         if (sceneName=="main") SceneHandler.MainMenu();
+        if (sceneName=="battletest") SceneHandler.BattleTestScreen();
+        if (sceneName=="load") SceneHandler.LoadingScreen();
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 public class NanoBot : MonoBehaviour
 {
     private float orientation;
@@ -36,6 +37,7 @@ public class NanoBot : MonoBehaviour
     public int lifeForReproduction;
     public int foodSpawnAfterDeath;
     private bool signalDetection = false;
+    private bool noSignal = false;
     private bool pregnant = false;
     private bool inCombat = false;
     private bool timer = false;
@@ -51,6 +53,8 @@ public class NanoBot : MonoBehaviour
     public GameObject food;
     public GameObject bomb;
     public Effects effects;
+    public PhotonView view;
+    public GameObject child;
     //private Vision visionUpgrade;
     //private Movment movmentUpgrade;
     //private Attack attackUpgrade;
@@ -59,6 +63,18 @@ public class NanoBot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!PhotonNetwork.IsConnected){
+            //GetComponent<PhotonView>().enabled = false;
+            Setup();
+        }else {
+            view = GetComponent<PhotonView>();
+            if(view.IsMine){
+                Setup();
+            }
+        }
+    }
+
+    private void Setup(){
         actualLife = life/2;
         rb = GetComponent<Rigidbody2D>();
         decision = GetComponent<DetectionDecision>();
@@ -70,46 +86,88 @@ public class NanoBot : MonoBehaviour
         colliders = new List<Collider2D>();
         if(firstAttackDealsMoreDMG)
             GetComponent<Combat>().SetFirstShootBonus();
-
-        /*visionUpgrade = GetComponentInChildren<Vision>();
-        movmentUpgrade = GetComponentInChildren<Movment>();
-        attackUpgrade = GetComponentInChildren<Attack>();
-        armorUpgrade = GetComponentInChildren<Armor>();
-        specialUpgrade = GetComponentInChildren<Special>();*/
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        float x;
-        
+        if(PhotonNetwork.IsConnected && view.IsMine)
+            OnlineTask();
+        else if(!PhotonNetwork.IsConnected)
+            OfflineTask();
+    }
+
+    private void OnlineTask(){
         if(actualLife <= 0){
-            for(int i = 0; i < foodSpawnAfterDeath; i++)
-                Instantiate(food, new Vector3(transform.position.x + Random.Range(-1f, 1f), transform.position.y + Random.Range(-1f, 1f), 0), Quaternion.identity);
-    
+            for(int i = 0; i < foodSpawnAfterDeath; i++){
+                PhotonNetwork.Instantiate(food.name, new Vector3(transform.position.x + Random.Range(-1f, 1f), transform.position.y + Random.Range(-1f, 1f), 0), Quaternion.identity);
+            }
             if(leaveBombAfterDeath){
-                GameObject b = Instantiate(bomb, transform.position, Quaternion.identity);
-                if(gameObject.layer == Constants.PLAYER_LAYER)
+                GameObject b;
+                if(PhotonNetwork.IsConnected){
+                    b = PhotonNetwork.Instantiate(bomb.name, transform.position, Quaternion.identity);
+
+                    if(gameObject.layer == Constants.PLAYER_LAYER){
+                        b.GetComponent<Bomb>().SetTarget(Constants.ENEMY_LAYER);
+                    }else{
+                        b.GetComponent<Bomb>().SetTarget(Constants.PLAYER_LAYER);
+                    }
+                }
+            }
+            //GameManager.instance.death(gameObject.layer);
+            PhotonNetwork.Destroy(gameObject);
+            
+        }
+        
+        if(actualLife >= lifeForReproduction && !pregnant){
+            StartCoroutine(Reproduction());
+            //GameManager.instance.newChild(gameObject.layer);
+        }
+
+        if(!timer && gameObject.activeInHierarchy)
+            StartCoroutine(LostEnergyPerSec());
+
+        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.3){
+            signalDetection = false;
+            noSignal = true;
+        }
+
+        Action action = (Action)decision.MakeDecision();
+
+        action.DoIt();
+    }
+
+    private void OfflineTask(){
+        if(actualLife <= 0){
+            for(int i = 0; i < foodSpawnAfterDeath; i++){
+                Instantiate(food, new Vector3(transform.position.x + Random.Range(-1f, 1f), transform.position.y + Random.Range(-1f, 1f), 0), Quaternion.identity);
+            }
+            if(leaveBombAfterDeath){
+                GameObject b;
+                b = Instantiate(bomb, transform.position, Quaternion.identity);
+
+                if(gameObject.layer == Constants.PLAYER_LAYER){
                     b.GetComponent<Bomb>().SetTarget(Constants.ENEMY_LAYER);
-                else
+                }else{
                     b.GetComponent<Bomb>().SetTarget(Constants.PLAYER_LAYER);
+                }
             }
             GameManager.instance.death(gameObject.layer);
             Destroy(gameObject);
         }
-
+        
         if(actualLife >= lifeForReproduction && !pregnant){
             StartCoroutine(Reproduction());
             GameManager.instance.newChild(gameObject.layer);
         }
 
-
         if(!timer)
             StartCoroutine(LostEnergyPerSec());
 
-        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.3)
+        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.3){
             signalDetection = false;
+            noSignal = true;
+        }
 
         Action action = (Action)decision.MakeDecision();
 
@@ -194,7 +252,8 @@ public class NanoBot : MonoBehaviour
 
     private IEnumerator NoSignal(){
         yield return new WaitForSeconds(signalSearchingTime);
-        signalDetection = false;
+        if(!noSignal)
+            signalDetection = false;
     }
 
     public float GetActualLife(){
@@ -213,8 +272,16 @@ public class NanoBot : MonoBehaviour
         yield return new WaitForSeconds(reproductionTime);
         actualLife -= lifeLossByReproduction;
         pregnant = false;
-        GameObject copy = Instantiate(gameObject, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
+        GameObject copy;
+        if(PhotonNetwork.IsConnected){
+            copy = PhotonNetwork.Instantiate(child.name, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, 0) , Quaternion.Euler(0, 0,  /*Random.Range(0, 360f)*/ transform.rotation.z));
+        }else{
+            copy = Instantiate(child, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
+        }
+
+        copy.name = child.name;
         copy.GetComponent<NanoBot>().SetChildStats();
+        
     }
 
     public void ElectricWave(float dmg){    
@@ -223,8 +290,13 @@ public class NanoBot : MonoBehaviour
         targets.AddRange(Physics2D.OverlapCircleAll(rb.position, Constants.ELECTRIC_BULLET_AREA_EFFECT));
         targets = targets.FindAll(c => c != null && c.gameObject.layer == gameObject.layer && c.gameObject != gameObject && !c.gameObject.GetComponent<NanoBot>().electricTarget);
         foreach(Collider2D c in targets){
-            Debug.Log(c.gameObject.name);
-            GameObject e = Instantiate(effects.electricWaveEffect, gameObject.transform.position, Quaternion.identity, c.gameObject.transform);
+            GameObject e;
+            if(PhotonNetwork.IsConnected){
+                e = Instantiate(effects.electricWaveEffect, gameObject.transform.position, Quaternion.identity, c.gameObject.transform);
+                send_EffectElectricWave(view.ViewID, c.gameObject.GetComponent<NanoBot>().view.ViewID);
+            }else {
+                e = Instantiate(effects.electricWaveEffect, gameObject.transform.position, Quaternion.identity, c.gameObject.transform);
+            }
             e.transform.localScale = new Vector3(4, 4, 4);        
             c.gameObject.GetComponent<NanoBot>().ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
             c.gameObject.GetComponent<NanoBot>().ElectricWave(dmg);
@@ -251,7 +323,12 @@ public class NanoBot : MonoBehaviour
         GameObject e;
         for(fireTimer = 1; fireTimer <= 3; fireTimer++){
             yield return new WaitForSeconds(1);
-            e = Instantiate(effects.FireBurstEffect, gameObject.transform.position, new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, gameObject.transform.rotation.w), gameObject.transform);
+            if(PhotonNetwork.IsConnected){
+                e = Instantiate(effects.FireBurstEffect, gameObject.transform.position, new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, gameObject.transform.rotation.w), gameObject.transform);
+                send_EffectFireBurst(view.ViewID);
+            }else{
+                e = Instantiate(effects.FireBurstEffect, gameObject.transform.position, new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, gameObject.transform.rotation.w), gameObject.transform);
+            }
             e.transform.localScale = new Vector3(2, 2, 2);
             ApplyDMG(dmg * (1 - fireArmor), Type.Fire);
         }
@@ -259,69 +336,218 @@ public class NanoBot : MonoBehaviour
     }
 
     public void ApplyDMG(float dmg, Type type){
-        actualLife -= dmg;
-        Debug.Log(dmg + " " + type);
+        if(!PhotonNetwork.IsConnected || view.IsMine){
+            actualLife -= dmg;
+        }
+        Debug.Log(gameObject.layer + "ha ricevuto " + dmg + " danni " + type);
 
         Color color;
-        if(type == Type.Electric)
+        string c;
+        if(type == Type.Electric){
             color = Color.yellow;
-        else if(type == Type.Acid)
+            c = "e";
+        }else if(type == Type.Acid){
             color = Color.blue;
-        else if(type == Type.Fire)
+            c = "a";
+        }else if(type == Type.Fire){
             color = Color.red;
-        else
+            c = "f";
+        }else{
             color = Color.black;
-
+            c = "t";
+        }
         DamagePopUp.Create(transform.position, dmg, color);
+        if(PhotonNetwork.IsConnected){
+            send_Dmg_PopUp(transform.position.x, transform.position.y, transform.position.z, dmg, c);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision){
-        if(collision.gameObject.layer == Constants.FOOD_LAYER){
-            colliders.Clear();
-            actualLife += lifeEarnByEating;
-            if(actualLife > life)
-                actualLife = life;
+        view = GetComponent<PhotonView>();
+        if(!PhotonNetwork.IsConnected || (PhotonNetwork.IsConnected && view.IsMine)){
+            if(collision.gameObject.layer == Constants.FOOD_LAYER){
+                if(colliders != null)
+                    colliders.Clear();
 
-            target = null;
-            collision.gameObject.SetActive(false);
-            Destroy(collision.gameObject);
+                actualLife += lifeEarnByEating;
+                if(actualLife > life)
+                    actualLife = life;
 
-            if(!signal.isSignaling()){
-                signal.enabled = true;
-                signal.radius = 3;
-                signal.SetCenter();
-            
+                target = null;
+                collision.gameObject.SetActive(false);
+                if(PhotonNetwork.IsConnected){
+                    if(collision.gameObject.GetComponent<PhotonView>().IsMine)
+                        PhotonNetwork.Destroy(collision.gameObject);
+                    else{
+                        send_RPC_destroy(collision.gameObject.GetComponent<PhotonView>().ViewID);
+                    }
+                }else{
+                    Destroy(collision.gameObject);
+                }
+
+                if(signal != null && !signal.isSignaling()){
+                    signal.enabled = true;
+                    signal.radius = 3;
+                    signal.SetCenter();
+                
+                }
+            }else if(collision.gameObject.layer == Constants.TRAP_LAYER){
+                ApplyDMG(Constants.TRAP_DMG * (1 - trapArmor), Type.Trap);
             }
-        }else if(collision.gameObject.layer == Constants.TRAP_LAYER){
-            ApplyDMG(Constants.TRAP_DMG * (1 - trapArmor), Type.Trap);
-        }
 
-        if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
-            
-            //Debug.Log(gameObject.layer + " " + collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
-            float dmg;
-            dmg = collision.gameObject.GetComponent<Bullet>().atkDmg;
-            if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire){
-                Instantiate(effects.FireEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                ApplyDMG(dmg * (1 - fireArmor), Type.Fire);
-                FireDmg(dmg/2);
-            }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid){
-                GameObject g = Instantiate(effects.acidEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                g.transform.localScale = new Vector3(2, 2, 2);
-                ApplyDMG(dmg * (1 - acidArmor), Type.Acid);
-                collision.gameObject.GetComponent<Bullet>().shooted = true;
-            }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Electric){
-                GameObject g = Instantiate(effects.electricEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                g.transform.localScale = new Vector3(3, 3, 3);
-                ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
-                ElectricWave(dmg/3);
+            if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
+                
+                Debug.Log(gameObject.layer + " " + collision.gameObject.layer + " " + collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
+                float dmg;
+                dmg = collision.gameObject.GetComponent<Bullet>().atkDmg;
+                if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire){
+                    if(PhotonNetwork.IsConnected){
+                        Instantiate(effects.FireEffect, gameObject.transform.position, Quaternion.identity).transform.SetParent(gameObject.transform);
+                        send_EffectFireDmg(view.ViewID);
+                    }else
+                        Instantiate(effects.FireEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                    ApplyDMG(dmg * (1 - fireArmor), Type.Fire);
+                    FireDmg(dmg/2);
+                }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid){
+                    GameObject g;
+                    if(PhotonNetwork.IsConnected){
+                        g = Instantiate(effects.acidEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                        send_EffectAcid(view.ViewID);
+                    }else{
+                        g = Instantiate(effects.acidEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                    }
+                    g.transform.localScale = new Vector3(2, 2, 2);
+                    ApplyDMG(dmg * (1 - acidArmor), Type.Acid);
+                    collision.gameObject.GetComponent<Bullet>().shooted = true;
+                }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Electric){
+                    GameObject g;
+                    if(PhotonNetwork.IsConnected){
+                        g = Instantiate(effects.electricEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                        send_EffectElectricDmg(view.ViewID);
+                    }else{
+                        g = Instantiate(effects.electricEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                    }
+                    g.transform.localScale = new Vector3(3, 3, 3);
+                    ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
+                    ElectricWave(dmg/3);
+                }
+                //if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
+                if(collision.gameObject.GetComponent<Bullet>().type != Type.Acid)
+                    if(PhotonNetwork.IsConnected){
+                        if(collision.gameObject.GetComponent<PhotonView>().IsMine)
+                            PhotonNetwork.Destroy(collision.gameObject);
+                        else{
+                            send_RPC_destroy(collision.gameObject.GetComponent<PhotonView>().ViewID);
+                        }
+                    }else{
+                        Destroy(collision.gameObject);
+                    }
             }
-            //if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
-            if(collision.gameObject.GetComponent<Bullet>().type != Type.Acid)
-                Destroy(collision.gameObject);
         }
     }
+
+    public void send_RPC_destroy(int v){
+        view.RPC("RPC_Destroy", RpcTarget.Others, v);
+    }
     
+    /*public void send_RPC_dmg(float d, char c){
+        view.RPC("RPC_dmg", RpcTarget.AllBuffered, d, c);
+    }*/
+    public void send_Dmg_PopUp(float x, float y, float z, float dmg, string c){
+        view.RPC("RPC_DMG_PopUp", RpcTarget.Others, x, y, z, dmg, c);
+    }
+    public void send_EffectFireBurst(int v){
+        view.RPC("RPC_Effect_Fire_Burst", RpcTarget.Others, v);
+    }
+    public void send_EffectFireDmg(int v){
+        view.RPC("RPC_Effect_Fire_Dmg", RpcTarget.Others, v);
+    }
+    public void send_EffectElectricDmg(int v){
+        view.RPC("RPC_Effect_Electric_Dmg", RpcTarget.Others, v);
+    }
+    public void send_EffectElectricWave(int v, int t){
+        view.RPC("RPC_Effect_Electric_Wave", RpcTarget.Others, v, t);
+    }
+    public void send_EffectAcid(int v){
+        view.RPC("RPC_Effect_Acid", RpcTarget.Others, v);
+    }
+
+    [PunRPC]
+    public void RPC_Nanobot(int[] b){
+        GetComponentInChildren<BotFabric>().RPC_Nanobot(b);
+    }
+    [PunRPC]
+    public void RPC_Behaviour(int[] b){
+        GetComponent<BehaviourFabric>().RPC_Behaviour(b);
+    }
+    [PunRPC]
+    public void RPC_DMG_PopUp(float x, float y, float z, float dmg, string c){
+        if(view != null && !view.IsMine){
+            Vector3 v = new Vector3(x, y, z);
+            Color color = new Color();
+            if(char.Equals(c, "a"))
+                color = Color.magenta;
+            else if(char.Equals(c, "e"))
+                color = Color.yellow;
+            else if(char.Equals(c, "f"))
+                color = Color.red;
+            else
+                color = Color.black;
+
+            DamagePopUp.Create(v, dmg, color);
+        }
+    }
+    [PunRPC]
+    public void RPC_Destroy(int v){
+        PhotonView p = PhotonView.Find(v);
+        if(p != null && p.IsMine)
+            PhotonNetwork.Destroy(PhotonView.Find(v));
+    }
+    [PunRPC]
+    public void RPC_Effect_Fire_Burst(int v){
+        //PhotonView p = PhotonView.Find(v);
+        if(view != null && view.ViewID == v){
+            Instantiate(effects.FireBurstEffect, gameObject.transform.position, new Quaternion(gameObject.transform.rotation.x, gameObject.transform.rotation.y, gameObject.transform.rotation.z, gameObject.transform.rotation.w), gameObject.transform);
+        }
+    }
+    [PunRPC]
+    public void RPC_Effect_Fire_Dmg(int v){
+        if(view != null && view.ViewID == v){
+            Instantiate(effects.FireEffect, gameObject.transform.position, Quaternion.identity).transform.SetParent(gameObject.transform);
+        }
+    }
+
+    [PunRPC]
+    public void RPC_Effect_Electric_Dmg(int v){
+        if(view != null && view.ViewID == v){
+            Instantiate(effects.electricEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+        }
+    }
+    [PunRPC]
+    public void RPC_Effect_Electric_Wave(int v, int t){
+        if(view != null && view.ViewID == v){
+            GameObject g = PhotonView.Find(t).gameObject;
+            Instantiate(effects.electricWaveEffect, gameObject.transform.position, Quaternion.identity, g.transform);
+        }
+    }
+    [PunRPC]
+    public void RPC_Effect_Acid(int v){
+        if(view != null && view.ViewID == v){
+            Instantiate(effects.acidEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+        }
+    }
+    /*[PunRPC]
+    public void RPC_dmg(float d, char c){
+        Type t = new Type();
+        if(char.Equals(c, "f"))
+            t = Type.Fire;
+        else if(char.Equals(c, "e"))
+            t = Type.Electric;
+        else if(char.Equals(c, "a"))
+            t = Type.Acid;
+
+        ApplyDMG(d, t);
+    }*/
 
     /*void OnDrawGizmos(){
         Gizmos.color = Color.yellow;

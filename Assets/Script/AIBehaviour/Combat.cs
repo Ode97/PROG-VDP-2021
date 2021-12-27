@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Combat : Action
 {
@@ -33,7 +34,14 @@ public class Combat : Action
 
     private IEnumerator CreateBullet(GameObject target){
         if(target != null){
-            GameObject b = Instantiate(bullet, transform.position, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
+            GameObject b;
+            if(PhotonNetwork.IsConnected){
+                b = PhotonNetwork.Instantiate(bullet.name, transform.position, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
+                b.GetComponent<Bullet>().view = this.GetComponent<NanoBot>().view.ViewID;
+            }else{
+                b = Instantiate(bullet, transform.position, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
+            }
+            b.GetComponent<Bullet>().type = GetComponent<NanoBot>().typeOfAttk;
             if(firstShoot){
                 b.GetComponent<Bullet>().SetDMG(GetComponent<NanoBot>().attackDamage + Constants.FIRST_ATTK_DMG);
                 firstShoot = false;

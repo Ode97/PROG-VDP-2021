@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: signalSearchingTime
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 292258043, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: maxRadius

@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviour
 {
     private int nPlayer = 1;
     private int nEnemy = 1;
-    public TextMeshPro p;
-    public TextMeshPro e;
+    //public TextMeshPro p;
+    //public TextMeshPro e;
     // public TextMeshPro c;
     public Text tc;
     public TextMeshPro result;
@@ -29,10 +29,10 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
-        p.transform.GetComponent<TextMeshPro>().color = Color.white;
+        /*p.transform.GetComponent<TextMeshPro>().color = Color.white;
         e.transform.GetComponent<TextMeshPro>().color = Color.red;
         p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
-        e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
+        e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());*/
     }
 
     void Update()
@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour
         else
             nEnemy++;
 
-        p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
-        e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
+        //p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
+        //e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
     }
 
     public void death(int layer){
@@ -81,8 +81,8 @@ public class GameManager : MonoBehaviour
         else
             nEnemy--;
 
-        p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
-        e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
+        //p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
+        //e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
 
         if(nPlayer == 0){
             // result.transform.GetComponent<TextMeshPro>().SetText("You Lose");
