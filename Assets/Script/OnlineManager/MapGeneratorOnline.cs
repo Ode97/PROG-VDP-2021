@@ -26,8 +26,9 @@ public class MapGeneratorOnline : MonoBehaviour
         n - neutral
         g - e. generator
         */
+
         if(PhotonNetwork.IsMasterClient){
-            char [,] playerMap = MapManager.playerMapMatrix; 
+            char [,] playerMap = MapManager.mapMatrix; 
             int mapH = 21;
             int mapW = 41;
 
@@ -48,63 +49,7 @@ public class MapGeneratorOnline : MonoBehaviour
                 genMatrix[0,i] = 'w';
                 genMatrix[mapH-1,i] = 'w';
             }
-            // Set map Seed/Type
-            // * * * Preset Map
-            // Place spawns 3x3
-
-            // Place traps
-            for(int y=1;y<4;y++){
-                genMatrix[y,30] = 't';
-            }
-
-            for(int y=9;y<12;y++){
-                genMatrix[y,30] = 't';
-            }
-
-            for(int y=17;y<20;y++){
-                genMatrix[y,30] = 't';
-            }
-
-            // Place walls
-            /*for(int y=1;y<4;y++){
-                genMatrix[y,31] = 'w';
-            }
-
-            for(int y=9;y<12;y++){
-                genMatrix[y,31] = 'w';
-            }
-
-            for(int y=17;y<20;y++){
-                genMatrix[y,31] = 'w';
-            }*/
-
-            // Place energys  4 13 15 17
-            for(int x = 33; x > 31; x--){
-                for(int y=1;y<4;y++){
-                    genMatrix[y,x] = 'e';
-                }
-                for(int y=9;y<12;y++){
-                    genMatrix[y,x] = 'e';
-                }
-                for(int y=17;y<20;y++){
-                    genMatrix[y,x] = 'e';
-                }
-            }
-
-            for(int y=5;y<8;y++){
-                    genMatrix[y,30] = 'e';
-            }
-            for(int y=9;y<12;y++){
-                    genMatrix[y,28] = 'e';
-            }
-            for(int y=13;y<16;y++){
-                    genMatrix[y,30] = 'e';
-            }
-            
-            for(int x = 36; x > 33; x--){
-                    genMatrix[10,x] = 'e';
-            }
-
+        
             // Place Energy generators 3x3
             // setBig(10,20,genMatrix,'g');
             
@@ -122,7 +67,7 @@ public class MapGeneratorOnline : MonoBehaviour
             int rw = playerMap.GetUpperBound(1)+1;
             for(int i=1; i<rh-1;i++){
                 for(int j=0; j<rw-1;j++){
-                    genMatrix[i,j] = playerMap[j,i];
+                    genMatrix[i,j] = playerMap[i,j];
                 }
             }
             instantiateMap(genMatrix);
@@ -138,8 +83,9 @@ public class MapGeneratorOnline : MonoBehaviour
     }
 
     void instantiateMap(char[,] map){
-        for(int i=0; i<map.GetUpperBound(0)+1;i++){
+        for(int i = 0; i<map.GetUpperBound(0)+1;i++){
             for(int j=0; j<map.GetUpperBound(1)+1;j++){
+                
                 GameObject tile;
                 switch(map[i,j]){
                     case 'a':
@@ -185,6 +131,5 @@ public class MapGeneratorOnline : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

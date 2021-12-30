@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
+    public GameObject goToBattle;
     // Start is called before the first frame update
     void Start()
     {

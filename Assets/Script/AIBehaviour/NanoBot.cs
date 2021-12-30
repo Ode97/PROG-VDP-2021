@@ -127,7 +127,7 @@ public class NanoBot : MonoBehaviour
         if(!timer && gameObject.activeInHierarchy)
             StartCoroutine(LostEnergyPerSec());
 
-        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.3){
+        if(colliders.Count == 0 && signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.1){
             signalDetection = false;
             noSignal = true;
         }

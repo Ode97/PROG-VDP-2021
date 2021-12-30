@@ -24,6 +24,7 @@ public class MapEditorOnline : MonoBehaviour
     public GameObject trapTemplate;
     public GameObject energyGeneratorTemplate;
     public GameObject neutralZoneTemplate;
+    public GameObject spawnNanobot;
     private GameObject selectedTemplate;
     private char code;
     private char[,] genMatrix;
@@ -43,25 +44,47 @@ public class MapEditorOnline : MonoBehaviour
         g - e. generator
         */
 
+        if(PhotonNetwork.IsMasterClient){
         // Inverted, idk why
-        int mapH = 21;
-        int mapW = 21;
-        // 21hx41w
-        genMatrix = new char[mapH, mapW];
-        for(int x=1;x<mapH-1;x++){
-            for(int y=1;y<mapW;y++){
-                genMatrix[x,y] = 'v';
+            int mapH = 21;
+            int mapW = 21;
+            // 21hx41w
+            genMatrix = new char[mapH, mapW];
+            for(int x=1;x<mapH-1;x++){
+                for(int y=1;y<mapW;y++){
+                    genMatrix[x,y] = 'v';
+                }
             }
-        }
 
-        // Place Map Borders
-        for(int i=0;i<mapH;i++){
-            genMatrix[i,0] = 'W';
-            genMatrix[i,mapW-1] = 'V';
-        }
-        for(int i=0;i<mapW;i++){
-            genMatrix[0,i] = 'W';
-            genMatrix[mapH-1,i] = 'W';
+            // Place Map Borders
+            for(int i=0;i<mapH;i++){
+                genMatrix[i,0] = 'W';
+                genMatrix[i,mapW-1] = 'V';
+            }
+            for(int i=0;i<mapW;i++){ 
+                genMatrix[0,i] = 'W';
+                genMatrix[mapH-1,i] = 'W';
+            }
+        }else{
+            int mapH = 21;
+            int mapW = 21;
+            // 21hx41w
+            genMatrix = new char[mapH, mapW];
+            for(int x=1;x<mapH-1;x++){
+                for(int y=1;y<mapW;y++){
+                    genMatrix[x,y] = 'v';
+                }
+            }
+
+            // Place Map Borders
+            for(int i=0;i<mapH;i++){
+                genMatrix[i,0] = 'V';
+                genMatrix[i,mapW-1] = 'W';
+            }
+            for(int i=0;i<mapW;i++){ 
+                genMatrix[0,i] = 'W';
+                genMatrix[mapH-1,i] = 'W';
+            }
         }
         instantiateMap(genMatrix);
         selectedTemplate = wallTemplate;
@@ -80,7 +103,7 @@ public class MapEditorOnline : MonoBehaviour
             for(int j=-1;j<2;j++){
                 Destroy(map[x-i,y-j]);
                 Vector2 position = new Vector2(posx-i, posy-j);
-                map[x-i,y-j] = PhotonNetwork.Instantiate(selectedTemplate.name, position, Quaternion.identity);
+                map[x-i,y-j] = Instantiate(selectedTemplate, position, Quaternion.identity);
                 map[x-i,y-j].transform.SetParent(this.transform);   
             }
         }
@@ -89,8 +112,9 @@ public class MapEditorOnline : MonoBehaviour
     void instantiateMap(char[,] matrix){
         float i, j;
         map = new GameObject[matrix.GetUpperBound(0)+1, matrix.GetUpperBound(1)+1];
-        for(int x=0; x<map.GetUpperBound(0)+1;x++){
-            for(int y=0; y<map.GetUpperBound(1)+1;y++){
+
+        for(int x = 0; x<map.GetUpperBound(0)+1;x++){
+            for(int y = 0; y<map.GetUpperBound(1)+1;y++){
                 j = x + this.transform.position.x;
                 i = y + this.transform.position.y;
                 switch(matrix[y,x]){
@@ -188,6 +212,9 @@ public class MapEditorOnline : MonoBehaviour
                             map[coorX,coorY] = Instantiate(selectedTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
                             map[coorX,coorY].transform.SetParent(this.transform);
                             genMatrix[coorX,coorY] = code;
+                            if(!PhotonNetwork.IsMasterClient){
+                                spawnNanobot.GetComponent<PhotonView>().RPC("Receive_map", RpcTarget.Others, code.ToString(), coorX, coorY);
+                            }
                         }
                         else{
                             setBig(coorX, coorY, genMatrix, code);

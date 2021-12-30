@@ -51,6 +51,8 @@ MonoBehaviour:
   - RPC_Effect_Fire_Dmg
   - RPC_Behaviour
   - RPC_Dmg
+  - Ok_RPC
+  - Receive_map
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

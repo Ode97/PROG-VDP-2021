@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class DetectionDecision : Decision
 {
-    
+    DetectSignalDecision d;
     // Start is called before the first frame update
     void Start(){
+        d = GetComponent<DetectSignalDecision>();
         SetTrueNode(GetComponent<IsEnemyDecision>());
         SetFalseNode(GetComponent<DetectSignalDecision>());
     }
     public override bool TestValue()
     {
+        d.SetFalseNode(GetComponent<Wander>());
         if(GetComponent<NanoBot>().HasGoal())
             return true;
         else

@@ -18,10 +18,6 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     }
 
     public override void OnJoinedRoom(){
-        if(PhotonNetwork.IsMasterClient)
-            PhotonNetwork.LoadLevel("MapEditorOnline");
-        else
-            PhotonNetwork.LoadLevel("BattleTest");
+        PhotonNetwork.LoadLevel("MapEditorOnline");
     }
-
 }

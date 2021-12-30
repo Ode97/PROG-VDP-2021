@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5056833391724303778}
   - component: {fileID: -7060351855630609743}
   - component: {fileID: 4391339336352257200}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: ElectricBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
