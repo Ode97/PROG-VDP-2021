@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
 {
-    
+
     public static void MainMenu() {  
         SceneManager.LoadScene("MainMenu");  
     } 
@@ -23,5 +23,14 @@ public class SceneHandler : MonoBehaviour
     }
     public static void WinScreen(){
         SceneManager.LoadScene("EndWinGame");  
+    }
+    public static void LobbyScreen(){
+        SceneManager.LoadScene("Lobby");  
+    }
+    public static void LoadingScreen(){
+        SceneManager.LoadScene("Loading");  
+    }
+    public static void BattleTestScreen(){
+        SceneManager.LoadScene("BattleTest");  
     }
 }

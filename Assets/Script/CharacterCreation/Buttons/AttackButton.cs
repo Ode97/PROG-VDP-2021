@@ -21,17 +21,17 @@ public class AttackButton : MonoBehaviour
     void Start()
     {
         actual = 0;
-        options = new string[]{"Fire", "Electric"};
-        atkSpeed = new float[]{Constants.LOW_DMG, Constants.HIGH_DMG};
+        options = new string[]{"Fire", "Electric", "Acid"};
+        atkSpeed = new float[]{Constants.LOW_DMG, Constants.HIGH_DMG, Constants.HIGH_DMG};
         atkDamage = new float[]{Constants.HIGH_RATE, Constants.LOW_RATE};
-        atkType = new float[]{Constants.HIGH_RATE, Constants.LOW_RATE};
+        atkType = new float[]{Constants.HIGH_RATE, Constants.HIGH_RATE, Constants.LOW_RATE};
         atkValue = new int[]{16,30,6};
         text.text = options[actual];
-        BotManager.attackSpeed = atkSpeed[actual];
+        /*BotManager.attackSpeed = atkSpeed[actual];
         BotManager.attackDamage = atkSpeed[actual];
         BotManager.attackType = atkType[actual];
         BotManager.atkType = options[actual];
-        BotManager.atk = actual;
+        BotManager.atk = actual;*/
         
         buttonUp.onClick.AddListener(next);
         buttonDown.onClick.AddListener(prev);

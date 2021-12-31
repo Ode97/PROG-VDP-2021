@@ -163,19 +163,19 @@ public class MapEditor : MonoBehaviour
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = energyTemplate;
                             code = 'e';
-                            Debug.Log("e");
+                            //Debug.Log("e");
                             break;
                         case ("TrapSelect"):
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = trapTemplate;
                             code = 't';
-                            Debug.Log("t");
+                            //Debug.Log("t");
                             break;
                         case ("WallSelect"):
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = wallTemplate;
                             code = 'w';
-                            Debug.Log("w");
+                            //Debug.Log("w");
                             break;
                     }
                 }
@@ -192,7 +192,7 @@ public class MapEditor : MonoBehaviour
                             if(genMatrix[coorX,coorY] == 'w') maxWalls++;
 
                             Destroy(map[coorX,coorY]);
-                            Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
+                            // Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
                             if(code != 's'){
                                 map[coorX,coorY] = Instantiate(selectedTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
                                 map[coorX,coorY].transform.SetParent(this.transform);
@@ -205,14 +205,14 @@ public class MapEditor : MonoBehaviour
                         }
                     }
                     else {
-                            if(genMatrix[coorX,coorY] == 'e') maxEnergy++;
-                            if(genMatrix[coorX,coorY] == 't') maxTraps++;
-                            if(genMatrix[coorX,coorY] == 'w') maxWalls++;
-                            Destroy(map[coorX,coorY]);
-                            Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
-                            map[coorX,coorY] = Instantiate(emptyTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
-                            map[coorX,coorY].transform.SetParent(this.transform);
-                            genMatrix[coorX,coorY] = 'v';
+                        if(genMatrix[coorX,coorY] == 'e') maxEnergy++;
+                        if(genMatrix[coorX,coorY] == 't') maxTraps++;
+                        if(genMatrix[coorX,coorY] == 'w') maxWalls++;
+                        Destroy(map[coorX,coorY]);
+                        Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
+                        map[coorX,coorY] = Instantiate(emptyTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
+                        map[coorX,coorY].transform.SetParent(this.transform);
+                        genMatrix[coorX,coorY] = 'v';
                     }
                 }
             }
