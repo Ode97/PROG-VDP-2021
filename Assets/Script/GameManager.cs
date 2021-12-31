@@ -8,11 +8,9 @@ public class GameManager : MonoBehaviour
 {
     private int nPlayer = 1;
     private int nEnemy = 1;
-    //public TextMeshPro p;
-    //public TextMeshPro e;
-    // public TextMeshPro c;
+    public Text p;
+    public Text e;
     public Text tc;
-    public TextMeshPro result;
     public float timeRemaining = 10;
     private bool timerIsRunning = true;
 
@@ -71,8 +69,8 @@ public class GameManager : MonoBehaviour
         else
             nEnemy++;
 
-        //p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
-        //e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
+        p.text = nPlayer.ToString();
+        e.text = nEnemy.ToString();
     }
 
     public void death(int layer){
@@ -81,8 +79,8 @@ public class GameManager : MonoBehaviour
         else
             nEnemy--;
 
-        //p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
-        //e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
+        p.text = nPlayer.ToString();
+        e.text = nEnemy.ToString();
 
         if(nPlayer == 0){
             // result.transform.GetComponent<TextMeshPro>().SetText("You Lose");

@@ -114,14 +114,13 @@ public class NanoBot : MonoBehaviour
                     }
                 }
             }
-            //GameManager.instance.death(gameObject.layer);
+            GameManager.instance.death(gameObject.layer);
             PhotonNetwork.Destroy(gameObject);
-            
         }
         
         if(actualLife >= lifeForReproduction && !pregnant){
             StartCoroutine(Reproduction());
-            //GameManager.instance.newChild(gameObject.layer);
+            GameManager.instance.newChild(gameObject.layer);
         }
 
         if(!timer && gameObject.activeInHierarchy)
@@ -434,11 +433,7 @@ public class NanoBot : MonoBehaviour
                 //if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
                 if(collision.gameObject.GetComponent<Bullet>().type != Type.Acid)
                     if(PhotonNetwork.IsConnected){
-                        if(collision.gameObject.GetComponent<PhotonView>().IsMine)
-                            PhotonNetwork.Destroy(collision.gameObject);
-                        else{
-                            send_RPC_destroy(collision.gameObject.GetComponent<PhotonView>().ViewID);
-                        }
+                        collision.gameObject.SetActive(false);
                     }else{
                         Destroy(collision.gameObject);
                     }

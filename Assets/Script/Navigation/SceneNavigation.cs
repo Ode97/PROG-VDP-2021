@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class SceneNavigation : MonoBehaviour
+public class SceneNavigation : MonoBehaviourPunCallbacks
 {
     public Button button;
     public string sceneName = "";
@@ -16,8 +17,23 @@ public class SceneNavigation : MonoBehaviour
         if (sceneName=="lab") SceneHandler.LabScene();
         if (sceneName=="story") SceneHandler.StoryScene();
         if (sceneName=="battle") SceneHandler.GameScene();
-        if (sceneName=="main") SceneHandler.MainMenu();
+        if (sceneName=="main"){
+            if(PhotonNetwork.IsConnected){
+                PhotonNetwork.LeaveRoom();
+                PhotonNetwork.LeaveLobby();
+                PhotonNetwork.Disconnect();
+            }else
+                SceneHandler.MainMenu();
+        }
         if (sceneName=="battletest") SceneHandler.BattleTestScreen();
         if (sceneName=="load") SceneHandler.LoadingScreen();
     }
+
+    
+public override void OnLeftRoom()
+{
+    SceneHandler.MainMenu();
+ 
+    base.OnLeftRoom();
+}
 }

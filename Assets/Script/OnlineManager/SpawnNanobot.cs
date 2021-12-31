@@ -8,7 +8,8 @@ public class SpawnNanobot : MonoBehaviourPun
 {
     public GameObject player1Prefab;
     public GameObject player2Prefab;
-    public Button button;
+    public Button launch;
+    public Button back;
     private bool ok = false;
     private bool yetLoaded = false;
     public int p = 0;
@@ -16,7 +17,8 @@ public class SpawnNanobot : MonoBehaviourPun
     void Start()
     {
         DontDestroyOnLoad(this);
-        button.onClick.AddListener(send_Ok);
+        launch.onClick.AddListener(send_Ok);
+        back.onClick.AddListener(DestroySpawn);
         PhotonNetwork.AutomaticallySyncScene = true;
     }
 
@@ -33,13 +35,11 @@ public class SpawnNanobot : MonoBehaviourPun
                 if(PhotonNetwork.IsMasterClient){
                     GameObject g = PhotonNetwork.Instantiate(player1Prefab.name, new Vector3(3, 10, 0), Quaternion.identity);
                     g.name = "Player 1";
-                    //Destroy(gameObject);
-                    gameObject.SetActive(false);
+                    PhotonNetwork.Destroy(gameObject);
                 }else{
                     GameObject o = PhotonNetwork.Instantiate(player2Prefab.name, new Vector3(37, 10, 0), new Quaternion(0,0,180,0));
                     o.name = "Player 2";
-                    gameObject.SetActive(false);
-                    //Destroy(gameObject);
+                    PhotonNetwork.Destroy(gameObject);
                 }
             }
         }
@@ -48,7 +48,7 @@ public class SpawnNanobot : MonoBehaviourPun
     public void send_Ok(){
         GetComponent<PhotonView>().RPC("Ok_RPC", RpcTarget.Others);
         ok = true;
-        button.enabled = false;
+        launch.enabled = false;
         if(PhotonNetwork.IsMasterClient){
             for(int x = 0; x < MapManager.playerMapMatrix.GetUpperBound(0)+1; x++)
                 for(int y = 0; y < MapManager.playerMapMatrix.GetUpperBound(1)+1; y++)
@@ -68,4 +68,7 @@ public class SpawnNanobot : MonoBehaviourPun
         MapManager.mapMatrix[y, x+20] = c;
     }
 
+    public void DestroySpawn(){
+        PhotonNetwork.Destroy(gameObject);
+    }
 }
