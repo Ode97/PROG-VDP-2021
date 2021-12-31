@@ -292,6 +292,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bot
       objectReference: {fileID: 0}
+    - target: {fileID: 3330461895028019206, guid: 4c6a11047bb9e414594f53a1263a0dc9, type: 3}
+      propertyPath: LegModel
+      value: 
+      objectReference: {fileID: 1105112790623919786, guid: beb7f3e1b0ae6894982dfd701ee6d982, type: 3}
+    - target: {fileID: 3330461895028019206, guid: 4c6a11047bb9e414594f53a1263a0dc9, type: 3}
+      propertyPath: BodyModel
+      value: 
+      objectReference: {fileID: 6284704789912089631, guid: bdaa1512fbd858a4cb024453fbca7a22, type: 3}
+    - target: {fileID: 3330461895028019206, guid: 4c6a11047bb9e414594f53a1263a0dc9, type: 3}
+      propertyPath: EyesModel
+      value: 
+      objectReference: {fileID: 3960108674612567745, guid: fc8cdb7e0d843c142a82f89e61ff5fde, type: 3}
+    - target: {fileID: 3330461895028019206, guid: 4c6a11047bb9e414594f53a1263a0dc9, type: 3}
+      propertyPath: TailModel
+      value: 
+      objectReference: {fileID: 4119752297959370044, guid: 212163e9b16711c4fbf4feeef9df620a, type: 3}
     - target: {fileID: 6173425356898842847, guid: 4c6a11047bb9e414594f53a1263a0dc9, type: 3}
       propertyPath: m_RootOrder
       value: 3

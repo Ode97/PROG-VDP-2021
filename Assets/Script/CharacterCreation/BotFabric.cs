@@ -9,11 +9,11 @@ public class BotFabric : MonoBehaviour
     public GameObject LegModel;
     public GameObject TailModel;
     // Each treshold serve as a modular operator
-    public int eyesTresHold =10;
+    public int eyesTresHold = 10;
     public int legTresHold = 15;
     // Sliders for character generation
     public int bodyValue = 15;
-    public int eyesValue = 5;
+    public int eyesValue = 20;
     public int legValue = 15;
     public int tailValue = 15;
     public GameObject creature;
@@ -67,7 +67,6 @@ public class BotFabric : MonoBehaviour
         
         int legsNumber = (legValue / legTresHold) + 2;
         int eyesNumber = (eyesValue / eyesTresHold) + 1;
-
         legsr = new GameObject[legsNumber];
         legsl = new GameObject[legsNumber];
         eyesr = new GameObject[eyesNumber];
@@ -79,7 +78,7 @@ public class BotFabric : MonoBehaviour
         body.transform.rotation = Quaternion.identity;
         tail = Instantiate(TailModel); 
         tail.transform.SetParent(creature.transform);
-        tail.transform.localPosition = new Vector3(0f, -0.25f, -0.16f);
+        tail.transform.localPosition = new Vector3(0f, -0.1f, -0.1f);
         tail.transform.rotation = Quaternion.identity;
 
         for(int i=0; i<legsNumber; i++) {
@@ -118,12 +117,12 @@ public class BotFabric : MonoBehaviour
             legsl[1].transform.rotation = Quaternion.Euler(0f, 0f, 30f);
         }
         if(eyesNumber == 3) {
-            eyesr[2].transform.localPosition = new Vector3(0.12f,0.19f,-0.07f);
-            eyesl[2].transform.localPosition = new Vector3(-0.12f,0.19f,-0.07f);
+            eyesr[2].transform.localPosition = new Vector3(0.11f,0.24f,-0.1f);
+            eyesl[2].transform.localPosition = new Vector3(-0.11f,0.24f,-0.1f);
         }
         else if(eyesNumber == 4) {
-            eyesr[2].transform.localPosition = new Vector3(0.12f,0.19f,-0.07f);
-            eyesl[2].transform.localPosition = new Vector3(-0.12f,0.19f,-0.07f);
+            eyesr[2].transform.localPosition = new Vector3(0.11f,0.24f,-0.1f);
+            eyesl[2].transform.localPosition = new Vector3(-0.11f,0.24f,-0.1f);
             eyesr[3].transform.localPosition = new Vector3(0.1f,0.24f,-0.05f);
             eyesl[3].transform.localPosition = new Vector3(-0.1f,0.24f,-0.05f);
         }

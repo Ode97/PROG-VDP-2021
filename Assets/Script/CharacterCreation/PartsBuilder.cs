@@ -86,7 +86,7 @@ public class PartsBuilder : MonoBehaviour
             body.transform.rotation = Quaternion.identity;
             tail = Instantiate(TailModel); 
             tail.transform.SetParent(this.transform);
-            tail.transform.localPosition = new Vector3(0f, -0.25f, -0.16f);
+            tail.transform.localPosition = new Vector3(0f, -0.1f, -0.1f);
             tail.transform.rotation = Quaternion.identity;
 
             for(int i=0; i<legsNumber; i++) {
@@ -125,12 +125,12 @@ public class PartsBuilder : MonoBehaviour
                 legsl[1].transform.rotation = Quaternion.Euler(0f, 0f, 30f);
             }
             if(eyesNumber == 3) {
-                eyesr[2].transform.localPosition = new Vector3(0.12f,0.19f,-0.07f);
-                eyesl[2].transform.localPosition = new Vector3(-0.12f,0.19f,-0.07f);
+                eyesr[2].transform.localPosition = new Vector3(0.11f,0.24f,-0.1f);
+                eyesl[2].transform.localPosition = new Vector3(-0.11f,0.24f,-0.1f);
             }
             else if(eyesNumber == 4) {
-                eyesr[2].transform.localPosition = new Vector3(0.12f,0.19f,-0.07f);
-                eyesl[2].transform.localPosition = new Vector3(-0.12f,0.19f,-0.07f);
+                eyesr[2].transform.localPosition = new Vector3(0.11f,0.24f,-0.1f);
+                eyesl[2].transform.localPosition = new Vector3(-0.11f,0.24f,-0.1f);
                 eyesr[3].transform.localPosition = new Vector3(0.1f,0.24f,-0.05f);
                 eyesl[3].transform.localPosition = new Vector3(-0.1f,0.24f,-0.05f);
             }
