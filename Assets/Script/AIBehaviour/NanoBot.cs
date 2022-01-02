@@ -36,8 +36,8 @@ public class NanoBot : MonoBehaviour
     public int lifeLossByReproduction;
     public int lifeForReproduction;
     public int foodSpawnAfterDeath;
-    private bool signalDetection = false;
-    private bool noSignal = false;
+    public bool signalDetection = false;
+    public bool noSignal = false;
     private bool pregnant = false;
     private bool inCombat = false;
     private bool timer = false;
@@ -163,7 +163,7 @@ public class NanoBot : MonoBehaviour
         if(!timer)
             StartCoroutine(LostEnergyPerSec());
 
-        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.3){
+        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.1){
             signalDetection = false;
             noSignal = true;
         }
@@ -251,8 +251,10 @@ public class NanoBot : MonoBehaviour
 
     private IEnumerator NoSignal(){
         yield return new WaitForSeconds(signalSearchingTime);
-        if(!noSignal)
+        if(!noSignal){
             signalDetection = false;
+        }else
+            noSignal = false;
     }
 
     public float GetActualLife(){
@@ -296,7 +298,7 @@ public class NanoBot : MonoBehaviour
             }else {
                 e = Instantiate(effects.electricWaveEffect, gameObject.transform.position, Quaternion.identity, c.gameObject.transform);
             }
-            e.transform.localScale = new Vector3(4, 4, 4);        
+            //e.transform.localScale = new Vector3(4, 4, 4);        
             c.gameObject.GetComponent<NanoBot>().ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
             c.gameObject.GetComponent<NanoBot>().ElectricWave(dmg);
         }
@@ -338,7 +340,7 @@ public class NanoBot : MonoBehaviour
         if(!PhotonNetwork.IsConnected || view.IsMine){
             actualLife -= dmg;
         }
-        Debug.Log(gameObject.layer + "ha ricevuto " + dmg + " danni " + type);
+        Debug.Log(gameObject.name + "ha ricevuto " + dmg + " danni " + type);
 
         Color color;
         string c;
@@ -396,7 +398,7 @@ public class NanoBot : MonoBehaviour
 
             if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
                 
-                Debug.Log(gameObject.layer + " " + collision.gameObject.layer + " " + collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
+                //Debug.Log(gameObject.name + " colpito da " + collision.gameObject.name);
                 float dmg;
                 dmg = collision.gameObject.GetComponent<Bullet>().atkDmg;
                 if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire){
@@ -430,7 +432,6 @@ public class NanoBot : MonoBehaviour
                     ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
                     ElectricWave(dmg/3);
                 }
-                //if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
                 if(collision.gameObject.GetComponent<Bullet>().type != Type.Acid)
                     if(PhotonNetwork.IsConnected){
                         collision.gameObject.SetActive(false);

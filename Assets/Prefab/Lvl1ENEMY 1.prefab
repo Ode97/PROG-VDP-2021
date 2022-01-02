@@ -163,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: avoidDistance
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: lifeLostPerSec
@@ -175,15 +175,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: signalSearchingTime
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 292258043, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: maxRadius
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 447248941314376164, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 813664482506127685, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3624063254836235130, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5073711448003699399, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_RootOrder
@@ -223,7 +231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6368716511436482340, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_Name
-      value: Lvl1ENEMY
+      value: Lvl1ENEMY 1
       objectReference: {fileID: 0}
     - target: {fileID: 6368716511436482340, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: m_Layer

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4115575397625138471}
   - component: {fileID: 9009162987131000010}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SpecialLessEnergyDeath
   m_TagString: Untagged
   m_Icon: {fileID: 0}

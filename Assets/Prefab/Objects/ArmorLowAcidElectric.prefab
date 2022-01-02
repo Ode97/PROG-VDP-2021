@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3503009442289465638
+--- !u!1 &7328908313951940107
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5215720159950864298}
-  - component: {fileID: 899165062285239879}
+  - component: {fileID: 1898856788556020137}
+  - component: {fileID: 1419997134844973223}
   m_Layer: 0
-  m_Name: SpecialCriticAttack
+  m_Name: ArmorLowAcidElectric
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5215720159950864298
+--- !u!4 &1898856788556020137
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3503009442289465638}
+  m_GameObject: {fileID: 7328908313951940107}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 36.697918, y: 10.469437, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &899165062285239879
+--- !u!114 &1419997134844973223
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3503009442289465638}
+  m_GameObject: {fileID: 7328908313951940107}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbe19a9bb79c7cc40817ccc160d215e3, type: 3}
+  m_Script: {fileID: 11500000, guid: dc81ee09cfaba534586d0d821ccb97ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lowEnergyUsage: 0
-  leaveLessEnergyAfterDeath: 0
-  chanceOfCrit: 1
-  leaveBombAfterDeath: 0
-  firstAttackDealsMoreDMG: 0
+  type1: 1
+  level1: 1
+  type2: 2
+  level2: 1
+  generalArmor: 0

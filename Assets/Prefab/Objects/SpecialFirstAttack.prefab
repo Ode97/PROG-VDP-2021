@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4720129883683072666}
   - component: {fileID: 403856235291505527}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SpecialFirstAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}

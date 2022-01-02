@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7664735306418754912}
   - component: {fileID: 3334088841953725581}
-  m_Layer: 3
-  m_Name: specialOBJ1
+  m_Layer: 0
+  m_Name: SpecialBomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

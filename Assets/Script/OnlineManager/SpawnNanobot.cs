@@ -12,6 +12,7 @@ public class SpawnNanobot : MonoBehaviourPun
     public Button back;
     private bool ok = false;
     private bool yetLoaded = false;
+    private bool alreadyInstantiate = false;
     public int p = 0;
     // Start is called before the first frame update
     void Start()
@@ -31,15 +32,17 @@ public class SpawnNanobot : MonoBehaviourPun
                 PhotonNetwork.LoadLevel(9);
             }
 
-            if(PhotonNetwork.LevelLoadingProgress == 1){
+            if(PhotonNetwork.LevelLoadingProgress == 1 && !alreadyInstantiate){
                 if(PhotonNetwork.IsMasterClient){
                     GameObject g = PhotonNetwork.Instantiate(player1Prefab.name, new Vector3(3, 10, 0), Quaternion.identity);
+                    alreadyInstantiate = true;
                     g.name = "Player 1";
                     PhotonNetwork.Destroy(gameObject);
                 }else{
                     GameObject o = PhotonNetwork.Instantiate(player2Prefab.name, new Vector3(37, 10, 0), new Quaternion(0,0,180,0));
+                    alreadyInstantiate = true;
                     o.name = "Player 2";
-                    PhotonNetwork.Destroy(gameObject);
+                    //PhotonNetwork.Destroy(gameObject);
                 }
             }
         }

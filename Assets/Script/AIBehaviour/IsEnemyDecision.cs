@@ -14,7 +14,7 @@ public class IsEnemyDecision : Decision
             targetLayer = Constants.PLAYER_LAYER;
         }
 
-        SetTrueNode(GetComponent<RangedAttackDecision>());
+        SetTrueNode(GetComponent<Combat>());
         SetFalseNode(GetComponent<IsFoodDecision>());
     }
     public override bool TestValue()

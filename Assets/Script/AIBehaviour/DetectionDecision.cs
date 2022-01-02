@@ -9,7 +9,7 @@ public class DetectionDecision : Decision
     void Start(){
         d = GetComponent<DetectSignalDecision>();
         SetTrueNode(GetComponent<IsEnemyDecision>());
-        SetFalseNode(GetComponent<DetectSignalDecision>());
+        SetFalseNode(d);
     }
     public override bool TestValue()
     {

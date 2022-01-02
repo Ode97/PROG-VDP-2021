@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4062121996230864977
+--- !u!1 &3529677202134163315
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,36 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5165651959882934259}
-  - component: {fileID: 5647191741919842045}
+  - component: {fileID: 5698308958582409425}
+  - component: {fileID: 5114604974457922015}
   m_Layer: 0
-  m_Name: ArmorMidAcid
+  m_Name: ArmorLowAcidTrap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5165651959882934259
+--- !u!4 &5698308958582409425
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4062121996230864977}
+  m_GameObject: {fileID: 3529677202134163315}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -198.91797, y: 11.431305, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5647191741919842045
+--- !u!114 &5114604974457922015
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4062121996230864977}
+  m_GameObject: {fileID: 3529677202134163315}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc81ee09cfaba534586d0d821ccb97ff, type: 3}
@@ -45,6 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type1: 2
   level1: 1
-  type2: 0
-  level2: 0
+  type2: 4
+  level2: 1
   generalArmor: 0

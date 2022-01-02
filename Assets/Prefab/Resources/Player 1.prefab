@@ -107,8 +107,6 @@ GameObject:
   - component: {fileID: 292258036}
   - component: {fileID: 292258037}
   - component: {fileID: 292258043}
-  - component: {fileID: 1162270698}
-  - component: {fileID: 1162270699}
   - component: {fileID: -5432630475192109315}
   - component: {fileID: -4553649190581566973}
   - component: {fileID: -2706643574313404280}
@@ -293,6 +291,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 746730838001726606, guid: 0f983ad7836f6c94198b64f5369f3347, type: 3}
+  alreadyShoot: 0
 --- !u!114 &292258029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 0
-  avoidDistance: 0.1
+  avoidDistance: 0.5
   lookahead: 0
   reproductionTime: 1
   rangedAttack: 0
@@ -405,7 +404,7 @@ MonoBehaviour:
   attackDamage: 0
   attackSpeed: 0
   typeOfAttk: 0
-  signalSearchingTime: 5
+  signalSearchingTime: 3
   speed: 0
   rotation: 100
   life: 100
@@ -413,9 +412,9 @@ MonoBehaviour:
   lifeEarnByEating: 20
   lifeLossByReproduction: 50
   lifeForReproduction: 100
-  foodSpawnAfterDeath: 0
+  foodSpawnAfterDeath: 3
   electricTarget: 0
-  food: {fileID: 5681847486816169599, guid: 54a4c096c5590e84594b69e72baa7555, type: 3}
+  food: {fileID: 2114638062473853263, guid: de9e220166731dc43853572b7367044d, type: 3}
   bomb: {fileID: 6858633703008884270, guid: d623a56f02d5ebd4cb6a8b95291dc8a4, type: 3}
   effects: {fileID: 7249853636224055550, guid: 537d86fa7b0f19442af65b1e4774bdb9, type: 3}
   view: {fileID: 0}
@@ -448,30 +447,7 @@ MonoBehaviour:
   ThetaScale: 0.01
   radius: 1
   LineDrawer: {fileID: 6368716511436482399}
---- !u!114 &1162270698
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6368716511436482340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d88088c2d11604aadb477b81effc62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1162270699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6368716511436482340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5db0da0e7f42a741a3617adab1421bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  playerLayer: 0
 --- !u!114 &-5432630475192109315
 MonoBehaviour:
   m_ObjectHideFlags: 0

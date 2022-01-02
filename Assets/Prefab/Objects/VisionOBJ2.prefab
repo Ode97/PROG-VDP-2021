@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3096184ef0ae4242854f0c73e20efa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FOVBonus: 100
-  lookaheadBonus: 1.3
+  FOVBonus: 117
+  lookaheadBonus: 1.4
