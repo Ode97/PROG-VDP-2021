@@ -43,6 +43,7 @@ public class NanoBot : MonoBehaviour
     private bool timer = false;
     public bool electricTarget = false;
     private bool onFire = false;
+    private bool onAcid = false;
     private int fireTimer = 1;
     private GameObject target = null;
     private Vector2 targetPos;
@@ -235,9 +236,7 @@ public class NanoBot : MonoBehaviour
     }
 
     public void DetectSignal(){
-        Debug.Log("a");
         if(!signalDetection){
-            Debug.Log("b");
             signalDetection = true;
             StartCoroutine(NoSignal());
         }
@@ -276,8 +275,30 @@ public class NanoBot : MonoBehaviour
         actualLife -= lifeLossByReproduction;
         pregnant = false;
         GameObject copy;
+        float r1 =  Random.Range(-1f, 1f);
+        float r2 =  Random.Range(-1f, 1f);
+        float x, y;
+
+        if(transform.position.x + Mathf.Sign(r1) * 0.2f < 1)
+            x = 1f;
+        else if(transform.position.x + Mathf.Sign(r1) * 0.2f > 39)
+            x = 39f;
+        else{
+            x = transform.position.x + Mathf.Sign(r1) * 0.2f;
+        }
+        
+        if(transform.position.y + Mathf.Sign(r2) * 0.2f < 1)
+            y = 1f;
+        else if(transform.position.y + Mathf.Sign(r2) * 0.2f > 19)
+            y = 19f;
+        else{
+            y = transform.position.y + Mathf.Sign(r2) * 0.2f;
+        }
+
+
+
         if(PhotonNetwork.IsConnected){
-            copy = PhotonNetwork.Instantiate(child.name, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, 0) , Quaternion.Euler(0, 0,  /*Random.Range(0, 360f)*/ transform.rotation.z));
+            copy = PhotonNetwork.Instantiate(child.name, new Vector3(transform.position.x + Mathf.Sign(r1) * 0.2f, transform.position.y + Mathf.Sign(r2) * 0.2f, 0) , Quaternion.Euler(0, 0,  /*Random.Range(0, 360f)*/ transform.rotation.z));
         }else{
             copy = Instantiate(child, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
         }
@@ -441,6 +462,23 @@ public class NanoBot : MonoBehaviour
                         Destroy(collision.gameObject);
                     }
             }
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision){
+        if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
+            if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid){
+                StartCoroutine(AcidDmg(collision.gameObject.GetComponent<Bullet>().atkDmg));
+            }
+        }
+    }
+
+    private IEnumerator AcidDmg(float d){
+        if(!onAcid){
+            onAcid = true;
+            yield return new WaitForSeconds(1);
+            ApplyDMG(d, Type.Acid);
+            onAcid = false;
         }
     }
 

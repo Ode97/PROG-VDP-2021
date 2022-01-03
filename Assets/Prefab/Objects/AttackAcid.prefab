@@ -46,6 +46,6 @@ MonoBehaviour:
   typeOfAttack: 2
   bullet: {fileID: 1209412788079137290, guid: c39d8ed2f45177841b248feed7452f09, type: 3}
   ranged: 1
-  attkSpeedBonus: 5
-  dmgBonus: 15
+  attkSpeedBonus: 4
+  dmgBonus: 5
   splash: 0

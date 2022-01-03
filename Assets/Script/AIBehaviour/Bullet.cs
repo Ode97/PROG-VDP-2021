@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour//, IPunObservable
     }
 
     private IEnumerator DestroyBullet(){
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(3f);
         if(PhotonNetwork.IsConnected)
             send_RPC_destroy(view);
         else
