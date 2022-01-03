@@ -16,6 +16,9 @@ public class MapEditor : MonoBehaviour
     public int xoffset = 18;
     public int yoffset = 10;
     public GameObject emptyTemplate;
+    public GameObject spawnTemplate;
+    private int spawnX = -2;
+    private int spawnY = -2;
     public GameObject wallTemplate;
     public GameObject staticWallTemplate;
     public GameObject staticVoidTemplate;
@@ -94,6 +97,10 @@ public class MapEditor : MonoBehaviour
                 j = x + this.transform.position.x;
                 i = y + this.transform.position.y;
                 switch(matrix[y,x]){
+                    case 's':
+                        map[x,y] = Instantiate(spawnTemplate, new Vector2(j, i), Quaternion.identity);
+                        map[x,y].transform.SetParent(this.transform);
+                        break;
                     case 't':
                         map[x,y] = Instantiate(trapTemplate, new Vector2(j, i), Quaternion.identity);
                         map[x,y].transform.SetParent(this.transform);
@@ -159,6 +166,12 @@ public class MapEditor : MonoBehaviour
                 
                 if(obj.tag == "palette") {
                     switch(obj.name){
+                        case ("SpawnSelect"):
+                            selector.transform.position = obj.transform.position;
+                            selectedTemplate = spawnTemplate;
+                            code = 's';
+                            //Debug.Log("e");
+                            break;
                         case ("EnergySelect"):
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = energyTemplate;
@@ -183,24 +196,41 @@ public class MapEditor : MonoBehaviour
                     if (mousein == 0) {
                         if( (code == 'e' && maxEnergy > 0) ||
                             (code == 't' && maxTraps > 0) ||
-                            (code == 'w' && maxWalls > 0) ){
+                            (code == 'w' && maxWalls > 0) ||
+                             code == 's') {
                             if (code == 'e') maxEnergy--;
                             if (code == 't') maxTraps--;
                             if (code == 'w') maxWalls--;
                             if(genMatrix[coorX,coorY] == 'e') maxEnergy++;
                             if(genMatrix[coorX,coorY] == 't') maxTraps++;
                             if(genMatrix[coorX,coorY] == 'w') maxWalls++;
+                            if(code != 's' && genMatrix[coorX,coorY] == 's') {
+                                spawnX = -2;
+                                spawnY = -2;
+                            }
 
                             Destroy(map[coorX,coorY]);
-                            // Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
                             if(code != 's'){
+                                if(genMatrix[coorX,coorY] == 's') {
+                                    spawnX = -2;
+                                    spawnY = -2;
+                                }
                                 map[coorX,coorY] = Instantiate(selectedTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
                                 map[coorX,coorY].transform.SetParent(this.transform);
                                 genMatrix[coorX,coorY] = code;
                             }
                             else{
-                                setBig(coorX, coorY, genMatrix, code);
-                                instantiateBig(coorX, coorY, selectedTemplate, obj.transform.position.x, obj.transform.position.y);
+                                if (spawnX != -2) {
+                                    Destroy(map[spawnX,spawnY]);
+                                    map[spawnX,spawnY] = Instantiate(emptyTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
+                                    map[spawnX,spawnY].transform.SetParent(this.transform);
+                                    genMatrix[spawnX,spawnX] = 'v';
+                                }
+                                map[coorX,coorY] = Instantiate(spawnTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
+                                map[coorX,coorY].transform.SetParent(this.transform);
+                                genMatrix[coorX,coorY] = code;
+                                spawnX = coorX;
+                                spawnY = coorY;
                             }
                         }
                     }
