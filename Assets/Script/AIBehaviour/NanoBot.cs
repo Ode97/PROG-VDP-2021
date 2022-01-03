@@ -36,13 +36,14 @@ public class NanoBot : MonoBehaviour
     public int lifeLossByReproduction;
     public int lifeForReproduction;
     public int foodSpawnAfterDeath;
-    private bool signalDetection = false;
-    private bool noSignal = false;
+    public bool signalDetection = false;
+    public bool noSignal = false;
     private bool pregnant = false;
     private bool inCombat = false;
     private bool timer = false;
     public bool electricTarget = false;
     private bool onFire = false;
+    private bool onAcid = false;
     private int fireTimer = 1;
     private GameObject target = null;
     private Vector2 targetPos;
@@ -114,14 +115,13 @@ public class NanoBot : MonoBehaviour
                     }
                 }
             }
-            //GameManager.instance.death(gameObject.layer);
+            GameManager.instance.death(gameObject.layer);
             PhotonNetwork.Destroy(gameObject);
-            
         }
         
         if(actualLife >= lifeForReproduction && !pregnant){
             StartCoroutine(Reproduction());
-            //GameManager.instance.newChild(gameObject.layer);
+            GameManager.instance.newChild(gameObject.layer);
         }
 
         if(!timer && gameObject.activeInHierarchy)
@@ -164,7 +164,7 @@ public class NanoBot : MonoBehaviour
         if(!timer)
             StartCoroutine(LostEnergyPerSec());
 
-        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.3){
+        if(signalDetection && Vector2.Distance(rb.position,  targetPos) < 0.1){
             signalDetection = false;
             noSignal = true;
         }
@@ -252,8 +252,10 @@ public class NanoBot : MonoBehaviour
 
     private IEnumerator NoSignal(){
         yield return new WaitForSeconds(signalSearchingTime);
-        if(!noSignal)
+        if(!noSignal){
             signalDetection = false;
+        }else
+            noSignal = false;
     }
 
     public float GetActualLife(){
@@ -273,8 +275,30 @@ public class NanoBot : MonoBehaviour
         actualLife -= lifeLossByReproduction;
         pregnant = false;
         GameObject copy;
+        float r1 =  Random.Range(-1f, 1f);
+        float r2 =  Random.Range(-1f, 1f);
+        float x, y;
+
+        if(transform.position.x + Mathf.Sign(r1) * 0.2f < 1)
+            x = 1f;
+        else if(transform.position.x + Mathf.Sign(r1) * 0.2f > 39)
+            x = 39f;
+        else{
+            x = transform.position.x + Mathf.Sign(r1) * 0.2f;
+        }
+        
+        if(transform.position.y + Mathf.Sign(r2) * 0.2f < 1)
+            y = 1f;
+        else if(transform.position.y + Mathf.Sign(r2) * 0.2f > 19)
+            y = 19f;
+        else{
+            y = transform.position.y + Mathf.Sign(r2) * 0.2f;
+        }
+
+
+
         if(PhotonNetwork.IsConnected){
-            copy = PhotonNetwork.Instantiate(child.name, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, 0) , Quaternion.Euler(0, 0,  /*Random.Range(0, 360f)*/ transform.rotation.z));
+            copy = PhotonNetwork.Instantiate(child.name, new Vector3(transform.position.x + Mathf.Sign(r1) * 0.2f, transform.position.y + Mathf.Sign(r2) * 0.2f, 0) , Quaternion.Euler(0, 0,  /*Random.Range(0, 360f)*/ transform.rotation.z));
         }else{
             copy = Instantiate(child, new Vector3(transform.position.x + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, transform.position.y + Mathf.Sign(Random.Range(-1f, 1f)) * 0.2f, 0) , Quaternion.Euler(0, 0,  Random.Range(0, 360f)));
         }
@@ -297,7 +321,7 @@ public class NanoBot : MonoBehaviour
             }else {
                 e = Instantiate(effects.electricWaveEffect, gameObject.transform.position, Quaternion.identity, c.gameObject.transform);
             }
-            e.transform.localScale = new Vector3(4, 4, 4);        
+            //e.transform.localScale = new Vector3(4, 4, 4);        
             c.gameObject.GetComponent<NanoBot>().ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
             c.gameObject.GetComponent<NanoBot>().ElectricWave(dmg);
         }
@@ -339,7 +363,7 @@ public class NanoBot : MonoBehaviour
         if(!PhotonNetwork.IsConnected || view.IsMine){
             actualLife -= dmg;
         }
-        Debug.Log(gameObject.layer + "ha ricevuto " + dmg + " danni " + type);
+        //Debug.Log(gameObject.name + "ha ricevuto " + dmg + " danni " + type);
 
         Color color;
         string c;
@@ -397,7 +421,7 @@ public class NanoBot : MonoBehaviour
 
             if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
                 
-                Debug.Log(gameObject.layer + " " + collision.gameObject.layer + " " + collision.gameObject.GetComponent<Bullet>().type + " " + collision.gameObject.GetComponent<Bullet>().atkDmg);
+                //Debug.Log(gameObject.name + " colpito da " + collision.gameObject.name);
                 float dmg;
                 dmg = collision.gameObject.GetComponent<Bullet>().atkDmg;
                 if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire){
@@ -431,18 +455,30 @@ public class NanoBot : MonoBehaviour
                     ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
                     ElectricWave(dmg/3);
                 }
-                //if(!collision.gameObject.GetComponent<Bullet>().IsSplashBullet())
                 if(collision.gameObject.GetComponent<Bullet>().type != Type.Acid)
                     if(PhotonNetwork.IsConnected){
-                        if(collision.gameObject.GetComponent<PhotonView>().IsMine)
-                            PhotonNetwork.Destroy(collision.gameObject);
-                        else{
-                            send_RPC_destroy(collision.gameObject.GetComponent<PhotonView>().ViewID);
-                        }
+                        collision.gameObject.SetActive(false);
                     }else{
                         Destroy(collision.gameObject);
                     }
             }
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision){
+        if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
+            if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid){
+                StartCoroutine(AcidDmg(collision.gameObject.GetComponent<Bullet>().atkDmg));
+            }
+        }
+    }
+
+    private IEnumerator AcidDmg(float d){
+        if(!onAcid){
+            onAcid = true;
+            yield return new WaitForSeconds(1);
+            ApplyDMG(d, Type.Acid);
+            onAcid = false;
         }
     }
 

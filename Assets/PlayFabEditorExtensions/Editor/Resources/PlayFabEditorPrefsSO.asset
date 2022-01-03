@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0199c11aa6f514784c5c69cd8378d8, type: 3}
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
-  DevAccountEmail: edoardo.carrer@studenti.unimi.it
-  DevAccountToken: 7iu6r1ti5rfwmonys14354rcdnwygh394ik6ij1dxzjipfpktj5etyq9xpkta45n8dxre7dm71p5igedt5ogks6g5tq7783ta64bxmjcccb1p3eqhufmqa8bjca45dd78eb3q886usnk6pedxmq83mw5zw9u88s4199s98uhb6b5d9q5b856nw77kupa5kusr9jk1y3t
-  SelectedStudio: NanobotWars
-  SdkPath: Assets/PlayFabSDK
+  DevAccountEmail: 
+  DevAccountToken: 
+  SelectedStudio: 
+  SdkPath: 
   EdExPath: 
   LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 1
+  curMainMenuIdx: 0
   curSubMenuIdx: 0

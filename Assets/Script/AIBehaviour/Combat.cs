@@ -6,7 +6,7 @@ using Photon.Pun;
 public class Combat : Action
 {
     public GameObject bullet;
-    private bool alreadyShoot = false;
+    public bool alreadyShoot = false;
     private bool firstShoot = false;
     // Start is called before the first frame update
     void Start()
@@ -62,8 +62,9 @@ public class Combat : Action
             Vector2 velocityBullet = target.transform.position - transform.position;
             b.GetComponent<Rigidbody2D>().velocity = velocityBullet.normalized * Constants.BULLET_VELOCITY;
         }
-        yield return new WaitForSeconds(10/GetComponent<NanoBot>().attackSpeed);
+        yield return new WaitForSeconds((float)10/GetComponent<NanoBot>().attackSpeed);
         alreadyShoot = false; 
+        
     }
     
 }

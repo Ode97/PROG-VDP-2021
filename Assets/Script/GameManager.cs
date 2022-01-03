@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class GameManager : MonoBehaviour
 {
     private int nPlayer = 1;
     private int nEnemy = 1;
-    //public TextMeshPro p;
-    //public TextMeshPro e;
-    // public TextMeshPro c;
+    public Text p;
+    public Text e;
     public Text tc;
-    public TextMeshPro result;
     public float timeRemaining = 10;
     private bool timerIsRunning = true;
+    private int mousein;
+    public Camera mainCamera;
+    public int pLayer;
 
     // Start is called before the first frame update
     public static GameManager instance=null;
@@ -49,9 +51,35 @@ public class GameManager : MonoBehaviour
                 timeRemaining = 0;
                 DisplayTime(timeRemaining);
                 timerIsRunning = false;
+                GetComponent<LineRenderer>().startColor = Color.yellow;
                 GetComponent<Signal>().enabled = true;
                 GetComponent<Signal>().FinalSignal();
             }
+        }
+        signalByPlayer();
+    }
+
+    private void signalByPlayer(){
+         if (Input.GetMouseButtonDown(0))
+            mousein = 0;
+        if (Input.GetMouseButtonDown(1)) 
+            mousein = 1;
+        
+        if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)) 
+            mousein = -1;
+        
+        if (mousein == 0) {
+            Vector2 mouseMapPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            GetComponent<Signal>().enabled = true;
+            GetComponent<Signal>().radius = 3;
+            GetComponent<LineRenderer>().startColor = Color.white;
+            GetComponent<LineRenderer>().endColor = Color.white;
+            if(!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
+                pLayer = Constants.PLAYER_LAYER;
+            else
+                pLayer = Constants.ENEMY_LAYER;
+
+            GetComponent<Signal>().SetCenter(mouseMapPosition, pLayer);
         }
     }
 
@@ -71,8 +99,8 @@ public class GameManager : MonoBehaviour
         else
             nEnemy++;
 
-        //p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
-        //e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
+        p.text = nPlayer.ToString();
+        e.text = nEnemy.ToString();
     }
 
     public void death(int layer){
@@ -81,8 +109,8 @@ public class GameManager : MonoBehaviour
         else
             nEnemy--;
 
-        //p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
-        //e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());
+        p.text = nPlayer.ToString();
+        e.text = nEnemy.ToString();
 
         if(nPlayer == 0){
             // result.transform.GetComponent<TextMeshPro>().SetText("You Lose");

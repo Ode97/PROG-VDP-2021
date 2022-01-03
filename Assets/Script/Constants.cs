@@ -6,7 +6,7 @@ public class Constants : MonoBehaviour
 {
     public const int TRAP_DMG = 10;
     public const int FIRST_ATTK_DMG = 10;
-    public const int BULLET_VELOCITY = 5;
+    public const int BULLET_VELOCITY = 3;
     public const int BOMB_TIMING = 3;
     public const int BOMB_DISTANCE_EXPLOSION = 5;
     public const int BOMB_DMG_EXPLOSION = 10;

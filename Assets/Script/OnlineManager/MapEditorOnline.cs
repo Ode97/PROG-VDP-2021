@@ -29,6 +29,7 @@ public class MapEditorOnline : MonoBehaviour
     private char code;
     private char[,] genMatrix;
     private GameObject [,] map;
+    private int mousein = -1;
 
     // Start is called before the first frame update
     void Start()
@@ -161,7 +162,15 @@ public class MapEditorOnline : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0))
+            mousein = 0;
+        if (Input.GetMouseButtonDown(1)) 
+            mousein = 1;
+        
+        if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)) 
+            mousein = -1;
+        
+        if (mousein != -1) {
             Vector2 mouseMapPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(mouseMapPosition, Vector2.zero);
  
@@ -195,31 +204,43 @@ public class MapEditorOnline : MonoBehaviour
                             break;
                     }
                 }
-                else if(obj.tag == "emptyTile") {
-                    if( (code == 'e' && maxEnergy > 0) ||
-                        (code == 't' && maxTraps > 0) ||
-                        (code == 'w' && maxWalls > 0) ){
-                        if (code == 'e') maxEnergy--;
-                        if (code == 't') maxTraps--;
-                        if (code == 'w') maxWalls--;
+                else if(obj.tag == "emptyTile" ) {
+                    if (mousein == 0) {
+                        if( (code == 'e' && maxEnergy > 0) ||
+                            (code == 't' && maxTraps > 0) ||
+                            (code == 'w' && maxWalls > 0) ){
+                            if (code == 'e') maxEnergy--;
+                            if (code == 't') maxTraps--;
+                            if (code == 'w') maxWalls--;
+                            if(genMatrix[coorX,coorY] == 'e') maxEnergy++;
+                            if(genMatrix[coorX,coorY] == 't') maxTraps++;
+                            if(genMatrix[coorX,coorY] == 'w') maxWalls++;
+
+                            Destroy(map[coorX,coorY]);
+                            // Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
+                            if(code != 's'){
+                                map[coorX,coorY] = Instantiate(selectedTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
+                                map[coorX,coorY].transform.SetParent(this.transform);
+                                genMatrix[coorX,coorY] = code;
+                                if(!PhotonNetwork.IsMasterClient){
+                                    spawnNanobot.GetComponent<PhotonView>().RPC("Receive_map", RpcTarget.Others, code.ToString(), coorX, coorY);
+                                }
+                            }
+                            else{
+                                setBig(coorX, coorY, genMatrix, code);
+                                instantiateBig(coorX, coorY, selectedTemplate, obj.transform.position.x, obj.transform.position.y);
+                            }
+                        }
+                    }
+                    else {
                         if(genMatrix[coorX,coorY] == 'e') maxEnergy++;
                         if(genMatrix[coorX,coorY] == 't') maxTraps++;
                         if(genMatrix[coorX,coorY] == 'w') maxWalls++;
-
                         Destroy(map[coorX,coorY]);
-                        //Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
-                        if(code != 's'){
-                            map[coorX,coorY] = Instantiate(selectedTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
-                            map[coorX,coorY].transform.SetParent(this.transform);
-                            genMatrix[coorX,coorY] = code;
-                            if(!PhotonNetwork.IsMasterClient){
-                                spawnNanobot.GetComponent<PhotonView>().RPC("Receive_map", RpcTarget.Others, code.ToString(), coorX, coorY);
-                            }
-                        }
-                        else{
-                            setBig(coorX, coorY, genMatrix, code);
-                            instantiateBig(coorX, coorY, selectedTemplate, obj.transform.position.x, obj.transform.position.y);
-                        }
+                        Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
+                        map[coorX,coorY] = Instantiate(emptyTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
+                        map[coorX,coorY].transform.SetParent(this.transform);
+                        genMatrix[coorX,coorY] = 'v';
                     }
                 }
             }

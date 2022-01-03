@@ -293,6 +293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 746730838001726606, guid: 0f983ad7836f6c94198b64f5369f3347, type: 3}
+  alreadyShoot: 0
 --- !u!114 &2471391390603563051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 0
-  avoidDistance: 0.1
+  avoidDistance: 0.5
   lookahead: 0
   reproductionTime: 1
   rangedAttack: 0
@@ -405,7 +406,7 @@ MonoBehaviour:
   attackDamage: 0
   attackSpeed: 0
   typeOfAttk: 0
-  signalSearchingTime: 5
+  signalSearchingTime: 3
   speed: 0
   rotation: 100
   life: 100
@@ -413,10 +414,12 @@ MonoBehaviour:
   lifeEarnByEating: 20
   lifeLossByReproduction: 50
   lifeForReproduction: 100
-  foodSpawnAfterDeath: 0
+  foodSpawnAfterDeath: 3
+  signalDetection: 0
+  noSignal: 0
   electricTarget: 0
-  food: {fileID: 5681847486816169599, guid: 54a4c096c5590e84594b69e72baa7555, type: 3}
-  bomb: {fileID: 6858633703008884270, guid: d623a56f02d5ebd4cb6a8b95291dc8a4, type: 3}
+  food: {fileID: 2114638062473853263, guid: de9e220166731dc43853572b7367044d, type: 3}
+  bomb: {fileID: 100000, guid: 7665215c8eddc0a44a216110cdeced13, type: 3}
   effects: {fileID: 7249853636224055550, guid: 537d86fa7b0f19442af65b1e4774bdb9, type: 3}
   view: {fileID: 0}
   child: {fileID: 8804005712328914914}
@@ -448,6 +451,7 @@ MonoBehaviour:
   ThetaScale: 0.01
   radius: 1
   LineDrawer: {fileID: 8804005712328914841}
+  playerLayer: 0
 --- !u!114 &2471391391474714412
 MonoBehaviour:
   m_ObjectHideFlags: 0

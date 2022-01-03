@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3116441373083383823}
   - component: {fileID: 8008630418158248418}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SpecialLowEnergyUsage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
