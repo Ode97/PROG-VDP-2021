@@ -235,7 +235,9 @@ public class NanoBot : MonoBehaviour
     }
 
     public void DetectSignal(){
+        Debug.Log("a");
         if(!signalDetection){
+            Debug.Log("b");
             signalDetection = true;
             StartCoroutine(NoSignal());
         }
@@ -340,7 +342,7 @@ public class NanoBot : MonoBehaviour
         if(!PhotonNetwork.IsConnected || view.IsMine){
             actualLife -= dmg;
         }
-        Debug.Log(gameObject.name + "ha ricevuto " + dmg + " danni " + type);
+        //Debug.Log(gameObject.name + "ha ricevuto " + dmg + " danni " + type);
 
         Color color;
         string c;

@@ -132,7 +132,7 @@ PrefabInstance:
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: bomb
       value: 
-      objectReference: {fileID: 6858633703008884270, guid: d623a56f02d5ebd4cb6a8b95291dc8a4, type: 3}
+      objectReference: {fileID: 100000, guid: 7665215c8eddc0a44a216110cdeced13, type: 3}
     - target: {fileID: 292258036, guid: cf0a9f4e75655344983c0b3de55c5f7f, type: 3}
       propertyPath: food
       value: 

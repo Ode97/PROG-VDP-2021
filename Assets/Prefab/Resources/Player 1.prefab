@@ -413,9 +413,11 @@ MonoBehaviour:
   lifeLossByReproduction: 50
   lifeForReproduction: 100
   foodSpawnAfterDeath: 3
+  signalDetection: 0
+  noSignal: 0
   electricTarget: 0
   food: {fileID: 2114638062473853263, guid: de9e220166731dc43853572b7367044d, type: 3}
-  bomb: {fileID: 6858633703008884270, guid: d623a56f02d5ebd4cb6a8b95291dc8a4, type: 3}
+  bomb: {fileID: 100000, guid: 7665215c8eddc0a44a216110cdeced13, type: 3}
   effects: {fileID: 7249853636224055550, guid: 537d86fa7b0f19442af65b1e4774bdb9, type: 3}
   view: {fileID: 0}
   child: {fileID: 6368716511436482340}
