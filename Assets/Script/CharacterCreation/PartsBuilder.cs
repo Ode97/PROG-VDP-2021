@@ -10,12 +10,12 @@ public class PartsBuilder : MonoBehaviour
     public GameObject TailModel;
     // Each treshold serve as a modular operator
     private int eyesTresHold =10;
-    private int legTresHold = 15;
+    private int legTresHold = 10;
     // Sliders for character generation
-    public int bodyValue = 15;
-    public int eyesValue = 5;
-    public int legValue = 15;
-    public int tailValue = 15;
+    public int bodyValue = 0;
+    public int eyesValue = 0;
+    public int legValue = 0;
+    public int tailValue = 0;
     // maximum values for creator
     public const int max_Value = 30;
     private GameObject [] legsr = new GameObject[8];
@@ -59,12 +59,10 @@ public class PartsBuilder : MonoBehaviour
             Quaternion itemRotation = this.transform.rotation;
             this.transform.localScale = new Vector3(1,1,1);
             this.transform.rotation = Quaternion.Euler(0, 0, 0);
-            if (legValue > max_Value) legValue = max_Value;
             if (eyesValue > max_Value) eyesValue = max_Value;
-            if (tailValue > max_Value) tailValue = max_Value;
             if (bodyValue > max_Value) bodyValue = max_Value;
-            int legsNumber = (legValue / legTresHold) + 2;
-            int eyesNumber = (eyesValue / eyesTresHold) + 1;
+            int legsNumber = legValue + 2;
+            int eyesNumber = eyesValue + 1;
             Destroy(body);
             Destroy(tail);
             for(int i=0; i<legsr.Length; i++){
@@ -137,6 +135,12 @@ public class PartsBuilder : MonoBehaviour
 
             this.transform.localScale = itemScale;
             this.transform.rotation = itemRotation;
+            GameObject tObject = System.Array.Find(tail.GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Tail").gameObject;
+            Debug.Log(tailValue);
+            if(tailValue == 0) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 66f/255f, 66f/255f);
+            else if(tailValue == 1) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 255f/255f, 70f/255f);
+            else if(tailValue == 2) tObject.GetComponent<Renderer> ().material.color = new Color(50f/255f, 255f/255f, 50f/255f);
+
             BotData bot = new BotData(bodyValue, eyesValue, legValue, tailValue, eyesTresHold, legTresHold);
             Save.savePlayerBotFile(bot);
             change = false;

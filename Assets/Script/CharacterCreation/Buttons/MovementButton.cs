@@ -20,15 +20,10 @@ public class MovementButton : MonoBehaviour
     void Start()
     {
         actual = 0;
-        options = new string[]{"Precise", "Balanced", "Fast"};
-        movSpeed = new float[]{Constants.LOW_SPEED, Constants.MID_SPEED, Constants.LOW_SPEED, Constants.HIGH_SPEED};
-        movAccuracy = new float[]{Constants.MID_MOV_PRECISION, Constants.MID_MOV_PRECISION, Constants.HIGH_MOV_PRECISION, Constants.LOW_MOV_PRECISION};
-        speedValue = new int[]{0,20,30};
+        options = ButtonsValues.movLabels;
+        speedValue = ButtonsValues.movValues;
         text.text = options[actual];
-        BotManager.movementSpeed = movSpeed[actual];
-        BotManager.movementAccuracy = movAccuracy[actual];
-        BotManager.movType = options[actual];
-        BotManager.mov = actual;
+        BotManager.movType = actual;
         buttonUp.onClick.AddListener(next);
         buttonDown.onClick.AddListener(prev);
         builder = bot.GetComponent<PartsBuilder>();
@@ -37,28 +32,19 @@ public class MovementButton : MonoBehaviour
     // Update is called once per frame
     void next()
     {
-        if(builder.legValue <= PartsBuilder.max_Value) {
-            actual = (actual + 1) % options.Length;
-            text.text = options[actual];
-            builder.legValue = speedValue[actual];
-            builder.change = true;
-            BotManager.mov = actual;
-            BotManager.movementSpeed = movSpeed[actual];
-            BotManager.movementAccuracy = movAccuracy[actual];
-            BotManager.movType = options[actual];
-        }
+        Debug.Log(actual + " - " + speedValue[actual]);
+        actual = (actual + 1) % options.Length;
+        text.text = options[actual];
+        builder.legValue = speedValue[actual];
+        BotManager.movType = actual;
+        builder.change = true;
     }
     void prev()
     {
-        if(builder.legValue > 0) {
-            actual = (actual - 1 + options.Length) % options.Length;
-            text.text = options[actual];
-            builder.legValue = speedValue[actual];
-            builder.change = true;
-            BotManager.mov = actual;
-            BotManager.movementSpeed = movSpeed[actual];
-            BotManager.movementAccuracy = movAccuracy[actual];
-            BotManager.movType = options[actual];
-        }
+        actual = (actual - 1 + options.Length) % options.Length;
+        text.text = options[actual];
+        builder.legValue = speedValue[actual];
+        BotManager.movType = actual;
+        builder.change = true;
     }
 }

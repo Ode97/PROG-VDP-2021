@@ -16,13 +16,16 @@ public class StatsField : MonoBehaviour
 		text.text = 
 		"Bot Stats \n \n" +
 		"Atack: \n" + 
-		"  " + BotManager.atkType + "\n" +
+		"-> " + ButtonsValues.atkLabels[BotManager.atkType] + "\n" +
 		"Armor: \n" + 
-		"  " + BotManager.armType + "\n" +
+		"-> " + ButtonsValues.armLabels[BotManager.armType] + "\n" +
+		"  (" + ButtonsValues.armDetail[BotManager.armType] + ")\n" +
 		"Movement: \n" + 
-		"  " + BotManager.movType + "\n" +
+		"-> " + ButtonsValues.movLabels[BotManager.movType] + "\n" +
 		"Vision: \n" + 
-		"  " + BotManager.visType + "\n";
+		"-> " + ButtonsValues.visLabels[BotManager.visType] + "\n" +
+		"Special: \n" + 
+		"-> " + ButtonsValues.specLabels[BotManager.specType];
 	}
 
 }

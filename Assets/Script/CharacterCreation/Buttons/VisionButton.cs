@@ -19,47 +19,31 @@ public class VisionButton : MonoBehaviour
     void Start()
     {
         actual = 0;
-        options = new string[]{"Long", "Balanced", "Wide"};
-        fov = new float[]{Constants.MID_FOV, Constants.HIGH_FOV, Constants.LOW_FOV};
-        distance = new float[]{Constants.MID_LOOKAHEAD, Constants.LOW_LOOKAHEAD, Constants.HIGH_LOOKAHEAD};
-        eyeValue = new int[]{6,16,30};
+        options = ButtonsValues.visLabels;
+        eyeValue = ButtonsValues.visValues;
         text.text = options[actual];
-        BotManager.fov = fov[actual];
-        BotManager.viewDistance = distance[actual];
-        BotManager.visType = options[actual];
-        BotManager.vis = actual;
+        BotManager.visType = actual;
         
         buttonUp.onClick.AddListener(next);
         buttonDown.onClick.AddListener(prev);
         builder = bot.GetComponent<PartsBuilder>();
-        // save Value for game
     }
 
     // Update is called once per frame
     void next()
     {
-        if(builder.eyesValue <= PartsBuilder.max_Value) {
-            actual = (actual + 1) % options.Length;
-            text.text = options[actual];
-            builder.eyesValue = eyeValue[actual];
-            builder.change = true;
-            BotManager.vis = actual;
-            BotManager.fov = fov[actual];
-            BotManager.viewDistance = distance[actual];
-            BotManager.visType = options[actual];
-        }
+        actual = (actual + 1) % options.Length;
+        text.text = options[actual];
+        builder.eyesValue = eyeValue[actual];
+        BotManager.visType = actual;
+        builder.change = true;
     }
     void prev()
     {
-        if(builder.eyesValue > 0) {
-            actual = (actual - 1 + options.Length) % options.Length;
-            text.text = options[actual];
-            builder.eyesValue = eyeValue[actual];
-            builder.change = true;
-            BotManager.vis = actual;
-            BotManager.fov = fov[actual];
-            BotManager.viewDistance = distance[actual];
-            BotManager.visType = options[actual];
-        }
+        actual = (actual - 1 + options.Length) % options.Length;
+        text.text = options[actual];
+        builder.eyesValue = eyeValue[actual];
+        BotManager.visType = actual;
+        builder.change = true;
     }
 }

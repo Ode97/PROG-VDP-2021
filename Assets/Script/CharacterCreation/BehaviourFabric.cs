@@ -10,6 +10,7 @@ public class BehaviourFabric : MonoBehaviourPun
     public GameObject[] attacks;
     public GameObject[] armours;
     public GameObject[] movements;
+    public GameObject[] specials;
     public bool firstbot = true;
     // Start is called before the first frame update
     void Start()
@@ -17,10 +18,13 @@ public class BehaviourFabric : MonoBehaviourPun
         if(!PhotonNetwork.IsConnected || photonView.IsMine){
             if(firstbot){
                 entity = this.GetComponent<NanoBot>();
-                GameObject atk = Instantiate(this.attacks[BotManager.atk], this.transform);
-                GameObject arm = Instantiate(this.armours[BotManager.arm], this.transform);
-                GameObject mov = Instantiate(this.movements[BotManager.mov], this.transform);
-                GameObject vis = Instantiate(this.visions[BotManager.vis], this.transform);
+                GameObject atk = Instantiate(this.attacks[BotManager.atkType], this.transform);
+                GameObject arm = Instantiate(this.armours[BotManager.armType], this.transform);
+                GameObject mov = Instantiate(this.movements[BotManager.movType], this.transform);
+                GameObject vis = Instantiate(this.visions[BotManager.visType], this.transform);
+                GameObject spec;
+                if (BotManager.specType != 0)
+                    spec = Instantiate(this.specials[BotManager.specType], this.transform);
                 firstbot = false;
                 if(PhotonNetwork.IsConnected)
                     send_RPC_behaviour();
@@ -31,10 +35,10 @@ public class BehaviourFabric : MonoBehaviourPun
     public void send_RPC_behaviour(){
         int[] behaviours = new int[5];
         behaviours.SetValue(GetComponent<PhotonView>().ViewID, 0);
-        behaviours.SetValue(BotManager.atk, 1);
-        behaviours.SetValue(BotManager.arm, 2);
-        behaviours.SetValue(BotManager.mov, 3);
-        behaviours.SetValue(BotManager.vis, 4);
+        behaviours.SetValue(BotManager.atkType, 1);
+        behaviours.SetValue(BotManager.armType, 2);
+        behaviours.SetValue(BotManager.movType, 3);
+        behaviours.SetValue(BotManager.visType, 4);
 
         photonView.RPC("RPC_Behaviour", RpcTarget.Others, behaviours);
     }

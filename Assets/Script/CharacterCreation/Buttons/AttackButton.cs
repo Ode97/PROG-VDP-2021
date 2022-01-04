@@ -21,18 +21,11 @@ public class AttackButton : MonoBehaviour
     void Start()
     {
         actual = 0;
-        options = new string[]{"Fire", "Electric", "Acid"};
-        atkSpeed = new float[]{Constants.LOW_DMG, Constants.HIGH_DMG, Constants.HIGH_DMG};
-        atkDamage = new float[]{Constants.HIGH_RATE, Constants.LOW_RATE};
-        atkType = new float[]{Constants.HIGH_RATE, Constants.HIGH_RATE, Constants.LOW_RATE};
-        atkValue = new int[]{16,30,6};
+        options = ButtonsValues.atkLabels;
+        atkValue = ButtonsValues.atkValues;
         text.text = options[actual];
-        /*BotManager.attackSpeed = atkSpeed[actual];
-        BotManager.attackDamage = atkSpeed[actual];
-        BotManager.attackType = atkType[actual];
-        BotManager.atkType = options[actual];
-        BotManager.atk = actual;*/
-        
+        BotManager.atkType = actual;
+
         buttonUp.onClick.AddListener(next);
         buttonDown.onClick.AddListener(prev);
         builder = bot.GetComponent<PartsBuilder>();
@@ -41,30 +34,18 @@ public class AttackButton : MonoBehaviour
     // Update is called once per frame
     void next()
     {
-        if(builder.tailValue <= PartsBuilder.max_Value) {
-            actual = (actual + 1) % options.Length;
-            text.text = options[actual];
-            builder.tailValue = atkValue[actual];
-            builder.change = true;
-            BotManager.atk = actual;
-            BotManager.attackSpeed = atkSpeed[actual];
-            BotManager.attackDamage = atkSpeed[actual];
-            BotManager.attackType = atkType[actual];
-            BotManager.atkType = options[actual];
-        }
+        actual = (actual + 1) % options.Length;
+        text.text = options[actual];
+        BotManager.atkType = actual;
+        builder.tailValue = atkValue[actual];
+        builder.change = true;
     }
     void prev()
     {
-        if(builder.tailValue > 0) {
-            actual = (actual - 1 + options.Length) % options.Length;
-            text.text = options[actual];
-            builder.tailValue = atkValue[actual];
-            builder.change = true;
-            BotManager.atk = actual;
-            BotManager.attackSpeed = atkSpeed[actual];
-            BotManager.attackDamage = atkSpeed[actual];
-            BotManager.attackType = atkType[actual];
-            BotManager.atkType = options[actual];
-        }
+        actual = (actual - 1 + options.Length) % options.Length;
+        text.text = options[actual];
+        BotManager.atkType = actual;
+        builder.tailValue = atkValue[actual];
+        builder.change = true;
     }
 }
