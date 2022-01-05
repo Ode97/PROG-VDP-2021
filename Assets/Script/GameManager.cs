@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public Text tc;
     public float timeRemaining = 10;
     private bool timerIsRunning = true;
-    private int mousein;
+    private int mousein = -1;
     public Camera mainCamera;
     public int pLayer;
 
@@ -60,13 +60,11 @@ public class GameManager : MonoBehaviour
     }
 
     private void signalByPlayer(){
-         if (Input.GetMouseButtonDown(0))
-            mousein = 0;
-        if (Input.GetMouseButtonDown(1)) 
-            mousein = 1;
+        //if (Input.GetMouseButtonDown(0))
+        //    mousein = 0;
         
-        if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1)) 
-            mousein = -1;
+        if (Input.GetMouseButtonUp(0))
+            mousein = 0;
         
         if (mousein == 0) {
             Vector2 mouseMapPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -80,6 +78,7 @@ public class GameManager : MonoBehaviour
                 pLayer = Constants.ENEMY_LAYER;
 
             GetComponent<Signal>().SetCenter(mouseMapPosition, pLayer);
+            mousein = -1;
         }
     }
 

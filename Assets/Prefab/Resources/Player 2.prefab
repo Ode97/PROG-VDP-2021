@@ -423,6 +423,9 @@ MonoBehaviour:
   effects: {fileID: 7249853636224055550, guid: 537d86fa7b0f19442af65b1e4774bdb9, type: 3}
   view: {fileID: 0}
   child: {fileID: 8804005712328914914}
+  Firebullet: {fileID: 4157706407306557933, guid: 7de67ba747bc35f40a40e310929f428b, type: 3}
+  ElectricBullet: {fileID: 6831131473996125909, guid: aa9407e45f768924887247881d1d50ee, type: 3}
+  AcidBullet: {fileID: 1209412788079137290, guid: c39d8ed2f45177841b248feed7452f09, type: 3}
 --- !u!114 &2471391390603563059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +506,7 @@ MonoBehaviour:
   - {fileID: 4142396736927987186, guid: 47851e1b4b4f3b1419b2c94542844468, type: 3}
   - {fileID: 1208367869266491441, guid: 0c5b1c76af187cf4fb40a785ec5dadfb, type: 3}
   - {fileID: 8456010776900690618, guid: 555baf06eb6f09845ba90b13e2d3917f, type: 3}
+  specials: []
   firstbot: 1
 --- !u!114 &7098259395413136069
 MonoBehaviour:

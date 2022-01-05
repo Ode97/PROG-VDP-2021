@@ -33,21 +33,21 @@ public class MapGeneratorOnline : MonoBehaviour
             int mapW = 41;
 
             // 20hx40w
-            char[,] genMatrix = new char[mapH, mapW];
-            for(int x=1;x<mapH-1;x++){
-                for(int y=1;y<mapW-1;y++){
+            char[,] genMatrix = new char[mapW, mapH];
+            for(int x=1;x<mapW-1;x++){
+                for(int y=1;y<mapH-1;y++){
                     genMatrix[x,y] = 'v';
                 }
             }
 
             // Place Map Borders
-            for(int i=0;i<mapH;i++){
-                genMatrix[i,0] = 'w';
-                genMatrix[i,mapW-1] = 'w';
-            }
             for(int i=0;i<mapW;i++){
+                genMatrix[i,0] = 'w';
+                genMatrix[i,mapH-1] = 'w';
+            }
+            for(int i=0;i<mapH;i++){
                 genMatrix[0,i] = 'w';
-                genMatrix[mapH-1,i] = 'w';
+                genMatrix[mapW-1,i] = 'w';
             }
         
             // Place Energy generators 3x3
@@ -65,8 +65,9 @@ public class MapGeneratorOnline : MonoBehaviour
 
             int rh = playerMap.GetUpperBound(0)+1;
             int rw = playerMap.GetUpperBound(1)+1;
+            Debug.Log(rw + " " + rh);
             for(int i=1; i<rh-1;i++){
-                for(int j=0; j<rw-1;j++){
+                for(int j=1; j<rw-1;j++){
                     genMatrix[i,j] = playerMap[i,j];
                 }
             }
@@ -89,35 +90,35 @@ public class MapGeneratorOnline : MonoBehaviour
                 GameObject tile;
                 switch(map[i,j]){
                     case 'a':
-                        tile = PhotonNetwork.Instantiate(spawnATemplate.name, new Vector2(j, i), Quaternion.identity);
+                        tile = PhotonNetwork.Instantiate(spawnATemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
                     case 'b':
-                        tile = PhotonNetwork.Instantiate(spawnBTemplate.name, new Vector2(j, i), Quaternion.identity);
+                        tile = PhotonNetwork.Instantiate(spawnBTemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
                     case 't':
-                        tile = PhotonNetwork.Instantiate(trapTemplate.name, new Vector2(j, i), Quaternion.identity);
+                        tile = PhotonNetwork.Instantiate(trapTemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
                     case 'w':
-                        tile = PhotonNetwork.Instantiate(wallTemplate.name, new Vector2(j, i), Quaternion.identity);
+                        tile = PhotonNetwork.Instantiate(wallTemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
                     case 'W':
-                        tile = PhotonNetwork.Instantiate(wallTemplate.name, new Vector2(j, i), Quaternion.identity);
+                        tile = PhotonNetwork.Instantiate(wallTemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
                     case 'e':
-                        tile = PhotonNetwork.Instantiate(energyTemplate.name, new Vector2(j, i), Quaternion.identity);
+                        tile = PhotonNetwork.Instantiate(energyTemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
                     case 'n':
-                        tile = PhotonNetwork.Instantiate(neutralZoneTemplate.name, new Vector2(j, i), Quaternion.identity);
+                        tile = PhotonNetwork.Instantiate(neutralZoneTemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
                     case 'g':
-                        tile = PhotonNetwork.Instantiate(energyGeneratorTemplate.name, new Vector2(j, i), Quaternion.identity);
+                        tile = PhotonNetwork.Instantiate(energyGeneratorTemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
                     default:

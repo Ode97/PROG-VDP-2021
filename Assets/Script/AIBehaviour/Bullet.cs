@@ -10,15 +10,20 @@ public class Bullet : MonoBehaviour//, IPunObservable
     public bool shooted = false;
     private bool splashBullet = false;
     public int view;
+    private bool first = true;
     // Start is called before the first frame update
     void Start()
     {
         //atkDmg = GetComponentInParent<NanoBot>().attackDamage;
-        send_RPC_dmg(atkDmg, GetComponent<PhotonView>().ViewID);
         StartCoroutine(DestroyBullet());
     }
 
     void Update(){
+        /*if(first){
+            first = false;
+            send_RPC_dmg(atkDmg, GetComponent<PhotonView>().ViewID);
+        }*/
+
         if(type == Type.Acid && shooted){
             float x;
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
@@ -40,11 +45,19 @@ public class Bullet : MonoBehaviour//, IPunObservable
     }
 
     private IEnumerator DestroyBullet(){
+        
         yield return new WaitForSeconds(3f);
-        if(PhotonNetwork.IsConnected)
-            send_RPC_destroy(view);
-        else
-            Destroy(gameObject);
+        try{
+            if(PhotonNetwork.IsConnected)
+                //PhotonNetwork.Destroy(gameObject);
+                if(GetComponent<PhotonView>().IsMine)
+                    PhotonNetwork.Destroy(gameObject);
+                //send_RPC_destroy(view);
+            else
+                Destroy(gameObject);
+        }catch(System.Exception){
+            Debug.Log(GetComponent<PhotonView>().ViewID + " " + view);
+        }
     }
 
     public void send_RPC_destroy(int v){

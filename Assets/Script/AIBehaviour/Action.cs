@@ -6,7 +6,7 @@ public abstract class Action : DecisionTreeNode{
     public abstract void DoIt();
 
     public override DecisionTreeNode MakeDecision(){
-        Debug.Log(this);
+        //Debug.Log(this);
         return this;
     }
 }

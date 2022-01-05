@@ -31,7 +31,6 @@ public class SpawnNanobot : MonoBehaviourPun
                 yetLoaded = true;
                 PhotonNetwork.LoadLevel(9);
             }
-
             if(PhotonNetwork.LevelLoadingProgress == 1 && !alreadyInstantiate){
                 if(PhotonNetwork.IsMasterClient){
                     GameObject g = PhotonNetwork.Instantiate(player1Prefab.name, new Vector3(3, 10, 0), Quaternion.identity);
@@ -53,9 +52,9 @@ public class SpawnNanobot : MonoBehaviourPun
         ok = true;
         launch.enabled = false;
         if(PhotonNetwork.IsMasterClient){
-            for(int x = 0; x < MapManager.playerMapMatrix.GetUpperBound(0)+1; x++)
+            for(int x = 0; x < MapManager.playerMapMatrix.GetUpperBound(0); x++)
                 for(int y = 0; y < MapManager.playerMapMatrix.GetUpperBound(1)+1; y++)
-                    MapManager.mapMatrix[y, x] = MapManager.playerMapMatrix[y, x];
+                    MapManager.mapMatrix[x, y] = MapManager.playerMapMatrix[x, y];
         }
 
         p++;
@@ -68,7 +67,7 @@ public class SpawnNanobot : MonoBehaviourPun
     public void Receive_map(string s, int x, int y){
         char c = new char();
         c = s[0];    
-        MapManager.mapMatrix[y, x+20] = c;
+        MapManager.mapMatrix[x+20, y] = c;
     }
 
     public void DestroySpawn(){

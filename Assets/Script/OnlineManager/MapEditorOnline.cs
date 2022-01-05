@@ -20,6 +20,9 @@ public class MapEditorOnline : MonoBehaviour
     public GameObject wallTemplate;
     public GameObject staticWallTemplate;
     public GameObject staticVoidTemplate;
+    public GameObject spawnTemplate;
+    private int spawnX = -2;
+    private int spawnY = -2;
     public GameObject energyTemplate;
     public GameObject trapTemplate;
     public GameObject energyGeneratorTemplate;
@@ -50,19 +53,19 @@ public class MapEditorOnline : MonoBehaviour
             int mapH = 21;
             int mapW = 21;
             // 21hx41w
-            genMatrix = new char[mapH, mapW];
-            for(int x=1;x<mapH-1;x++){
-                for(int y=1;y<mapW;y++){
+            genMatrix = new char[mapW, mapH];
+            for(int x=1;x<mapW-1;x++){
+                for(int y=1;y<mapH;y++){
                     genMatrix[x,y] = 'v';
                 }
             }
 
             // Place Map Borders
-            for(int i=0;i<mapH;i++){
+            for(int i=0;i<mapW;i++){
                 genMatrix[i,0] = 'W';
                 genMatrix[i,mapW-1] = 'V';
             }
-            for(int i=0;i<mapW;i++){ 
+            for(int i=0;i<mapH;i++){ 
                 genMatrix[0,i] = 'W';
                 genMatrix[mapH-1,i] = 'W';
             }
@@ -184,6 +187,12 @@ public class MapEditorOnline : MonoBehaviour
                 
                 if(obj.tag == "palette") {
                     switch(obj.name){
+                        case ("SpawnSelect"):
+                            selector.transform.position = obj.transform.position;
+                            selectedTemplate = spawnTemplate;
+                            code = 's';
+                            //Debug.Log("e");
+                            break;
                         case ("EnergySelect"):
                             selector.transform.position = obj.transform.position;
                             selectedTemplate = energyTemplate;
@@ -208,17 +217,26 @@ public class MapEditorOnline : MonoBehaviour
                     if (mousein == 0) {
                         if( (code == 'e' && maxEnergy > 0) ||
                             (code == 't' && maxTraps > 0) ||
-                            (code == 'w' && maxWalls > 0) ){
+                            (code == 'w' && maxWalls > 0) ||
+                             code == 's'){
                             if (code == 'e') maxEnergy--;
                             if (code == 't') maxTraps--;
                             if (code == 'w') maxWalls--;
                             if(genMatrix[coorX,coorY] == 'e') maxEnergy++;
                             if(genMatrix[coorX,coorY] == 't') maxTraps++;
                             if(genMatrix[coorX,coorY] == 'w') maxWalls++;
+                            if(code != 's' && genMatrix[coorX,coorY] == 's') {
+                                spawnX = -2;
+                                spawnY = -2;
+                            }
 
                             Destroy(map[coorX,coorY]);
                             // Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
                             if(code != 's'){
+                                if(genMatrix[coorX,coorY] == 's') {
+                                    spawnX = -2;
+                                    spawnY = -2;
+                                }
                                 map[coorX,coorY] = Instantiate(selectedTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
                                 map[coorX,coorY].transform.SetParent(this.transform);
                                 genMatrix[coorX,coorY] = code;
@@ -227,8 +245,17 @@ public class MapEditorOnline : MonoBehaviour
                                 }
                             }
                             else{
-                                setBig(coorX, coorY, genMatrix, code);
-                                instantiateBig(coorX, coorY, selectedTemplate, obj.transform.position.x, obj.transform.position.y);
+                                if (spawnX != -2) {
+                                    Destroy(map[spawnX,spawnY]);
+                                    map[spawnX,spawnY] = Instantiate(emptyTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
+                                    map[spawnX,spawnY].transform.SetParent(this.transform);
+                                    genMatrix[spawnX,spawnX] = 'v';
+                                }
+                                map[coorX,coorY] = Instantiate(spawnTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
+                                map[coorX,coorY].transform.SetParent(this.transform);
+                                genMatrix[coorX,coorY] = code;
+                                spawnX = coorX;
+                                spawnY = coorY;                           
                             }
                         }
                     }
@@ -237,6 +264,9 @@ public class MapEditorOnline : MonoBehaviour
                         if(genMatrix[coorX,coorY] == 't') maxTraps++;
                         if(genMatrix[coorX,coorY] == 'w') maxWalls++;
                         Destroy(map[coorX,coorY]);
+                        if(!PhotonNetwork.IsMasterClient){
+                            spawnNanobot.GetComponent<PhotonView>().RPC("Receive_map", RpcTarget.Others, "v", coorX, coorY);
+                        }
                         Debug.Log(genMatrix[coorX,coorY] + "On " + coorX + ", " + coorY);
                         map[coorX,coorY] = Instantiate(emptyTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
                         map[coorX,coorY].transform.SetParent(this.transform);
