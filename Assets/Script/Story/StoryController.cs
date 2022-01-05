@@ -5,15 +5,15 @@ using UnityEngine;
 public class StoryController : MonoBehaviour
 {
     public static bool paused = false;
-    public void pause() {
+    public static void pause() {
         paused = true;
         Time.timeScale = 0;
     }
-    public void unpause() {
+    public static void unpause() {
         paused = false;
         Time.timeScale = 1;
     }
-    public void togglePause() {
+    public static void togglePause() {
         paused = !paused;
         if (paused) Time.timeScale = 0;
         else Time.timeScale = 1;
