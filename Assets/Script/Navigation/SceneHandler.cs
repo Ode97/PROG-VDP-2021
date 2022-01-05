@@ -15,8 +15,14 @@ public class SceneHandler : MonoBehaviour
     public static void StoryScene() {
         SceneManager.LoadScene("MapEditor");  
     }
+    public static void LevelSelector() {
+        SceneManager.LoadScene("LevelSelector");  
+    }
     public static void GameScene() {
         SceneManager.LoadScene("BattleScene");  
+    }
+    public static void GameScene(int id) {
+        SceneManager.LoadScene("Level"+id+"Scene");  
     }
     public static void LoseScreen(){
         SceneManager.LoadScene("EndLoseGame");  

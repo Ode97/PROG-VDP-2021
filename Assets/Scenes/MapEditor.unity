@@ -623,6 +623,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8974082475979973298, guid: 714ccdaede1b1f34fb1b0b7bb54690ee, type: 3}
+      propertyPath: sceneName
+      value: story
+      objectReference: {fileID: 0}
     - target: {fileID: 8974082475979973302, guid: 714ccdaede1b1f34fb1b0b7bb54690ee, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -697,11 +701,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8974082475979973302, guid: 714ccdaede1b1f34fb1b0b7bb54690ee, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 162
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 8974082475979973302, guid: 714ccdaede1b1f34fb1b0b7bb54690ee, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -77
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 8974082475979973302, guid: 714ccdaede1b1f34fb1b0b7bb54690ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1729,7 +1733,6 @@ MonoBehaviour:
   staticVoidTemplate: {fileID: 6019457415938525311, guid: c247d8cad3586d545add30d04d98709f, type: 3}
   energyTemplate: {fileID: 1239501209}
   trapTemplate: {fileID: 1166680755}
-  energyGeneratorTemplate: {fileID: 5465686231017673328, guid: cc076060e67e1cc44b9d97d4043c9b25, type: 3}
   neutralZoneTemplate: {fileID: 4879725687008282698, guid: 51dcd73e2d41ec2499a136b8af36077a, type: 3}
 --- !u!4 &1456426140
 Transform:

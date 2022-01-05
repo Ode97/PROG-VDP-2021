@@ -17,12 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LabScene.unity
     guid: 5d46e49f5cdf5d54882db12933a2d1c3
-  - enabled: 0
-    path: Assets/Scenes/MapTester.unity
-    guid: 185528a904eeb094ab3934c03dc94eb2
   - enabled: 1
     path: Assets/Scenes/MapEditor.unity
-    guid: e93a0e81bf0652344b12c1a670397d83
+    guid: 4a2276200f42fbb42981dabb8aed1966
   - enabled: 1
     path: Assets/Scenes/BattleScene.unity
     guid: e4a606e194a92a342bd0c9beafec0562
@@ -44,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Online/MapEditorOnline.unity
     guid: fe987f8b55849e846930904f97f9ebf6
+  - enabled: 1
+    path: Assets/Scenes/LevelSelector.unity
+    guid: 829fbc71d65239446821c6123ae14093
   m_configObjects: {}

@@ -9,7 +9,6 @@ public class MapGenerator : MonoBehaviour
     public GameObject spawnBTemplate;
     public GameObject energyTemplate;
     public GameObject trapTemplate;
-    public GameObject energyGeneratorTemplate;
     public GameObject neutralZoneTemplate;
 
     // Start is called before the first frame update
@@ -25,13 +24,33 @@ public class MapGenerator : MonoBehaviour
         n - neutral
         g - e. generator
         */
-
-        char [,] playerMap = MapManager.playerMapMatrix; 
         int mapH = 21;
         int mapW = 41;
 
         // 20hx40w
         char[,] genMatrix = new char[mapH, mapW];
+
+        if (SceneNavigation.level == 0) genMap1(mapH, mapW, genMatrix);
+        if (SceneNavigation.level == 1) genMap1(mapH, mapW, genMatrix);
+        if (SceneNavigation.level == 2) genMap2(mapH, mapW, genMatrix);
+        if (SceneNavigation.level == 3) genMap3(mapH, mapW, genMatrix);
+        if (SceneNavigation.level == 4) genMap4(mapH, mapW, genMatrix);
+        if (SceneNavigation.level == 5) genMap5(mapH, mapW, genMatrix);
+        
+        // Draw player map with objects
+
+        char [,] playerMap = MapManager.playerMapMatrix; 
+        int rh = playerMap.GetUpperBound(0)+1;
+        int rw = playerMap.GetUpperBound(1)+1;
+        for(int i=1; i<rh-1;i++){
+            for(int j=0; j<rw-1;j++){
+                genMatrix[i,j] = playerMap[j,i];
+            }
+        }
+        instantiateMap(genMatrix);
+    }
+
+    void genMap1(int mapH, int mapW, char[,] genMatrix) {
         for(int x=1;x<mapH-1;x++){
             for(int y=1;y<mapW-1;y++){
                 genMatrix[x,y] = 'v';
@@ -103,36 +122,18 @@ public class MapGenerator : MonoBehaviour
         for(int x = 36; x > 33; x--){
                 genMatrix[10,x] = 'e';
         }
-
-        // Place Energy generators 3x3
-        // setBig(10,20,genMatrix,'g');
-        
-        // * * * Randomized Map
-        // Place spawns 3x3
-        // Place traps
-        // Place walls
-        // Place energys
-        // Place neutrals
-        // Place Energy generators 3x3
-
-        // Draw map with objects
-
-        int rh = playerMap.GetUpperBound(0)+1;
-        int rw = playerMap.GetUpperBound(1)+1;
-        for(int i=1; i<rh-1;i++){
-            for(int j=0; j<rw-1;j++){
-                genMatrix[i,j] = playerMap[j,i];
-            }
-        }
-        instantiateMap(genMatrix);
     }
-
-    void setBig(int x, int y, char[,] map, char tag){
-        for(int i=-1;i<2;i++){
-            for(int j=-1;j<2;j++){
-                map[x-i,y-j] = tag;
-            }
-        }
+    void genMap2(int mapH, int mapW, char[,] genMatrix){
+        genMap1(mapH, mapW, genMatrix);
+    }
+    void genMap3(int mapH, int mapW, char[,] genMatrix){
+        genMap1(mapH, mapW, genMatrix);
+    }
+    void genMap4(int mapH, int mapW, char[,] genMatrix){
+        genMap1(mapH, mapW, genMatrix);
+    }
+    void genMap5(int mapH, int mapW, char[,] genMatrix){
+        genMap1(mapH, mapW, genMatrix);
     }
 
     void instantiateMap(char[,] map){
@@ -166,10 +167,6 @@ public class MapGenerator : MonoBehaviour
                         break;
                     case 'n':
                         tile = Instantiate(neutralZoneTemplate, new Vector2(j, i), Quaternion.identity);
-                        tile.transform.SetParent(this.transform);
-                        break;
-                    case 'g':
-                        tile = Instantiate(energyGeneratorTemplate, new Vector2(j, i), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         break;
                     default:

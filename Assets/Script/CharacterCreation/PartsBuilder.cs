@@ -24,6 +24,8 @@ public class PartsBuilder : MonoBehaviour
     private GameObject [] eyesl = new GameObject[8];
     private GameObject body;
     private GameObject tail;
+    public Material[] legsMat;
+    public Material[] bodyMat;
     public bool change = true;
 
     // Start is called before the first frame update
@@ -140,6 +142,11 @@ public class PartsBuilder : MonoBehaviour
             if(tailValue == 0) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 66f/255f, 66f/255f);
             else if(tailValue == 1) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 255f/255f, 70f/255f);
             else if(tailValue == 2) tObject.GetComponent<Renderer> ().material.color = new Color(50f/255f, 255f/255f, 50f/255f);
+            System.Array.Find(body.GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Body").gameObject.GetComponent<Renderer> ().material = bodyMat[bodyValue];
+            for (int i=0; i<legsNumber; i++){
+                System.Array.Find(legsr[i].GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Leg").gameObject.GetComponent<Renderer> ().material = legsMat[bodyValue];
+                System.Array.Find(legsl[i].GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Leg").gameObject.GetComponent<Renderer> ().material = legsMat[bodyValue];
+            }
 
             BotData bot = new BotData(bodyValue, eyesValue, legValue, tailValue, eyesTresHold, legTresHold);
             Save.savePlayerBotFile(bot);

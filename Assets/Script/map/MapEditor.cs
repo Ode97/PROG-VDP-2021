@@ -24,7 +24,6 @@ public class MapEditor : MonoBehaviour
     public GameObject staticVoidTemplate;
     public GameObject energyTemplate;
     public GameObject trapTemplate;
-    public GameObject energyGeneratorTemplate;
     public GameObject neutralZoneTemplate;
     private GameObject selectedTemplate;
     private char code;
@@ -43,7 +42,6 @@ public class MapEditor : MonoBehaviour
         w - wall
         e - energy
         n - neutral
-        g - e. generator
         */
 
         // Inverted, idk why
@@ -119,10 +117,6 @@ public class MapEditor : MonoBehaviour
                         break;
                     case 'n':
                         map[x,y] = Instantiate(neutralZoneTemplate, new Vector2(j, i), Quaternion.identity);
-                        map[x,y].transform.SetParent(this.transform);
-                        break;
-                    case 'g':
-                        map[x,y] = Instantiate(energyGeneratorTemplate, new Vector2(j, i), Quaternion.identity);
                         map[x,y].transform.SetParent(this.transform);
                         break;
                     case 'v':

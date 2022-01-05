@@ -8,6 +8,7 @@ public class SceneNavigation : MonoBehaviourPunCallbacks
 {
     public Button button;
     public string sceneName = "";
+    public static int level;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,30 @@ public class SceneNavigation : MonoBehaviourPunCallbacks
     }
     void changeScene(){
         if (sceneName=="lab") SceneHandler.LabScene();
-        if (sceneName=="story") SceneHandler.StoryScene();
+        if (sceneName=="story") {
+            level = 0;
+            SceneHandler.LevelSelector();
+        }
+        if (sceneName=="Level1") {
+            level = 1;
+            SceneHandler.StoryScene();
+        }
+        if (sceneName=="Level2") {
+            level = 2;
+            SceneHandler.StoryScene();
+        }
+        if (sceneName=="Level3") {
+            level = 3;
+            SceneHandler.StoryScene();
+        }
+        if (sceneName=="Level4") {
+            level = 4;
+            SceneHandler.StoryScene();
+        }
+        if (sceneName=="Level5") {
+            level = 5;
+            SceneHandler.StoryScene();
+        }
         if (sceneName=="battle") SceneHandler.GameScene();
         if (sceneName=="main"){
             if(PhotonNetwork.IsConnected){
