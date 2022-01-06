@@ -52,7 +52,9 @@ public class BehaviourFabric : MonoBehaviourPun
                 GameObject arm = Instantiate(this.armours[b[2]], this.transform);
                 GameObject mov = Instantiate(this.movements[b[3]], this.transform);
                 GameObject vis = Instantiate(this.visions[b[4]], this.transform);
-                GameObject spec = Instantiate(this.specials[b[5]], this.transform);
+                GameObject spec;
+                if (b[5] != 0)
+                    spec = Instantiate(this.specials[BotManager.specType], this.transform);
                 firstbot = false;
 
             }

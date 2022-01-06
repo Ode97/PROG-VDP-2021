@@ -389,7 +389,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 0
-  avoidDistance: 0.5
+  avoidDistance: 1
   lookahead: 0
   reproductionTime: 1
   rangedAttack: 0
@@ -421,9 +421,9 @@ MonoBehaviour:
   effects: {fileID: 7249853636224055550, guid: 537d86fa7b0f19442af65b1e4774bdb9, type: 3}
   view: {fileID: 0}
   child: {fileID: 6368716511436482340}
-  Firebullet: {fileID: 4157706407306557933, guid: 7de67ba747bc35f40a40e310929f428b, type: 3}
-  ElectricBullet: {fileID: 6831131473996125909, guid: aa9407e45f768924887247881d1d50ee, type: 3}
-  AcidBullet: {fileID: 1209412788079137290, guid: c39d8ed2f45177841b248feed7452f09, type: 3}
+  FireB: {fileID: 4733642733304517880, guid: 37aa4772b130186439727699728a579d, type: 3}
+  ElectricB: {fileID: 1951030125859944672, guid: cfc26f54c40ee7844bb9e66ddb519a68, type: 3}
+  AcidB: {fileID: 6647031379498028957, guid: 532448618dc101745a26897fd84ad0ed, type: 3}
 --- !u!114 &292258037
 MonoBehaviour:
   m_ObjectHideFlags: 0

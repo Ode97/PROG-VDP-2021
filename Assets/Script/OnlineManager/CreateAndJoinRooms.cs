@@ -11,6 +11,9 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(createInput.text);
+        for(int x = 0; x < 41; x++)
+            for(int y = 0; y < 21; y++)
+                MapManager.mapMatrix[x, y] = 'v';
     }
 
     public void JoinRoom(){

@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 0
-  avoidDistance: 0.5
+  avoidDistance: 1
   lookahead: 0
   reproductionTime: 1
   rangedAttack: 0
@@ -337,6 +337,9 @@ MonoBehaviour:
   effects: {fileID: 7249853636224055550, guid: 537d86fa7b0f19442af65b1e4774bdb9, type: 3}
   view: {fileID: 0}
   child: {fileID: 3415112420216736254}
+  FireB: {fileID: 0}
+  ElectricB: {fileID: 0}
+  AcidB: {fileID: 0}
 --- !u!114 &8576774857188355631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,6 +420,7 @@ MonoBehaviour:
   - {fileID: 4142396736927987186, guid: 47851e1b4b4f3b1419b2c94542844468, type: 3}
   - {fileID: 1208367869266491441, guid: 0c5b1c76af187cf4fb40a785ec5dadfb, type: 3}
   - {fileID: 8456010776900690618, guid: 555baf06eb6f09845ba90b13e2d3917f, type: 3}
+  specials: []
   firstbot: 1
 --- !u!1 &4993807120602391968
 GameObject:

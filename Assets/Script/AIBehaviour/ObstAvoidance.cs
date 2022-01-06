@@ -15,13 +15,11 @@ public class ObstAvoidance : Action
     public override void DoIt(){
         Vector2 t = character.GetTargetPos();
         Vector2 pos = (Vector2)rb.transform.position;
-        Debug.Log(t - pos);
         rb.velocity = t - pos;
         character.SetOrientation(NewOrientation(character.GetOrientation(), rb.velocity));
         rb.rotation = character.GetOrientation() * 180 / Mathf.PI;
-        if(GetComponent<NanoBot>().speed == 0){
-            transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90, transform.rotation.w); 
-            Debug.Log("a");
+        if(rb.velocity.magnitude == 0){
+            transform.rotation = new Quaternion(transform.rotation.x, transform.rotation.y, transform.rotation.z + 2, transform.rotation.w); 
         }
         /*float rot = character.GetOrientation() * 180 / Mathf.PI;
         rb.rotation = Mathf.Lerp(rb.rotation, rot, 1);*/

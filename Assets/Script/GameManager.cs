@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
+        PhotonNetwork.AutomaticallySyncScene = false;
         /*p.transform.GetComponent<TextMeshPro>().color = Color.white;
         e.transform.GetComponent<TextMeshPro>().color = Color.red;
         p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
@@ -112,12 +113,22 @@ public class GameManager : MonoBehaviour
         e.text = nEnemy.ToString();
 
         if(nPlayer == 0){
-            // result.transform.GetComponent<TextMeshPro>().SetText("You Lose");
-            SceneHandler.LoseScreen();
+            if(PhotonNetwork.IsConnected){
+                if(PhotonNetwork.IsMasterClient){
+                    SceneHandler.LoseScreen();
+                }else{
+                    SceneHandler.WinScreen();
+                }
+            }else
+                SceneHandler.LoseScreen();
         }else if(nEnemy == 0){
-            // GetComponentInChildren<Button>().enabled = true;
-            // result.transform.GetComponent<TextMeshPro>().SetText("You Win");
-            SceneHandler.WinScreen();
+            if(PhotonNetwork.IsConnected){
+                if(PhotonNetwork.IsMasterClient)
+                    SceneHandler.WinScreen();
+                else
+                    SceneHandler.LoseScreen();
+            }else
+                SceneHandler.WinScreen();
         }
     }
 }

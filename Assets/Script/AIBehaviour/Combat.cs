@@ -49,13 +49,15 @@ public class Combat : Action
     private IEnumerator CreateBullet(GameObject target){
         if(target != null){
             GameObject b;
-            /*if(PhotonNetwork.IsConnected){
-                b = PhotonNetwork.Instantiate(bullet.name, transform.position, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
-                 //b = PhotonNetwork.InstantiateRoomObject(bullet.name, transform.position, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
-                b.GetComponent<Bullet>().view = this.GetComponent<NanoBot>().view.ViewID;
-            }else{*/
-                b = Instantiate(bullet, transform.position, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
-            //}
+            
+            b = Instantiate(bullet, transform.position, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
+            
+            
+            if(gameObject.layer == 3)
+                b.layer = Constants.PLAYER_BULLET_LAYER;
+            else
+                b.layer = Constants.ENEMY_BULLET_LAYER;
+                
             b.GetComponent<Bullet>().type = GetComponent<NanoBot>().typeOfAttk;
             if(firstShoot){
                 b.GetComponent<Bullet>().SetDMG(GetComponent<NanoBot>().attackDamage + Constants.FIRST_ATTK_DMG);

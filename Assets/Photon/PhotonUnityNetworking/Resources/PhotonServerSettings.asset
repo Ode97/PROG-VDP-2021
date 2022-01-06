@@ -54,6 +54,8 @@ MonoBehaviour:
   - Ok_RPC
   - Receive_map
   - RPC_Receive_Bullet
+  - RPC_child
+  - RPC_death
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
