@@ -5,6 +5,7 @@ using UnityEngine;
 public class StoryController : MonoBehaviour
 {
     public static bool paused = false;
+    public static bool mainMessage = false;
     public static void pause() {
         paused = true;
         Time.timeScale = 0;

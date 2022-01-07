@@ -81,4 +81,21 @@ using PlayFab.ClientModels;
             return;
         }
     }
+
+    public static bool MainMessage(){
+        string destination = Application.persistentDataPath + "/openedOnce.dat";
+
+        if(File.Exists(destination)) {
+            return true;
+        }
+        else {
+            FileStream file;
+            file = File.Create(destination);
+            bool data = true;
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(file, data);
+            file.Close();
+            return false;
+        }
+    }
 }
