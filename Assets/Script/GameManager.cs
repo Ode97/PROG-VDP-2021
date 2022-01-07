@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private int mousein = -1;
     public Camera mainCamera;
     public int pLayer;
+    public static bool gameEnd = false;
+    public GameObject endMessage;
 
     // Start is called before the first frame update
     public static GameManager instance=null;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
+        endMessage.SetActive(false);
         PhotonNetwork.AutomaticallySyncScene = false;
         /*p.transform.GetComponent<TextMeshPro>().color = Color.white;
         e.transform.GetComponent<TextMeshPro>().color = Color.red;
@@ -112,23 +115,40 @@ public class GameManager : MonoBehaviour
         p.text = nPlayer.ToString();
         e.text = nEnemy.ToString();
 
-        if(nPlayer == 0){
-            if(PhotonNetwork.IsConnected){
-                if(PhotonNetwork.IsMasterClient){
-                    SceneHandler.LoseScreen();
-                }else{
-                    SceneHandler.WinScreen();
-                }
-            }else
-                SceneHandler.LoseScreen();
-        }else if(nEnemy == 0){
-            if(PhotonNetwork.IsConnected){
-                if(PhotonNetwork.IsMasterClient)
-                    SceneHandler.WinScreen();
-                else
-                    SceneHandler.LoseScreen();
-            }else
-                SceneHandler.WinScreen();
+        if(nPlayer == 0 && !gameEnd){
+            gameEnd = true;
+            StartCoroutine(playerLose());
+        }else if(nEnemy == 0 && !gameEnd){
+            gameEnd = true;
+            StartCoroutine(enemyLose());
         }
+    }
+
+    IEnumerator playerLose() {
+        StoryController.pause();
+        endMessage.SetActive(true);
+        yield return new WaitForSecondsRealtime(2);
+        StoryController.unpause();
+        if(PhotonNetwork.IsConnected){
+            if(PhotonNetwork.IsMasterClient){
+                SceneHandler.LoseScreen();
+            }else{
+                SceneHandler.WinScreen();
+            }
+        }else
+            SceneHandler.LoseScreen();
+    }
+    IEnumerator enemyLose() {
+        StoryController.pause();
+        endMessage.SetActive(true);
+        yield return new WaitForSecondsRealtime(2);
+        StoryController.unpause();
+        if(PhotonNetwork.IsConnected){
+            if(PhotonNetwork.IsMasterClient)
+                SceneHandler.WinScreen();
+            else
+                SceneHandler.LoseScreen();
+        }else
+            SceneHandler.WinScreen();
     }
 }

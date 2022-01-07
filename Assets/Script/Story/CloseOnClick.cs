@@ -10,8 +10,13 @@ public class CloseOnClick : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        StoryController.pause();
-        button.onClick.AddListener(close);
+        if(SceneNavigation.level == 5){
+            button.onClick.AddListener(close);
+        }
+        else {
+            StoryController.pause();
+            button.onClick.AddListener(close);
+        }
     }
 
     void close() {

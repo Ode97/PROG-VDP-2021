@@ -56,16 +56,16 @@ using PlayFab.ClientModels;
                 data = new BotData(1, 1, 1, 1, 0);
             break;
             case(3):
-                data = new BotData(0, 0, 0, 0, 0);
+                data = new BotData(2, 1, 2, 2, 0);
             break;
             case(4):
-                data = new BotData(0, 0, 0, 0, 0);
+                data = new BotData(3, 2, 0, 2, 0);
             break;
             case(5):
-                data = new BotData(0, 0, 0, 0, 0);
+                data = new BotData(4, 0, 2, 1, 0);
             break;
             default:
-                data = new BotData(0, 0, 0, 0, 0);
+                data = new BotData(5, 2, 1, 0, 0);
             break;
         }
         return data;        
