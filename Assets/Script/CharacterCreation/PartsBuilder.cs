@@ -8,16 +8,12 @@ public class PartsBuilder : MonoBehaviour
     public GameObject EyesModel;
     public GameObject LegModel;
     public GameObject TailModel;
-    // Each treshold serve as a modular operator
-    private int eyesTresHold =10;
-    private int legTresHold = 10;
     // Sliders for character generation
     public int bodyValue = 0;
     public int eyesValue = 0;
     public int legValue = 0;
     public int tailValue = 0;
-    // maximum values for creator
-    public const int max_Value = 30;
+    public int specialValue = 0;
     private GameObject [] legsr = new GameObject[8];
     private GameObject [] legsl = new GameObject[8];
     private GameObject [] eyesr = new GameObject[8];
@@ -61,10 +57,10 @@ public class PartsBuilder : MonoBehaviour
             Quaternion itemRotation = this.transform.rotation;
             this.transform.localScale = new Vector3(1,1,1);
             this.transform.rotation = Quaternion.Euler(0, 0, 0);
-            if (eyesValue > max_Value) eyesValue = max_Value;
-            if (bodyValue > max_Value) bodyValue = max_Value;
             int legsNumber = legValue + 2;
             int eyesNumber = eyesValue + 1;
+
+            // Delete previous parts
             Destroy(body);
             Destroy(tail);
             for(int i=0; i<legsr.Length; i++){
@@ -75,6 +71,7 @@ public class PartsBuilder : MonoBehaviour
                 Destroy(eyesr[i]);
                 Destroy(eyesl[i]);
             }
+
             legsr = new GameObject[legsNumber];
             legsl = new GameObject[legsNumber];
             eyesr = new GameObject[eyesNumber];
@@ -148,7 +145,7 @@ public class PartsBuilder : MonoBehaviour
                 System.Array.Find(legsl[i].GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Leg").gameObject.GetComponent<Renderer> ().material = legsMat[bodyValue];
             }
 
-            BotData bot = new BotData(bodyValue, eyesValue, legValue, tailValue, eyesTresHold, legTresHold);
+            BotData bot = new BotData(bodyValue, eyesValue, legValue, tailValue, specialValue);
             Save.savePlayerBotFile(bot);
             change = false;
         }

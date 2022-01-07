@@ -17,12 +17,13 @@ public class BehaviourFabric : MonoBehaviourPun
     {
         if(!PhotonNetwork.IsConnected || photonView.IsMine){
             if(firstbot){
+                Save.loadPlayerBotFile();
                 entity = this.GetComponent<NanoBot>();
                 GameObject atk = Instantiate(this.attacks[BotManager.atkType], this.transform);
                 GameObject arm = Instantiate(this.armours[BotManager.armType], this.transform);
                 GameObject mov = Instantiate(this.movements[BotManager.movType], this.transform);
                 GameObject vis = Instantiate(this.visions[BotManager.visType], this.transform);
-                GameObject spec;
+                GameObject spec = Instantiate(this.specials[BotManager.specType], this.transform);
                 if (BotManager.specType != 0)
                     spec = Instantiate(this.specials[BotManager.specType], this.transform);
                 firstbot = false;

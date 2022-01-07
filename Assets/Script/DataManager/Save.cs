@@ -24,7 +24,6 @@ using PlayFab.ClientModels;
         bf.Serialize(file, data);
         file.Close();
     }
-
     public static BotData loadPlayerBotFile(){
         string destination = Application.persistentDataPath + "/" + PlayFabMan.username + "_playerBot.dat";
         FileStream file;
@@ -39,6 +38,36 @@ using PlayFab.ClientModels;
         BinaryFormatter bf = new BinaryFormatter();
         BotData data = (BotData) bf.Deserialize(file);
         file.Close();
+        BotManager.armType = data.bodyV;
+        BotManager.atkType = data.tailV;
+        BotManager.movType = data.legV;
+        BotManager.visType = data.eyesV;
+        BotManager.specType = data.specs;
+        return data;        
+    }
+    public static BotData loadEnemyBotFile(int level){
+        
+        BotData data;
+        switch(level){
+            case(1):
+                data = new BotData(0, 0, 0, 0, 0);
+            break;
+            case(2):
+                data = new BotData(1, 1, 1, 1, 0);
+            break;
+            case(3):
+                data = new BotData(0, 0, 0, 0, 0);
+            break;
+            case(4):
+                data = new BotData(0, 0, 0, 0, 0);
+            break;
+            case(5):
+                data = new BotData(0, 0, 0, 0, 0);
+            break;
+            default:
+                data = new BotData(0, 0, 0, 0, 0);
+            break;
+        }
         return data;        
     }
 

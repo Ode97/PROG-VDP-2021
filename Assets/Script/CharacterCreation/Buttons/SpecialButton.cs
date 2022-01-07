@@ -33,7 +33,7 @@ public class SpecialButton : MonoBehaviour
     void next()
     {
         actual = (actual + 1) % options.Length;
-        // builder.specValue = specValue[actual];
+        builder.specialValue = specValue[actual];
         text.text = options[actual];
         BotManager.specType = actual;
         builder.change = true;
@@ -41,8 +41,8 @@ public class SpecialButton : MonoBehaviour
     void prev()
     {
         actual = (actual - 1 + options.Length) % options.Length;
+        builder.specialValue = specValue[actual];
         text.text = options[actual];
-        // builder.specValue = specValue[actual];
         BotManager.specType = actual;
         builder.change = true;
     }

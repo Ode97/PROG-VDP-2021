@@ -11,14 +11,12 @@ public class BotFabric : MonoBehaviourPun
     public GameObject EyesModel;
     public GameObject LegModel;
     public GameObject TailModel;
-    // Each treshold serve as a modular operator
-    public int eyesTresHold = 10;
-    public int legTresHold = 15;
     // Sliders for character generation
-    public int bodyValue = 15;
-    public int eyesValue = 20;
-    public int legValue = 15;
-    public int tailValue = 15;
+    public int bodyValue = 0;
+    public int eyesValue = 0;
+    public int legValue = 0;
+    public int tailValue = 0;
+    public int specialValue = 0;
     public GameObject creature;
     private GameObject [] legsr;
     private GameObject [] legsl;
@@ -26,6 +24,9 @@ public class BotFabric : MonoBehaviourPun
     private GameObject [] eyesl;
     private GameObject body;
     private GameObject tail;
+    public Material[] legsMat;
+    public Material[] bodyMat;
+    public bool isPlayer = true;
 
     // Start is called before the first frame update
     void Start()
@@ -54,10 +55,10 @@ public class BotFabric : MonoBehaviourPun
 
         // Read file P1Bot to get all the numeric "Value"s
         if(!PhotonNetwork.IsConnected || photonView.IsMine){
-            BotData bot = Save.loadPlayerBotFile();
+            BotData bot;
+            if(isPlayer) bot = Save.loadPlayerBotFile();
+            else bot = Save.loadEnemyBotFile(SceneNavigation.level);
             if (bot!= null) {
-                eyesTresHold = bot.eyesTh;
-                legTresHold = bot.legTh;
                 eyesValue = bot.eyesV;
                 legValue = bot.legV;
                 tailValue = bot.tailV;
@@ -68,11 +69,11 @@ public class BotFabric : MonoBehaviourPun
 
             Vector3 itemScale = creature.transform.localScale;
             Quaternion itemRotation = creature.transform.rotation;
+            Debug.Log(isPlayer+ ", rot:"+itemRotation);
             creature.transform.localScale = new Vector3(1,1,1);
             creature.transform.rotation = Quaternion.Euler(0, 0, 0);
-            
-            int legsNumber = (legValue / legTresHold) + 2;
-            int eyesNumber = (eyesValue / eyesTresHold) + 1;
+            int legsNumber = legValue + 2;
+            int eyesNumber = eyesValue + 1;
 
             legsr = new GameObject[legsNumber];
             legsl = new GameObject[legsNumber];
@@ -136,6 +137,16 @@ public class BotFabric : MonoBehaviourPun
 
             creature.transform.localScale = itemScale;
             creature.transform.rotation = itemRotation;
+
+            GameObject tObject = System.Array.Find(tail.GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Tail").gameObject;
+            if(tailValue == 0) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 66f/255f, 66f/255f);
+            else if(tailValue == 1) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 255f/255f, 70f/255f);
+            else if(tailValue == 2) tObject.GetComponent<Renderer> ().material.color = new Color(50f/255f, 255f/255f, 50f/255f);
+            System.Array.Find(body.GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Body").gameObject.GetComponent<Renderer> ().material = bodyMat[bodyValue];
+            for (int i=0; i<legsNumber; i++){
+                System.Array.Find(legsr[i].GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Leg").gameObject.GetComponent<Renderer> ().material = legsMat[bodyValue];
+                System.Array.Find(legsl[i].GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Leg").gameObject.GetComponent<Renderer> ().material = legsMat[bodyValue];
+            }
         }
     }
 
@@ -148,8 +159,6 @@ public class BotFabric : MonoBehaviourPun
         BotData bot = Save.loadPlayerBotFile();
         int[] parts = new int[7];
         parts.SetValue(GetComponentInParent<PhotonView>().ViewID, 0);
-        parts.SetValue(bot.eyesTh, 1);
-        parts.SetValue(bot.legTh, 2);
         parts.SetValue(bot.eyesV, 3);
         parts.SetValue(bot.legV, 4);
         parts.SetValue(bot.tailV, 5);
@@ -162,12 +171,10 @@ public class BotFabric : MonoBehaviourPun
     {
         if(GetComponentInParent<PhotonView>().ViewID == b[0]){
             if (b != null) {
-                eyesTresHold = b[1];
-                legTresHold = b[2];
-                eyesValue = b[3];
-                legValue = b[4];
-                tailValue = b[5];
-                bodyValue = b[6];
+                eyesValue = b[1];
+                legValue = b[2];
+                tailValue = b[3];
+                bodyValue = b[4];
             }
 
             Vector3 itemScale = creature.transform.localScale;
@@ -175,8 +182,8 @@ public class BotFabric : MonoBehaviourPun
             creature.transform.localScale = new Vector3(1,1,1);
             creature.transform.rotation = Quaternion.Euler(0, 0, 0);
             
-            int legsNumber = (legValue / legTresHold) + 2;
-            int eyesNumber = (eyesValue / eyesTresHold) + 1;
+            int legsNumber = legValue + 2;
+            int eyesNumber = eyesValue + 1;
 
             legsr = new GameObject[legsNumber];
             legsl = new GameObject[legsNumber];

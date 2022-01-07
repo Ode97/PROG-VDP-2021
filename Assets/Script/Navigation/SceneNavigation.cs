@@ -40,7 +40,7 @@ public class SceneNavigation : MonoBehaviourPunCallbacks
             level = 5;
             SceneHandler.StoryScene();
         }
-        if (sceneName=="battle") SceneHandler.GameScene();
+        if (sceneName=="battle") SceneHandler.GameScene(level);
         if (sceneName=="main"){
             if(PhotonNetwork.IsConnected){
                 PhotonNetwork.LeaveRoom();

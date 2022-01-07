@@ -4,19 +4,17 @@ using UnityEngine;
 
 [System.Serializable]
 public class BotData{
-    public int eyesTh;
-    public int legTh;
     public int bodyV;
     public int eyesV;
     public int legV;
     public int tailV;
+    public int specs;
 
-    public BotData(int bV, int eV, int lV, int tV, int eTh, int lTh){
-        eyesTh = eTh;
-        legTh = lTh;
+    public BotData(int bV, int eV, int lV, int tV, int sV){
         bodyV = bV;
         eyesV = eV;
         legV = lV;
         tailV = tV;
+        specs = sV;
     }
 }
