@@ -56,6 +56,9 @@ public class NanoBot : MonoBehaviour
     public Effects effects;
     public PhotonView view;
     public GameObject child;
+    public GameObject FireB;
+    public GameObject ElectricB;
+    public GameObject AcidB;
     //private Vision visionUpgrade;
     //private Movment movmentUpgrade;
     //private Attack attackUpgrade;
@@ -116,12 +119,14 @@ public class NanoBot : MonoBehaviour
                 }
             }
             GameManager.instance.death(gameObject.layer);
+            send_death(gameObject.layer);
             PhotonNetwork.Destroy(gameObject);
         }
         
         if(actualLife >= lifeForReproduction && !pregnant){
             StartCoroutine(Reproduction());
             GameManager.instance.newChild(gameObject.layer);
+            send_child(gameObject.layer);
         }
 
         if(!timer && gameObject.activeInHierarchy)
@@ -360,9 +365,8 @@ public class NanoBot : MonoBehaviour
     }
 
     public void ApplyDMG(float dmg, Type type){
-        if(!PhotonNetwork.IsConnected || view.IsMine){
-            actualLife -= dmg;
-        }
+        actualLife -= dmg;
+        
         //Debug.Log(gameObject.name + "ha ricevuto " + dmg + " danni " + type);
 
         Color color;
@@ -398,11 +402,11 @@ public class NanoBot : MonoBehaviour
                     actualLife = life;
 
                 target = null;
-                collision.gameObject.SetActive(false);
+                //collision.gameObject.SetActive(false);
                 if(PhotonNetwork.IsConnected){
-                    if(collision.gameObject.GetComponent<PhotonView>().IsMine)
+                    if(collision.gameObject.GetComponent<PhotonView>().IsMine){
                         PhotonNetwork.Destroy(collision.gameObject);
-                    else{
+                    }else{
                         send_RPC_destroy(collision.gameObject.GetComponent<PhotonView>().ViewID);
                     }
                 }else{
@@ -421,47 +425,62 @@ public class NanoBot : MonoBehaviour
 
             if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER))))){
                 
-                //Debug.Log(gameObject.name + " colpito da " + collision.gameObject.name);
+                //Debug.Log(gameObject.name + " colpito da " + collision.gameObject.name + " layer = " + collision.gameObject.layer);
                 float dmg;
                 dmg = collision.gameObject.GetComponent<Bullet>().atkDmg;
                 if(collision.gameObject.GetComponent<Bullet>().type == Type.Fire){
                     if(PhotonNetwork.IsConnected){
                         Instantiate(effects.FireEffect, gameObject.transform.position, Quaternion.identity).transform.SetParent(gameObject.transform);
                         send_EffectFireDmg(view.ViewID);
-                    }else
+                        send_RPC_dmg(dmg * (1 - fireArmor), "f");
+                        FireDmg(dmg/2);
+                    }else{
                         Instantiate(effects.FireEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
-                    ApplyDMG(dmg * (1 - fireArmor), Type.Fire);
-                    FireDmg(dmg/2);
+                        ApplyDMG(dmg * (1 - fireArmor), Type.Fire);
+                        FireDmg(dmg/2);
+                    }
                 }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Acid){
                     GameObject g;
                     if(PhotonNetwork.IsConnected){
                         g = Instantiate(effects.acidEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
                         send_EffectAcid(view.ViewID);
+                        g.transform.localScale = new Vector3(2, 2, 2);
+                        
+                        send_RPC_dmg(dmg * (1 - acidArmor), "a");
+                        //ApplyDMG(dmg * (1 - acidArmor), Type.Acid);
+                        collision.gameObject.GetComponent<Bullet>().shooted = true;
                     }else{
                         g = Instantiate(effects.acidEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                        g.transform.localScale = new Vector3(2, 2, 2);
+                        ApplyDMG(dmg * (1 - acidArmor), Type.Acid);
+                        collision.gameObject.GetComponent<Bullet>().shooted = true;
                     }
-                    g.transform.localScale = new Vector3(2, 2, 2);
-                    ApplyDMG(dmg * (1 - acidArmor), Type.Acid);
-                    collision.gameObject.GetComponent<Bullet>().shooted = true;
+                
+                    
                 }else if(collision.gameObject.GetComponent<Bullet>().type == Type.Electric){
                     GameObject g;
                     if(PhotonNetwork.IsConnected){
                         g = Instantiate(effects.electricEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
                         send_EffectElectricDmg(view.ViewID);
+                        g.transform.localScale = new Vector3(3, 3, 3);
+                        send_RPC_dmg(dmg * (1 - electricArmor), "e");
+                        //ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
+                        ElectricWave(dmg/3);
                     }else{
                         g = Instantiate(effects.electricEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+                        g.transform.localScale = new Vector3(3, 3, 3);
+                        ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
+                        ElectricWave(dmg/3);
                     }
-                    g.transform.localScale = new Vector3(3, 3, 3);
-                    ApplyDMG(dmg * (1 - electricArmor), Type.Electric);
-                    ElectricWave(dmg/3);
+                    
                 }
                 if(collision.gameObject.GetComponent<Bullet>().type != Type.Acid)
-                    if(PhotonNetwork.IsConnected){
-                        collision.gameObject.SetActive(false);
-                    }else{
-                        Destroy(collision.gameObject);
-                    }
+                    Destroy(collision.gameObject);
+                
             }
+        }else if(!view.IsMine){
+            if(((collision.gameObject.layer == Constants.ENEMY_BULLET_LAYER && gameObject.layer == Constants.PLAYER_LAYER) || (((collision.gameObject.layer == Constants.PLAYER_BULLET_LAYER && gameObject.layer == Constants.ENEMY_LAYER)))))
+                Destroy(collision.gameObject);
         }
     }
 
@@ -486,9 +505,9 @@ public class NanoBot : MonoBehaviour
         view.RPC("RPC_Destroy", RpcTarget.Others, v);
     }
     
-    /*public void send_RPC_dmg(float d, char c){
+    public void send_RPC_dmg(float d, string c){
         view.RPC("RPC_dmg", RpcTarget.AllBuffered, d, c);
-    }*/
+    }
     public void send_Dmg_PopUp(float x, float y, float z, float dmg, string c){
         view.RPC("RPC_DMG_PopUp", RpcTarget.Others, x, y, z, dmg, c);
     }
@@ -506,6 +525,12 @@ public class NanoBot : MonoBehaviour
     }
     public void send_EffectAcid(int v){
         view.RPC("RPC_Effect_Acid", RpcTarget.Others, v);
+    }
+    public void send_death(int l){
+        view.RPC("RPC_death", RpcTarget.Others, l);
+    }
+     public void send_child(int l){
+        view.RPC("RPC_child", RpcTarget.Others, l);
     }
 
     [PunRPC]
@@ -537,7 +562,7 @@ public class NanoBot : MonoBehaviour
     public void RPC_Destroy(int v){
         PhotonView p = PhotonView.Find(v);
         if(p != null && p.IsMine)
-            PhotonNetwork.Destroy(PhotonView.Find(v));
+            PhotonNetwork.Destroy(p);
     }
     [PunRPC]
     public void RPC_Effect_Fire_Burst(int v){
@@ -572,18 +597,45 @@ public class NanoBot : MonoBehaviour
             Instantiate(effects.acidEffect, gameObject.transform.position, Quaternion.identity, gameObject.transform);
         }
     }
-    /*[PunRPC]
-    public void RPC_dmg(float d, char c){
+    [PunRPC]
+    public void RPC_Receive_Bullet(float x, float y, float z, float x1, float x2, float d, string t){
+        Vector3 p = new Vector3(x, y, z);
+        Vector2 r = new Vector2(x1, x2);
+        GameObject b;
+        if(string.Equals(t, "f")){
+            b = Instantiate(FireB, p, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
+        }else if(string.Equals(t, "e")){
+            b = Instantiate(ElectricB, p, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
+        }else{
+            b = Instantiate(AcidB, p, Quaternion.Euler(GetComponent<NanoBot>().AsVector()));
+        }
+        b.GetComponent<Bullet>().atkDmg = d;
+
+        b.transform.localScale = new Vector3(8f, 8f, 1);
+        b.GetComponent<Rigidbody2D>().velocity = r;
+        Debug.Log(gameObject.name + " " + b.layer);
+    }
+    [PunRPC]
+    public void RPC_death(int l){
+        GameManager.instance.death(l);
+    }
+    [PunRPC]
+    public void RPC_child(int l){
+        GameManager.instance.newChild(l);
+    }
+
+    [PunRPC]
+    public void RPC_dmg(float d, string c){
         Type t = new Type();
-        if(char.Equals(c, "f"))
+        if(string.Equals(c, "f"))
             t = Type.Fire;
-        else if(char.Equals(c, "e"))
+        else if(string.Equals(c, "e"))
             t = Type.Electric;
-        else if(char.Equals(c, "a"))
+        else if(string.Equals(c, "a"))
             t = Type.Acid;
 
         ApplyDMG(d, t);
-    }*/
+    }
 
     /*void OnDrawGizmos(){
         Gizmos.color = Color.yellow;

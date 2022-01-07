@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 0
-  avoidDistance: 0.5
+  avoidDistance: 1
   lookahead: 0
   reproductionTime: 1
   rangedAttack: 0
@@ -423,6 +423,9 @@ MonoBehaviour:
   effects: {fileID: 7249853636224055550, guid: 537d86fa7b0f19442af65b1e4774bdb9, type: 3}
   view: {fileID: 0}
   child: {fileID: 8804005712328914914}
+  FireB: {fileID: 7947834562600257753, guid: 1af4f854d44ce7049b42f04dbcb8eae7, type: 3}
+  ElectricB: {fileID: 5376991535619371075, guid: 4db63e70e8519cf44a4f2e9094140f95, type: 3}
+  AcidB: {fileID: 8083392586700093591, guid: 76f214f989abcd445b768892f686494b, type: 3}
 --- !u!114 &2471391390603563059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +506,7 @@ MonoBehaviour:
   - {fileID: 4142396736927987186, guid: 47851e1b4b4f3b1419b2c94542844468, type: 3}
   - {fileID: 1208367869266491441, guid: 0c5b1c76af187cf4fb40a785ec5dadfb, type: 3}
   - {fileID: 8456010776900690618, guid: 555baf06eb6f09845ba90b13e2d3917f, type: 3}
+  specials: []
   firstbot: 1
 --- !u!114 &7098259395413136069
 MonoBehaviour:

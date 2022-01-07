@@ -10,11 +10,11 @@ public class Bullet : MonoBehaviour//, IPunObservable
     public bool shooted = false;
     private bool splashBullet = false;
     public int view;
+    private bool first = true;
     // Start is called before the first frame update
     void Start()
     {
         //atkDmg = GetComponentInParent<NanoBot>().attackDamage;
-        send_RPC_dmg(atkDmg, GetComponent<PhotonView>().ViewID);
         StartCoroutine(DestroyBullet());
     }
 
@@ -40,28 +40,9 @@ public class Bullet : MonoBehaviour//, IPunObservable
     }
 
     private IEnumerator DestroyBullet(){
+        
         yield return new WaitForSeconds(3f);
-        if(PhotonNetwork.IsConnected)
-            send_RPC_destroy(view);
-        else
-            Destroy(gameObject);
-    }
-
-    public void send_RPC_destroy(int v){
-        PhotonView p = PhotonView.Find(v);
-        if(p != null)
-            p.GetComponent<PhotonView>().RPC("RPC_Destroy", RpcTarget.AllBuffered, v);
-    }
-    public void send_RPC_dmg(float d, int v){
-        PhotonView p = PhotonView.Find(v);
-        if(p != null)
-            p.GetComponent<PhotonView>().RPC("RPC_Dmg", RpcTarget.Others, d, v);
-    }
-
-    [PunRPC]
-    public void RPC_Dmg(float d, int v){
-        if(v == GetComponent<PhotonView>().ViewID)
-            atkDmg = d;
+        Destroy(gameObject);
     }
 
     public void SetSplashBullet(){
@@ -71,15 +52,4 @@ public class Bullet : MonoBehaviour//, IPunObservable
     public bool IsSplashBullet(){
         return splashBullet;
     }
-
-    /*public void OnPhotonSerializeView (PhotonStream stream, PhotonMessageInfo info){
-        //Debug.Log("a");
-        if(stream.IsWriting){
-            stream.SendNext(type);
-            stream.SendNext(atkDmg);
-        }else{
-            type = (Type)stream.ReceiveNext();
-            atkDmg = (float)stream.ReceiveNext();
-        }
-    }*/
 }

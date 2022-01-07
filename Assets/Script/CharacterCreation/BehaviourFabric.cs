@@ -34,12 +34,13 @@ public class BehaviourFabric : MonoBehaviourPun
     }
 
     public void send_RPC_behaviour(){
-        int[] behaviours = new int[5];
+        int[] behaviours = new int[6];
         behaviours.SetValue(GetComponent<PhotonView>().ViewID, 0);
         behaviours.SetValue(BotManager.atkType, 1);
         behaviours.SetValue(BotManager.armType, 2);
         behaviours.SetValue(BotManager.movType, 3);
         behaviours.SetValue(BotManager.visType, 4);
+        behaviours.SetValue(BotManager.specType, 5);
 
         photonView.RPC("RPC_Behaviour", RpcTarget.Others, behaviours);
     }
@@ -52,7 +53,9 @@ public class BehaviourFabric : MonoBehaviourPun
                 GameObject arm = Instantiate(this.armours[b[2]], this.transform);
                 GameObject mov = Instantiate(this.movements[b[3]], this.transform);
                 GameObject vis = Instantiate(this.visions[b[4]], this.transform);
-                Debug.Log(atk + " " + arm + " " + mov + " " + vis);
+                GameObject spec;
+                if (b[5] != 0)
+                    spec = Instantiate(this.specials[BotManager.specType], this.transform);
                 firstbot = false;
 
             }

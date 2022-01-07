@@ -25,7 +25,7 @@ public class DamagePopUp : MonoBehaviour
         textMesh.SetText(damageAmount.ToString());
         textMesh.color = color;
         disappearTimer = disappearTimerMax;
-        moveVector = new Vector3(0.7f,1) * 30;
+        moveVector = new Vector3(0.7f,1) * 10;
         sortingOrder ++;
         textMesh.sortingOrder = sortingOrder;
 
@@ -36,10 +36,10 @@ public class DamagePopUp : MonoBehaviour
         moveVector -= moveVector * 8f * Time.deltaTime;
 
         if(disappearTimer > disappearTimerMax * 0.5){
-            float increaseScale = 1f;
+            float increaseScale = 0.5f;
             transform.localScale += Vector3.one * increaseScale * Time.deltaTime;
         }else{
-            float increaseScale = 1f;
+            float increaseScale = 0.5f;
             transform.localScale -= Vector3.one * increaseScale * Time.deltaTime;
         }
 
