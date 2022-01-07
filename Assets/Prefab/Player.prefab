@@ -425,7 +425,7 @@ MonoBehaviour:
   - {fileID: 1208367869266491441, guid: 0c5b1c76af187cf4fb40a785ec5dadfb, type: 3}
   - {fileID: 8456010776900690618, guid: 555baf06eb6f09845ba90b13e2d3917f, type: 3}
   specials:
-  - {fileID: 0}
+  - {fileID: 7541215071553036487, guid: c938abf410797094bb780616380f1960, type: 3}
   - {fileID: 1342734011063751660, guid: a3b10298719bcd94ea3ad45413dc165e, type: 3}
   - {fileID: 3503009442289465638, guid: 5772e191397844b4b9e3aad974cf4cda, type: 3}
   - {fileID: 4142608245348166678, guid: f778963ff51f21543a6fd8829f2334e8, type: 3}
@@ -513,6 +513,7 @@ MonoBehaviour:
   eyesValue: 0
   legValue: 0
   tailValue: 0
+  specialValue: 0
   creature: {fileID: 4993807120602391968}
   legsMat:
   - {fileID: 2100000, guid: bf1b23f356462404db4e8d83c977cc63, type: 2}

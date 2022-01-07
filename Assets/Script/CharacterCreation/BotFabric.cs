@@ -69,7 +69,6 @@ public class BotFabric : MonoBehaviourPun
 
             Vector3 itemScale = creature.transform.localScale;
             Quaternion itemRotation = creature.transform.rotation;
-            Debug.Log(isPlayer+ ", rot:"+itemRotation);
             creature.transform.localScale = new Vector3(1,1,1);
             creature.transform.rotation = Quaternion.Euler(0, 0, 0);
             int legsNumber = legValue + 2;
