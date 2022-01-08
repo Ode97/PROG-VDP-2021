@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
             destructionTimeRemaining -= Time.deltaTime;
             explosionButton.GetComponentInChildren<Text>().text = ((int)destructionTimeRemaining + 1).ToString();
         }else{
-            explosionButton.GetComponentInChildren<Text>().text = "Wall\nDestruction";
+            explosionButton.GetComponentInChildren<Text>().text = "Wall\nBreak";
             if (Input.GetMouseButtonUp(0) && !b){
                 b = true;
             }
