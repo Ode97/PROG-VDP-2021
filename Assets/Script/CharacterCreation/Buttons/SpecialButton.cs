@@ -18,7 +18,12 @@ public class SpecialButton : MonoBehaviour
     void Start()
     {
         
-        actual = 0;
+        BotData botD = Save.loadPlayerBotFile();
+        if(botD != null)
+            actual = botD.specs;
+        else
+            actual = 0;
+            
         options = ButtonsValues.specLabels;
         specValue = ButtonsValues.specValues;
         text.text = options[actual];

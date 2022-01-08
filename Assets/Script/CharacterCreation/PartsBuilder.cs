@@ -27,7 +27,20 @@ public class PartsBuilder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        BotData bot = Save.loadPlayerBotFile();
+        if(bot != null){
+            bodyValue = bot.bodyV;
+            eyesValue = bot.eyesV;
+            legValue = bot.legV;
+            tailValue = bot.tailV;
+            specialValue = bot.specs;
+        }else{
+            bodyValue = 0;
+            eyesValue = 0;
+            legValue = 0;
+            tailValue = 0;
+            specialValue = 0;
+        }
         /*
         BodyModel.GetComponent<MeshController>().ScaleX = 1.0f;
         BodyModel.GetComponent<MeshController>().ScaleY = 1.0f;

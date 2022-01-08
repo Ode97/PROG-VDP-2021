@@ -19,7 +19,12 @@ public class MovementButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        actual = 0;
+        BotData botD = Save.loadPlayerBotFile();
+        if(botD != null)
+            actual = botD.legV;
+        else
+            actual = 0;
+            
         options = ButtonsValues.movLabels;
         speedValue = ButtonsValues.movValues;
         text.text = options[actual];

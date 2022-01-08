@@ -18,7 +18,12 @@ public class ArmorButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        actual = 0;
+        BotData botD = Save.loadPlayerBotFile();
+        if(botD != null)
+            actual = botD.bodyV;
+        else
+            actual = 0;
+            
         options = ButtonsValues.armLabels;
         bodyValue = ButtonsValues.armValues;
         text.text = options[actual];
