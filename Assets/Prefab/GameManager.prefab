@@ -46,12 +46,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907bdea6cb91ed14593a3273cb07c870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}
   p: {fileID: 0}
   e: {fileID: 0}
   tc: {fileID: 0}
   timeRemaining: 30
   mainCamera: {fileID: 0}
   pLayer: 3
+  endMessage: {fileID: 0}
   active: {fileID: 8406611161241669849}
   final: {fileID: 1347729774}
   signalButton: {fileID: 0}

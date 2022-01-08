@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     private int nPlayer = 1;
     private int nEnemy = 1;
+    public GameObject explosion;
     public Text p;
     public Text e;
     public Text tc;
@@ -171,6 +172,7 @@ public class GameManager : MonoBehaviour
                     }else{
                         Destroy(hitData.transform.parent.gameObject);
                     }
+                    Instantiate(explosion, hitData.transform.parent.transform.position, Quaternion.identity);
                 }
             }
             mousein = -1;
@@ -249,6 +251,8 @@ public class GameManager : MonoBehaviour
     }
     [PunRPC]
     public void RPC_Explosion(int view){
-        PhotonNetwork.Destroy(PhotonView.Find(view));
+        PhotonView pv = PhotonView.Find(view);
+        PhotonNetwork.Destroy(pv);
+        Instantiate(explosion, pv.gameObject.transform.position, Quaternion.identity);
     }
 }
