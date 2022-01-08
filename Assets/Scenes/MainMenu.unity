@@ -1322,8 +1322,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -335}
-  m_SizeDelta: {x: 400, y: 120}
+  m_AnchoredPosition: {x: 356, y: -335}
+  m_SizeDelta: {x: 510.811, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &647994259
 MonoBehaviour:
@@ -1360,7 +1360,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'First time?
 
-    Try Storymode!'
+    Try Single Player Mode!'
 --- !u!222 &647994260
 CanvasRenderer:
   m_ObjectHideFlags: 0
