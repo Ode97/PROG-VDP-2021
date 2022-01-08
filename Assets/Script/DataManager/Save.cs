@@ -31,7 +31,7 @@ using PlayFab.ClientModels;
         if(File.Exists(destination)) file = File.OpenRead(destination);
         else
         {
-            Debug.LogError("Save File not found");
+            //Debug.LogError("Save File not found");
             return null;
         }
 
@@ -77,7 +77,7 @@ using PlayFab.ClientModels;
         if(File.Exists(destination)) File.Delete(destination);
         else
         {
-            Debug.LogError("File not found");
+            //Debug.LogError("File not found");
             return;
         }
     }
