@@ -313,7 +313,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 163}
-  m_SizeDelta: {x: 900, y: 190}
+  m_SizeDelta: {x: 1090, y: 190}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &101973740
 MonoBehaviour:
@@ -1965,19 +1965,19 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 4fbf9014966ce8a4fa863f14fe74722d, type: 3}
-    m_FontSize: 68
+    m_Font: {fileID: 12800000, guid: c0ae693b09c6a954ca0d2701c818554e, type: 3}
+    m_FontSize: 122
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 71
+    m_MaxSize: 123
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.31
-  m_Text: NANOBOTS WARS
+  m_Text: NANOBOT WARS
 --- !u!222 &907229064
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3568,12 +3568,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 4fbf9014966ce8a4fa863f14fe74722d, type: 3}
-    m_FontSize: 68
+    m_Font: {fileID: 12800000, guid: c0ae693b09c6a954ca0d2701c818554e, type: 3}
+    m_FontSize: 110
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 71
+    m_MaxSize: 110
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

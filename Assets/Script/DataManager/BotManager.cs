@@ -9,4 +9,7 @@ public class BotManager : MonoBehaviour
     public static int movType = 0;
     public static int visType = 0;
     public static int specType = 0;
+    public static int spawnX = 5;
+    public static int spawnY = 10;
+    public static bool spawned = false;
 }
