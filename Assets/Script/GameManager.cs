@@ -14,11 +14,21 @@ public class GameManager : MonoBehaviour
     public Text tc;
     public float timeRemaining = 10;
     private bool timerIsRunning = true;
+    private float signalTimeRemaining = 5;
+    private float destructionTimeRemaining = 5;
     private int mousein = -1;
     public Camera mainCamera;
     public int pLayer;
     public static bool gameEnd = false;
     public GameObject endMessage;
+    public Signal active;
+    public Signal final;
+    public Button signalButton;
+    public Button explosionButton;
+    private bool s = false;
+    private bool d = false;
+    private bool a = false;
+    private bool b = false;
 
     // Start is called before the first frame update
     public static GameManager instance=null;
@@ -33,12 +43,15 @@ public class GameManager : MonoBehaviour
     }
 
     void Start(){
+        gameEnd = false;
+        s = false;
+        d = false;
+        a = false;
+        b = false;
         endMessage.SetActive(false);
         PhotonNetwork.AutomaticallySyncScene = false;
-        /*p.transform.GetComponent<TextMeshPro>().color = Color.white;
-        e.transform.GetComponent<TextMeshPro>().color = Color.red;
-        p.transform.GetComponent<TextMeshPro>().SetText(nPlayer.ToString());
-        e.transform.GetComponent<TextMeshPro>().SetText(nEnemy.ToString());*/
+        signalButton.onClick.AddListener(EnableSignal);
+        explosionButton.onClick.AddListener(EnableDestruction);
     }
 
     void Update()
@@ -56,39 +69,118 @@ public class GameManager : MonoBehaviour
                 DisplayTime(timeRemaining);
                 timerIsRunning = false;
                 GetComponent<LineRenderer>().startColor = Color.yellow;
-                GetComponent<Signal>().enabled = true;
-                GetComponent<Signal>().FinalSignal();
+                GetComponent<LineRenderer>().endColor = Color.yellow;
+                final.enabled = true;
+                final.FinalSignal();
             }
         }
-        signalByPlayer();
+
+        if (signalTimeRemaining > 0){
+            signalTimeRemaining -= Time.deltaTime;
+            signalButton.GetComponentInChildren<Text>().text = ((int)signalTimeRemaining + 1).ToString();
+        }else{
+            signalButton.GetComponentInChildren<Text>().text = "Signal";
+            if (Input.GetMouseButtonUp(0) && !a){
+                a = true;
+            }
+            if(s){
+                if(a)
+                    signalByPlayer();
+            }
+        }
+
+        if (destructionTimeRemaining > 0){
+            destructionTimeRemaining -= Time.deltaTime;
+            explosionButton.GetComponentInChildren<Text>().text = ((int)destructionTimeRemaining + 1).ToString();
+        }else{
+            explosionButton.GetComponentInChildren<Text>().text = "Wall\nDestruction";
+            if (Input.GetMouseButtonUp(0) && !b){
+                b = true;
+            }
+            if(d){
+                if(b)
+                    destructionByPlayer();
+            }
+        }
+    }
+
+    private void EnableSignal(){
+        s = true;
+        d = false;
+        b = false;
+        explosionButton.interactable = true;
+        signalButton.interactable = false;
+    }
+
+    private void EnableDestruction(){
+        d = true;
+        s = false;
+        a = false;
+        signalButton.interactable = true;
+        explosionButton.interactable = false;
     }
 
     private void signalByPlayer(){
-        //if (Input.GetMouseButtonDown(0))
-        //    mousein = 0;
         
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonDown(0)){
             mousein = 0;
-        
+        }
+
+        Debug.Log(mousein);
         if (mousein == 0) {
-            Vector2 mouseMapPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            GetComponent<Signal>().enabled = true;
-            GetComponent<Signal>().radius = 3;
+            Ray hit = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitData;           
             GetComponent<LineRenderer>().startColor = Color.white;
             GetComponent<LineRenderer>().endColor = Color.white;
-            if(!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient)
+            if(!PhotonNetwork.IsConnected || PhotonNetwork.IsMasterClient){
                 pLayer = Constants.PLAYER_LAYER;
-            else
+            }else{
                 pLayer = Constants.ENEMY_LAYER;
-
-            GetComponent<Signal>().SetCenter(mouseMapPosition, pLayer);
+            }
+        
+            if(Physics.Raycast(hit, out hitData, 1000)){
+                active.enabled = true;
+                active.SetCenter(new Vector2(hitData.point.x, hitData.point.y - 5), pLayer);
+            }
             mousein = -1;
+            signalTimeRemaining = 5;
+        }
+    }
+
+    private void destructionByPlayer(){
+        //if (Input.GetMouseButtonDown(0))
+        //    mousein = 0;
+        if (Input.GetMouseButtonDown(0)){
+            mousein = 0;
+        }
+        
+        if (mousein == 0) {
+            //RaycastHit2D hit = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera)), Vector2.zero, 50, 1 << Constants.OBSTACLE_LAYER);
+            Ray hit = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitData;
+            //Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition));
+            //Vector2 mouseMapPosition = mainCamera.ScreenToViewportPoint(Input.mousePosition);
+            if(Physics.Raycast(hit, out hitData, 1000)){
+                if(hitData.collider.gameObject.layer == Constants.OBSTACLE_LAYER){
+                    if(PhotonNetwork.IsConnected){
+                        if(PhotonNetwork.IsMasterClient){
+                            PhotonNetwork.Destroy(hitData.transform.parent.gameObject);
+                        }else{
+                            send_Explosion_RPC(hitData.transform.parent.GetComponent<PhotonView>().ViewID);
+                        }
+                    }else{
+                        Destroy(hitData.transform.parent.gameObject);
+                    }
+                }
+            }
+            mousein = -1;
+            destructionTimeRemaining = 5;
         }
     }
 
     void DisplayTime(float timeToDisplay) {
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
-        float seconds = Mathf.FloorToInt(timeToDisplay % 60);
+        float seconds = Mathf.FloorToInt((timeToDisplay + 1) % 60);
 
         // c.SetText(string.Format("{0:00}:{1:00}", minutes, seconds));
         tc.text = string.Format("{0:00}:{1:00}", minutes, seconds);
@@ -150,5 +242,13 @@ public class GameManager : MonoBehaviour
                 SceneHandler.LoseScreen();
         }else
             SceneHandler.WinScreen();
+    }
+
+    public void send_Explosion_RPC(int view){
+        GetComponent<PhotonView>().RPC("RPC_Explosion", RpcTarget.Others, view);
+    }
+    [PunRPC]
+    public void RPC_Explosion(int view){
+        PhotonNetwork.Destroy(PhotonView.Find(view));
     }
 }

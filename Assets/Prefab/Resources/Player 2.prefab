@@ -73,17 +73,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 976c0569feab9cc4fac09df23a71bfd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BodyModel: {fileID: 648667303950435855, guid: e33247a25dbe7ca4a8ceca563f3303dd, type: 3}
-  EyesModel: {fileID: 2184339146996871465, guid: 8bf851ed5ad9a0447b73bc24e66146dd, type: 3}
-  LegModel: {fileID: 3245727712306273036, guid: faeeb82da4321454abfa1baef7d2539a, type: 3}
-  TailModel: {fileID: 619263536327125437, guid: b816800e2cd838f49bdd4dc797ace288, type: 3}
-  eyesTresHold: 10
-  legTresHold: 15
-  bodyValue: 15
-  eyesValue: 5
-  legValue: 15
-  tailValue: 15
+  BodyModel: {fileID: 6284704789912089631, guid: bdaa1512fbd858a4cb024453fbca7a22, type: 3}
+  EyesModel: {fileID: 3960108674612567745, guid: fc8cdb7e0d843c142a82f89e61ff5fde, type: 3}
+  LegModel: {fileID: 1105112790623919786, guid: beb7f3e1b0ae6894982dfd701ee6d982, type: 3}
+  TailModel: {fileID: 4119752297959370044, guid: 212163e9b16711c4fbf4feeef9df620a, type: 3}
+  bodyValue: 0
+  eyesValue: 0
+  legValue: 0
+  tailValue: 0
+  specialValue: 0
   creature: {fileID: 1155005304166325180}
+  legsMat:
+  - {fileID: 2100000, guid: bf1b23f356462404db4e8d83c977cc63, type: 2}
+  - {fileID: 2100000, guid: 62d8e70da7d76a8498099b1fe8171c4d, type: 2}
+  - {fileID: 2100000, guid: 8ccc025bdf348e84eb8e2ca34df885ed, type: 2}
+  - {fileID: 2100000, guid: 7f4aff46d8b2d9e49801eaa23bcf4386, type: 2}
+  - {fileID: 2100000, guid: afc3ae1d437d8484fb012a907dc5c72c, type: 2}
+  - {fileID: 2100000, guid: 13d0e525c8cf4bf4093fe5051da02287, type: 2}
+  bodyMat:
+  - {fileID: 2100000, guid: 4f693a17ce4894f4e82e113b99f8e234, type: 2}
+  - {fileID: 2100000, guid: 897ceb98456d670418e9c4047c259710, type: 2}
+  - {fileID: 2100000, guid: 14c80e4c612dc994d871fbf4a6f2acb4, type: 2}
+  - {fileID: 2100000, guid: 6cd3f32ab8b3d2f4196851b7b5cce1e8, type: 2}
+  - {fileID: 2100000, guid: a86fceb45cceea64da21a34c3c9e3641, type: 2}
+  - {fileID: 2100000, guid: 108020a02519775488d5d8bd39fc35d8, type: 2}
+  isPlayer: 1
 --- !u!1 &8804005712328914914
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,13 +514,23 @@ MonoBehaviour:
   - {fileID: 4370225756062617768, guid: 46a33345a498d4540984d19e5cbc9bc0, type: 3}
   - {fileID: 2152018766097046459, guid: 33d165a8a98911246ad9fcf78704aaff, type: 3}
   armours:
-  - {fileID: 8534174516021497468, guid: 12e77a863caaa8841b6bb0dfc399b878, type: 3}
   - {fileID: 7328908313951940107, guid: 88f88a3a3fda3a44e984aab1f3d746b8, type: 3}
+  - {fileID: 4062121996230864977, guid: 99e92c4c15407114c82dfdc43f4c2b3b, type: 3}
+  - {fileID: 3529677202134163315, guid: 990be4ae0c24d1a448995ac1dcc590ef, type: 3}
+  - {fileID: 8534174516021497468, guid: 12e77a863caaa8841b6bb0dfc399b878, type: 3}
+  - {fileID: 9077649890541583273, guid: c9583df8b39d64e46b05f46809b40793, type: 3}
+  - {fileID: 4812595314903406576, guid: 85f9bfaf13064b346987c4da2f8b2d3a, type: 3}
   movements:
   - {fileID: 4142396736927987186, guid: 47851e1b4b4f3b1419b2c94542844468, type: 3}
   - {fileID: 1208367869266491441, guid: 0c5b1c76af187cf4fb40a785ec5dadfb, type: 3}
   - {fileID: 8456010776900690618, guid: 555baf06eb6f09845ba90b13e2d3917f, type: 3}
-  specials: []
+  specials:
+  - {fileID: 7541215071553036487, guid: c938abf410797094bb780616380f1960, type: 3}
+  - {fileID: 1342734011063751660, guid: a3b10298719bcd94ea3ad45413dc165e, type: 3}
+  - {fileID: 3503009442289465638, guid: 5772e191397844b4b9e3aad974cf4cda, type: 3}
+  - {fileID: 4142608245348166678, guid: f778963ff51f21543a6fd8829f2334e8, type: 3}
+  - {fileID: 4747272681571666859, guid: 9b0bdfea4150be24d8102c3e400f0e32, type: 3}
+  - {fileID: 6035693987816373891, guid: e218573eda21f734c9eb272b76d37040, type: 3}
   firstbot: 1
 --- !u!114 &7098259395413136069
 MonoBehaviour:

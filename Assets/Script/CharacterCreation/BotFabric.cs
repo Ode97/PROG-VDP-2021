@@ -156,12 +156,12 @@ public class BotFabric : MonoBehaviourPun
 
     public void send_RPC_nanobot(){
         BotData bot = Save.loadPlayerBotFile();
-        int[] parts = new int[7];
+        int[] parts = new int[5];
         parts.SetValue(GetComponentInParent<PhotonView>().ViewID, 0);
-        parts.SetValue(bot.eyesV, 3);
-        parts.SetValue(bot.legV, 4);
-        parts.SetValue(bot.tailV, 5);
-        parts.SetValue(bot.bodyV, 6);
+        parts.SetValue(bot.eyesV, 1);
+        parts.SetValue(bot.legV, 2);
+        parts.SetValue(bot.tailV, 3);
+        parts.SetValue(bot.bodyV, 4);
 
         photonView.RPC("RPC_Nanobot", RpcTarget.Others, parts);
     }
@@ -246,6 +246,16 @@ public class BotFabric : MonoBehaviourPun
 
             creature.transform.localScale = itemScale;
             creature.transform.rotation = itemRotation;
+
+            GameObject tObject = System.Array.Find(tail.GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Tail").gameObject;
+            if(tailValue == 0) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 66f/255f, 66f/255f);
+            else if(tailValue == 1) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 255f/255f, 70f/255f);
+            else if(tailValue == 2) tObject.GetComponent<Renderer> ().material.color = new Color(50f/255f, 255f/255f, 50f/255f);
+            System.Array.Find(body.GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Body").gameObject.GetComponent<Renderer> ().material = bodyMat[bodyValue];
+            for (int i=0; i<legsNumber; i++){
+                System.Array.Find(legsr[i].GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Leg").gameObject.GetComponent<Renderer> ().material = legsMat[bodyValue];
+                System.Array.Find(legsl[i].GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Leg").gameObject.GetComponent<Renderer> ().material = legsMat[bodyValue];
+            }
         }
     }
 }

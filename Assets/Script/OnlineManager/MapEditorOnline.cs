@@ -151,7 +151,10 @@ public class MapEditorOnline : MonoBehaviour
                         map[x,y].transform.SetParent(this.transform);
                         break;
                     case 'V':
-                        map[x,y] = Instantiate(staticVoidTemplate, new Vector2(j, i), Quaternion.identity);
+                        if(PhotonNetwork.IsMasterClient)
+                            map[x,y] = Instantiate(staticVoidTemplate, new Vector2(j, i), Quaternion.identity);
+                        else
+                            map[x,y] = Instantiate(staticVoidTemplate, new Vector2(j, i), new Quaternion(0, 0, 180, 0));
                         map[x,y].transform.SetParent(this.transform);
                         break;
                     default:
@@ -255,7 +258,9 @@ public class MapEditorOnline : MonoBehaviour
                                 map[coorX,coorY].transform.SetParent(this.transform);
                                 genMatrix[coorX,coorY] = code;
                                 spawnX = coorX;
-                                spawnY = coorY;                           
+                                spawnY = coorY;    
+                                BotManager.spawnX = spawnX;
+                                BotManager.spawnY = spawnY;                       
                             }
                         }
                     }

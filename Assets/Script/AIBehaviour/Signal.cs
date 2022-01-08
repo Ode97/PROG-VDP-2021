@@ -12,7 +12,7 @@ public class Signal : MonoBehaviour {
     public LineRenderer LineDrawer;
     private float Theta = 0f;
     private Rigidbody2D rb;
-    private Vector2 Center;
+    private Vector3 Center;
     private List<Collider2D> copy = new List<Collider2D>();
     private bool alreadySignaling = false;
     private GradientColorKey[] colorKey = new GradientColorKey[2];
@@ -97,10 +97,12 @@ public class Signal : MonoBehaviour {
 
     public void SetCenter(Vector2 pos, int l){
         Center = new Vector2(pos.x, pos.y);
+        player = true;
+        radius = 3;
+        Debug.Log(final + " " + player);
+        playerLayer = l;
         LineDrawer = GetComponent<LineRenderer>();
         LineDrawer.enabled = true;
-        player = true;
-        playerLayer = l;
     }
 
     public void FinalSignal(){

@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1065702428272158049}
-  - component: {fileID: 1065702428272158078}
   - component: {fileID: 721501455413611399}
   - component: {fileID: 1065702428272158079}
+  - component: {fileID: 1347729774}
+  - component: {fileID: 8406611161241669849}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -33,22 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1065702428272158078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065702428272158050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b70e1a8c8e32e284ebec12d81063d87c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxRadius: 30
-  ThetaScale: 0.01
-  radius: 3
-  LineDrawer: {fileID: 1065702428272158079}
 --- !u!114 &721501455413611399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,9 +46,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 907bdea6cb91ed14593a3273cb07c870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p: {fileID: 0}
+  e: {fileID: 0}
   tc: {fileID: 0}
-  result: {fileID: 0}
-  timeRemaining: 10
+  timeRemaining: 30
+  mainCamera: {fileID: 0}
+  pLayer: 3
+  active: {fileID: 8406611161241669849}
+  final: {fileID: 1347729774}
+  signalButton: {fileID: 0}
+  explosionButton: {fileID: 0}
 --- !u!120 &1065702428272158079
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -162,3 +154,37 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &1347729774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065702428272158050}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70e1a8c8e32e284ebec12d81063d87c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRadius: 30
+  ThetaScale: 0.01
+  radius: 3
+  LineDrawer: {fileID: 1065702428272158079}
+  playerLayer: 3
+--- !u!114 &8406611161241669849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065702428272158050}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70e1a8c8e32e284ebec12d81063d87c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxRadius: 15
+  ThetaScale: 0.01
+  radius: 3
+  LineDrawer: {fileID: 1065702428272158079}
+  playerLayer: 3

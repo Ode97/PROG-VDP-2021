@@ -41,12 +41,12 @@ public class SpawnNanobot : MonoBehaviourPunCallbacks
             }
             if(PhotonNetwork.LevelLoadingProgress == 1 && !alreadyInstantiate){
                 if(PhotonNetwork.IsMasterClient){
-                    GameObject g = PhotonNetwork.Instantiate(player1Prefab.name, new Vector3(3, 10, 0), Quaternion.identity);
+                    GameObject g = PhotonNetwork.Instantiate(player1Prefab.name, new Vector3(BotManager.spawnX, BotManager.spawnY, 0), Quaternion.identity);
                     alreadyInstantiate = true;
                     g.name = "Player 1";
                     PhotonNetwork.Destroy(gameObject);
                 }else{
-                    GameObject o = PhotonNetwork.Instantiate(player2Prefab.name, new Vector3(37, 10, 0), new Quaternion(0,0,180,0));
+                    GameObject o = PhotonNetwork.Instantiate(player2Prefab.name, new Vector3(BotManager.spawnX + 20, BotManager.spawnY, 0), new Quaternion(0,0,180,0));
                     alreadyInstantiate = true;
                     o.name = "Player 2";
                     //PhotonNetwork.Destroy(gameObject);
