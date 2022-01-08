@@ -1554,7 +1554,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: CLICK FOR USE THE SIGNAL!
+  m_Text: "CLICK FOR USE THE SIGNAL!\n remember: signal has a cooldown.\n"
 --- !u!222 &1483331320
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2526,8 +2526,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 310}
-  m_SizeDelta: {x: 980, y: 120}
+  m_AnchoredPosition: {x: 0, y: 361.07678}
+  m_SizeDelta: {x: 1300, y: 224}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2027541825
 MonoBehaviour:
@@ -2562,8 +2562,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Now the signal is enabled, this way you can command your bots for moving
-    to a location.
+  m_Text: "Note: bots use energy over time\n-\nThe signal command is enabled! \nthis
+    way you can command your bots for moving to a location."
 --- !u!222 &2027541826
 CanvasRenderer:
   m_ObjectHideFlags: 0
