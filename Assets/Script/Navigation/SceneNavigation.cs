@@ -40,6 +40,10 @@ public class SceneNavigation : MonoBehaviourPunCallbacks
             level = 5;
             SceneHandler.StoryScene();
         }
+        if (sceneName=="Level6") {
+            level = 6;
+            SceneHandler.StoryScene();
+        }
         if (sceneName=="battle") SceneHandler.GameScene(level);
         if (sceneName=="main"){
             if(PhotonNetwork.IsConnected){

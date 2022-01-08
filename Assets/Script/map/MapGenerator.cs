@@ -36,6 +36,7 @@ public class MapGenerator : MonoBehaviour
         if (SceneNavigation.level == 3) genMap3(mapH, mapW, genMatrix);
         if (SceneNavigation.level == 4) genMap4(mapH, mapW, genMatrix);
         if (SceneNavigation.level == 5) genMap5(mapH, mapW, genMatrix);
+        if (SceneNavigation.level == 6) genMap6(mapH, mapW, genMatrix);
         
         // Draw player map with objects
 
@@ -304,6 +305,65 @@ public class MapGenerator : MonoBehaviour
     }
     void genMap5(int mapH, int mapW, char[,] genMatrix){
         genMap1(mapH, mapW, genMatrix);
+    }
+
+    void genMap6(int mapH, int mapW, char[,] genMatrix) {
+        for(int x=1;x<mapH-1;x++){
+            for(int y=1;y<mapW-1;y++){
+                genMatrix[x,y] = 'v';
+            }
+        }
+
+        // Place Map Borders
+        for(int i=0;i<mapH;i++){
+            genMatrix[i,0] = 'w';
+            genMatrix[i,mapW-1] = 'w';
+        }
+        for(int i=0;i<mapW;i++){
+            genMatrix[0,i] = 'w';
+            genMatrix[mapH-1,i] = 'w';
+        }
+        // Set map Seed/Type
+        // * * * Preset Map
+        // Place spawns 3x3
+
+        // Place traps
+        for(int y=1;y<20;y+=3){
+            genMatrix[y,30] = 't';
+        }
+        for(int y=1;y<20;y+=5){
+            genMatrix[y,32] = 't';
+        }
+
+        // Place walls    
+             
+        for(int y=4;y<17;y++){
+            if(y != 10 && y!= 11)
+            genMatrix[y,35] = 'w';
+        }     
+        for(int y=2;y<19;y++){
+            genMatrix[y,37] = 'w';
+        } 
+        genMatrix[ 1,36] = 'w';
+        genMatrix[19,36] = 'w';
+        
+
+        // Place energys  4 13 15 17
+        for(int y=1;y<20;y+=3){
+            genMatrix[y,31] = 'e';
+        }
+
+        for(int y=1;y<20;y++){
+            genMatrix[y,39] = 'e';
+        } 
+        genMatrix[ 1,38] = 'e';
+        genMatrix[19,38] = 'e';
+        genMatrix[ 1,37] = 'e';
+        genMatrix[19,37] = 'e';
+        genMatrix[ 1,36] = 'e';
+        genMatrix[ 2,36] = 'e';
+        genMatrix[18,36] = 'e';
+        genMatrix[19,36] = 'e';
     }
 
     void instantiateMap(char[,] map){
