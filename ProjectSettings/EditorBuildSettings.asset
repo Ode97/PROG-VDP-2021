@@ -36,11 +36,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Online/Lobby.unity
     guid: 66ba4581c1fca3a4b856a6ebff8a5e2a
   - enabled: 1
-    path: Assets/Scenes/Online/Loading.unity
-    guid: f1680390282064b4d8431199793ad2f4
-  - enabled: 1
     path: Assets/Scenes/Online/BattleTest.unity
     guid: 73b5f91102658664c8afda5fbab6c04a
+  - enabled: 1
+    path: Assets/Scenes/Online/Loading.unity
+    guid: f1680390282064b4d8431199793ad2f4
   - enabled: 1
     path: Assets/Scenes/Online/MapEditorOnline.unity
     guid: fe987f8b55849e846930904f97f9ebf6

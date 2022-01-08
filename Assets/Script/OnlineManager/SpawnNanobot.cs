@@ -16,6 +16,7 @@ public class SpawnNanobot : MonoBehaviourPunCallbacks
     private bool yetLoaded = false;
     private bool alreadyInstantiate = false;
     public int p = 0;
+    private bool second = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,7 @@ public class SpawnNanobot : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient)
             onlinePlayer.text = "player: 1/2";
         else{
+            second = true;
             onlinePlayer.text = "player: 2/2";
             launch.gameObject.SetActive(true);
         }
@@ -93,8 +95,12 @@ public class SpawnNanobot : MonoBehaviourPunCallbacks
                     MapManager.mapMatrix[x, y] = 'v';
 
             onlinePlayer.text = "player: 1/2";
-        }else{
-            Debug.Log("a");
+        }
+
+        if(second){
+            PhotonNetwork.LeaveRoom();
+            PhotonNetwork.LeaveLobby();
+            PhotonNetwork.Disconnect();
             DestroySpawn();
             SceneHandler.MainMenu();
         }

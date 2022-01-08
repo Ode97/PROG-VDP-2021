@@ -578,6 +578,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ButtonSignal
       objectReference: {fileID: 0}
+    - target: {fileID: 7094888137539737797, guid: efbe6be4dc3fd464299416653b5dc207, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efbe6be4dc3fd464299416653b5dc207, type: 3}
 --- !u!224 &305256034 stripped
@@ -1383,7 +1387,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5493113406373889648, guid: 45dc2c52d3e0e0e4cb04b0a388e4099a, type: 3}
       propertyPath: m_Interactable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5493113406373889648, guid: 45dc2c52d3e0e0e4cb04b0a388e4099a, type: 3}
       propertyPath: m_Colors.m_ColorMultiplier
@@ -1966,9 +1970,9 @@ RectTransform:
   - {fileID: 1395830278}
   - {fileID: 1248356749}
   - {fileID: 617508484}
-  - {fileID: 1994167038}
   - {fileID: 305256034}
   - {fileID: 1329128336}
+  - {fileID: 1994167038}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2459,7 +2463,7 @@ RectTransform:
   - {fileID: 1883589922}
   - {fileID: 931591094}
   m_Father: {fileID: 1802196289}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
