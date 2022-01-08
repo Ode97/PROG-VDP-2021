@@ -104,10 +104,18 @@ public class MapGeneratorOnline : MonoBehaviour
                     case 'w':
                         tile = PhotonNetwork.Instantiate(wallTemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
+                        if(i == 0 || i == 40 || j == 0 || j == 20){
+                            tile.tag = "map";
+                            tile.transform.GetChild(0).tag = "map";
+                        }
                         break;
                     case 'W':
                         tile = PhotonNetwork.Instantiate(wallTemplate.name, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
+                        if(i == 0 || i == 40 || j == 0 || j == 20){
+                            tile.tag = "map";
+                            tile.transform.GetChild(0).tag = "map";
+                        }
                         break;
                     case 'e':
                         tile = PhotonNetwork.Instantiate(energyTemplate.name, new Vector2(i, j), Quaternion.identity);

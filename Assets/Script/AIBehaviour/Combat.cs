@@ -60,7 +60,7 @@ public class Combat : Action
                 
             b.GetComponent<Bullet>().type = GetComponent<NanoBot>().typeOfAttk;
             if(firstShoot){
-                b.GetComponent<Bullet>().SetDMG(GetComponent<NanoBot>().attackDamage + Constants.FIRST_ATTK_DMG);
+                b.GetComponent<Bullet>().SetDMG(GetComponent<NanoBot>().attackDamage + GetComponent<NanoBot>().attackDamage/2);
                 firstShoot = false;
             }else
                 b.GetComponent<Bullet>().SetDMG(GetComponent<NanoBot>().attackDamage);

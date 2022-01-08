@@ -16,7 +16,7 @@ public class NanoBot : MonoBehaviour
     public bool firstAttackDealsMoreDMG;
     public float chanceOfCrit;
     [Range(0, 1)]
-    public float fireArmor;
+    public float  fireArmor;
     [Range(0, 1)]
     public float electricArmor;
     [Range(0, 1)]
@@ -29,8 +29,8 @@ public class NanoBot : MonoBehaviour
     public int signalSearchingTime;
     public float speed;
     public float rotation;
-    public int life;
-    public int lifeLostPerSec;
+    public float life;
+    public float lifeLostPerSec;
     private float actualLife;
     public int lifeEarnByEating;
     public int lifeLossByReproduction;
@@ -613,7 +613,6 @@ public class NanoBot : MonoBehaviour
 
         b.transform.localScale = new Vector3(8f, 8f, 1);
         b.GetComponent<Rigidbody2D>().velocity = r;
-        Debug.Log(gameObject.name + " " + b.layer);
     }
     [PunRPC]
     public void RPC_death(int l){

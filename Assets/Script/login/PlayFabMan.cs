@@ -39,10 +39,12 @@ public class PlayFabMan : MonoBehaviour
 
     public void RegisterButton(){
         if(passwordInput.text.Length < 6){
-            messageText.text = "Password too short";
+            messageText.text = "Password too short\nit needs at least 6 characters or numbers";
             return;
-        }else if(userInput.text.Length < 1)
-            messageText.text = "Username too short";
+        }else if(userInput.text.Length < 3){
+            messageText.text = "Username too short,\nit needs at least 3 characters or numbers";
+            return;
+        }
 
         var request = new RegisterPlayFabUserRequest{
             Username = userInput.text,

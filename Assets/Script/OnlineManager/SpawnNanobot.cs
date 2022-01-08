@@ -94,6 +94,7 @@ public class SpawnNanobot : MonoBehaviourPunCallbacks
 
             onlinePlayer.text = "player: 1/2";
         }else{
+            Debug.Log("a");
             DestroySpawn();
             SceneHandler.MainMenu();
         }

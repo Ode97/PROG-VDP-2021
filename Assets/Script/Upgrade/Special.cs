@@ -13,7 +13,7 @@ public class Special : MonoBehaviour
 
     void Start(){
         if(lowEnergyUsage)
-            GetComponentInParent<NanoBot>().lifeLostPerSec -= 1;
+            GetComponentInParent<NanoBot>().lifeLostPerSec -= 0.2f;
         if(leaveLessEnergyAfterDeath)
             GetComponentInParent<NanoBot>().foodSpawnAfterDeath -= 1;
         if(chanceOfCrit)

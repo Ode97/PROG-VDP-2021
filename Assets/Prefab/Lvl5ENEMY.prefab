@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 0
-  avoidDistance: 0.5
+  avoidDistance: 0.6
   lookahead: 0
   reproductionTime: 1
   rangedAttack: 0
@@ -322,7 +322,7 @@ MonoBehaviour:
   attackDamage: 0
   attackSpeed: 0
   typeOfAttk: 0
-  signalSearchingTime: 3
+  signalSearchingTime: 1
   speed: 0
   rotation: 100
   life: 100
@@ -330,7 +330,7 @@ MonoBehaviour:
   lifeEarnByEating: 20
   lifeLossByReproduction: 50
   lifeForReproduction: 100
-  foodSpawnAfterDeath: 3
+  foodSpawnAfterDeath: 2
   signalDetection: 0
   noSignal: 0
   electricTarget: 0

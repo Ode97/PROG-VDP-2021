@@ -148,10 +148,10 @@ public class PartsBuilder : MonoBehaviour
             this.transform.localScale = itemScale;
             this.transform.rotation = itemRotation;
             GameObject tObject = System.Array.Find(tail.GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Tail").gameObject;
-            Debug.Log(tailValue);
             if(tailValue == 0) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 66f/255f, 66f/255f);
             else if(tailValue == 1) tObject.GetComponent<Renderer> ().material.color = new Color(255f/255f, 255f/255f, 70f/255f);
-            else if(tailValue == 2) tObject.GetComponent<Renderer> ().material.color = new Color(50f/255f, 255f/255f, 50f/255f);
+            else if(tailValue == 2) tObject.GetComponent<Renderer> ().material.color = new Color(127f/255f, 0f/255f, 255f/255f);
+            //else if(tailValue == 2) tObject.GetComponent<Renderer> ().material.color = new Color(50f/255f, 255f/255f, 50f/255f);
             System.Array.Find(body.GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Body").gameObject.GetComponent<Renderer> ().material = bodyMat[bodyValue];
             for (int i=0; i<legsNumber; i++){
                 System.Array.Find(legsr[i].GetComponentsInChildren<Transform>(), p => p.gameObject.name == "Leg").gameObject.GetComponent<Renderer> ().material = legsMat[bodyValue];

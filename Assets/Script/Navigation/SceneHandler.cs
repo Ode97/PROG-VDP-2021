@@ -36,6 +36,12 @@ public class SceneHandler : MonoBehaviour
     public static void LoadingScreen(){
         SceneManager.LoadScene("Loading");  
     }
+    public static void LoginScreen(){
+        SceneManager.LoadScene("LoginScene");  
+    }
+    public static void PolimiScreen(){
+        SceneManager.LoadScene("PolimiGameCollective");  
+    }
     public static void BattleTestScreen(){
         SceneManager.LoadScene("BattleTest");  
     }

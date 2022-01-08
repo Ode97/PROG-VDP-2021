@@ -142,9 +142,9 @@ public class GameManager : MonoBehaviour
             if(Physics.Raycast(hit, out hitData, 1000)){
                 active.enabled = true;
                 active.SetCenter(new Vector2(hitData.point.x, hitData.point.y - 5), pLayer);
+                mousein = -1;
+                signalTimeRemaining = 5;
             }
-            mousein = -1;
-            signalTimeRemaining = 5;
         }
     }
 
@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
             //Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition));
             //Vector2 mouseMapPosition = mainCamera.ScreenToViewportPoint(Input.mousePosition);
             if(Physics.Raycast(hit, out hitData, 1000)){
-                if(hitData.collider.gameObject.layer == Constants.OBSTACLE_LAYER){
+                if(hitData.collider.gameObject.layer == Constants.OBSTACLE_LAYER && hitData.collider.gameObject.tag != "map"){
                     if(PhotonNetwork.IsConnected){
                         if(PhotonNetwork.IsMasterClient){
                             PhotonNetwork.Destroy(hitData.transform.parent.gameObject);
@@ -173,10 +173,10 @@ public class GameManager : MonoBehaviour
                         Destroy(hitData.transform.parent.gameObject);
                     }
                     Instantiate(explosion, hitData.transform.parent.transform.position, Quaternion.identity);
+                    mousein = -1;
+                    destructionTimeRemaining = 5;
                 }
             }
-            mousein = -1;
-            destructionTimeRemaining = 5;
         }
     }
 

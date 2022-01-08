@@ -156,10 +156,18 @@ public class MapGenerator : MonoBehaviour
                     case 'w':
                         tile = Instantiate(wallTemplate, new Vector2(j, i), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
+                        if(j == 0 || j == 40 || i == 0 || i == 20){
+                            tile.tag = "map";
+                            tile.transform.GetChild(0).tag = "map";
+                        }
                         break;
                     case 'W':
                         tile = Instantiate(wallTemplate, new Vector2(j, i), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
+                        if(j == 0 || j == 40 || i == 0 || i == 20){
+                            tile.tag = "map";
+                            tile.transform.GetChild(0).tag = "map";
+                        }
                         break;
                     case 'e':
                         tile = Instantiate(energyTemplate, new Vector2(j, i), Quaternion.identity);
