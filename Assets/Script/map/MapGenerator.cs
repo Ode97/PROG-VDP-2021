@@ -145,79 +145,6 @@ public class MapGenerator : MonoBehaviour
         // Place spawns 3x3
 
         // Place traps
-        for(int y=1;y<4;y++){
-            genMatrix[y,30] = 't';
-        }
-
-        for(int y=9;y<12;y++){
-            genMatrix[y,30] = 't';
-        }
-
-        for(int y=17;y<20;y++){
-            genMatrix[y,30] = 't';
-        }
-
-        // Place walls
-        for(int y=1;y<4;y++){
-            genMatrix[y,31] = 'w';
-        }
-
-        for(int y=9;y<12;y++){
-            genMatrix[y,31] = 'w';
-        }
-
-        for(int y=17;y<20;y++){
-            genMatrix[y,31] = 'w';
-        }
-
-        // Place energys  4 13 15 17
-        for(int x = 33; x > 31; x--){
-            for(int y=1;y<4;y++){
-                genMatrix[y,x] = 'e';
-            }
-            for(int y=9;y<12;y++){
-                genMatrix[y,x] = 'e';
-            }
-            for(int y=17;y<20;y++){
-                genMatrix[y,x] = 'e';
-            }
-        }
-
-        for(int y=5;y<8;y++){
-                genMatrix[y,30] = 'e';
-        }
-        for(int y=9;y<12;y++){
-                genMatrix[y,28] = 'e';
-        }
-        for(int y=13;y<16;y++){
-                genMatrix[y,30] = 'e';
-        }
-        
-        for(int x = 36; x > 33; x--){
-                genMatrix[10,x] = 'e';
-        }
-    }
-    void genMap3(int mapH, int mapW, char[,] genMatrix){
-        for(int x=1;x<mapH-1;x++){
-            for(int y=1;y<mapW-1;y++){
-                genMatrix[x,y] = 'v';
-            }
-        }
-
-        // Place Map Borders
-        for(int i=0;i<mapH;i++){
-            genMatrix[i,0] = 'w';
-            genMatrix[i,mapW-1] = 'w';
-        }
-        for(int i=0;i<mapW;i++){
-            genMatrix[0,i] = 'w';
-            genMatrix[mapH-1,i] = 'w';
-        }
-        // Set map Seed/Type
-        // * * * Preset Map
-        // Place spawns 3x3
-
-        // Place traps
         for(int y=8;y<12;y++){
             genMatrix[y,21] = 't';
             genMatrix[y,22] = 't';
@@ -239,7 +166,7 @@ public class MapGenerator : MonoBehaviour
             genMatrix[17,x] = 'e';
         }
     }
-    void genMap4(int mapH, int mapW, char[,] genMatrix){
+    void genMap3(int mapH, int mapW, char[,] genMatrix){
         for(int x=1;x<mapH-1;x++){
             for(int y=1;y<mapW-1;y++){
                 genMatrix[x,y] = 'v';
@@ -303,8 +230,133 @@ public class MapGenerator : MonoBehaviour
         }
     
     }
+    void genMap4(int mapH, int mapW, char[,] genMatrix){
+        for(int x=1;x<mapH-1;x++){
+            for(int y=1;y<mapW-1;y++){
+                genMatrix[x,y] = 'v';
+            }
+        }
+
+        // Place Map Borders
+        for(int i=0;i<mapH;i++){
+            genMatrix[i,0] = 'w';
+            genMatrix[i,mapW-1] = 'w';
+        }
+        for(int i=0;i<mapW;i++){
+            genMatrix[0,i] = 'w';
+            genMatrix[mapH-1,i] = 'w';
+        }
+        // Set map Seed/Type
+        // * * * Preset Map
+        // Place spawns 3x3
+
+        // Place traps
+        for(int y=8;y<13;y++){
+            genMatrix[y,22] = 't';
+        }
+        
+        genMatrix[8,23] = 't';
+        genMatrix[7,24] = 't';
+        genMatrix[6,25] = 't';
+        genMatrix[12,23] = 't';
+        genMatrix[13,24] = 't';
+        genMatrix[14,25] = 't';
+        
+
+        // Place walls
+        for(int y=9;y<12;y++){
+            genMatrix[y,23] = 'w';
+        }
+        
+        genMatrix[8,24] = 'w';
+        genMatrix[7,25] = 'w';
+        genMatrix[6,26] = 'w';
+        genMatrix[5,27] = 'w';
+        genMatrix[12,24] = 'w';
+        genMatrix[13,25] = 'w';
+        genMatrix[14,26] = 'w';
+        genMatrix[15,27] = 'w';
+
+        // Place energys  4 13 15 17
+
+        genMatrix[10,21] = 'e';
+        genMatrix[7,23] = 'e';
+        genMatrix[13,23] = 'e';
+        
+        for(int x = 25; x < 34; x++){
+            for(int y=9;y<12;y++){
+                genMatrix[y,x] = 'e';
+            }
+        }
+    }
     void genMap5(int mapH, int mapW, char[,] genMatrix){
-        genMap1(mapH, mapW, genMatrix);
+        for(int x=1;x<mapH-1;x++){
+            for(int y=1;y<mapW-1;y++){
+                genMatrix[x,y] = 'v';
+            }
+        }
+
+        // Place Map Borders
+        for(int i=0;i<mapH;i++){
+            genMatrix[i,0] = 'w';
+            genMatrix[i,mapW-1] = 'w';
+        }
+        for(int i=0;i<mapW;i++){
+            genMatrix[0,i] = 'w';
+            genMatrix[mapH-1,i] = 'w';
+        }
+        // Set map Seed/Type
+        // * * * Preset Map
+        // Place spawns 3x3
+
+        // Place traps
+        for(int x=24;x<27;x++){
+            genMatrix[8,x] = 't';
+        }
+        for(int x=24;x<27;x++){
+            genMatrix[9,x] = 't';
+        }
+        for(int x=24;x<27;x++){
+            genMatrix[14,x] = 't';
+        }
+        for(int x=24;x<27;x++){
+            genMatrix[15,x] = 't';
+        }
+
+        
+
+        // Place walls
+        for(int x=24;x<27;x++){
+            genMatrix[10,x] = 'w';
+        }
+        for(int x=24;x<27;x++){
+            genMatrix[13,x] = 'w';
+        }
+        
+        genMatrix[14,27] = 'w';
+        genMatrix[15,28] = 'w';
+        genMatrix[16,29] = 'w';
+        genMatrix[9,27] = 'w';
+        genMatrix[8,28] = 'w';
+        genMatrix[7,29] = 'w';
+        
+
+        // Place energys  4 13 15 17
+
+        genMatrix[14,23] = 'e';
+        genMatrix[15,23] = 'e';
+        genMatrix[9,23] = 'e';
+        genMatrix[8,23] = 'e';
+        
+        for(int x = 22; x < 31; x++){
+            for(int y=10;y<14;y++){
+                genMatrix[y,x] = 'e';
+            }
+        }
+        for(int y=10;y<14;y++){
+            genMatrix[y,27] = 'e';
+        }
+
     }
 
     void genMap6(int mapH, int mapW, char[,] genMatrix) {

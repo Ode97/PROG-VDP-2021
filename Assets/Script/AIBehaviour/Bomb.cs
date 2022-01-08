@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     private LayerMask target;
+    public GameObject explosion;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +29,7 @@ public class Bomb : MonoBehaviour
                 collider2D.gameObject.GetComponent<NanoBot>().ApplyDMG(Constants.BOMB_DMG_EXPLOSION, Type.Trap);
             }
 
-
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
