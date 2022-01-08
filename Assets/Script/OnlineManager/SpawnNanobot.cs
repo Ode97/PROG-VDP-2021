@@ -63,6 +63,11 @@ public class SpawnNanobot : MonoBehaviourPunCallbacks
         GameObject g = PhotonNetwork.Instantiate(a.name, new Vector3(BotManager.spawnX, BotManager.spawnY, 0), Quaternion.identity);
         g.name = s;
     }
+    public IEnumerator wait2(GameObject a, string s){
+        yield return new WaitForSeconds(0.2f);
+        GameObject o = PhotonNetwork.Instantiate(player2Prefab.name, new Vector3(BotManager.spawnX + 20, BotManager.spawnY, 0), new Quaternion(0,0,180,0));
+        o.name = s;
+    }
 
     public void send_Ok(){
         GetComponent<PhotonView>().RPC("Ok_RPC", RpcTarget.Others);
