@@ -43,11 +43,13 @@ public class SpawnNanobot : MonoBehaviourPunCallbacks
             }
             if(PhotonNetwork.LevelLoadingProgress == 1 && !alreadyInstantiate){
                 if(PhotonNetwork.IsMasterClient){
+                    StartCoroutine(wait());
                     GameObject g = PhotonNetwork.Instantiate(player1Prefab.name, new Vector3(BotManager.spawnX, BotManager.spawnY, 0), Quaternion.identity);
                     alreadyInstantiate = true;
                     g.name = "Player 1";
                     PhotonNetwork.Destroy(gameObject);
                 }else{
+                    StartCoroutine(wait());
                     GameObject o = PhotonNetwork.Instantiate(player2Prefab.name, new Vector3(BotManager.spawnX + 20, BotManager.spawnY, 0), new Quaternion(0,0,180,0));
                     alreadyInstantiate = true;
                     o.name = "Player 2";
@@ -55,6 +57,9 @@ public class SpawnNanobot : MonoBehaviourPunCallbacks
                 }
             }
         }
+    }
+    public IEnumerator wait(){
+        yield return new WaitForSeconds(0.2f);
     }
 
     public void send_Ok(){
