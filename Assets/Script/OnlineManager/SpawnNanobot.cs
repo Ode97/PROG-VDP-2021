@@ -43,23 +43,25 @@ public class SpawnNanobot : MonoBehaviourPunCallbacks
             }
             if(PhotonNetwork.LevelLoadingProgress == 1 && !alreadyInstantiate){
                 if(PhotonNetwork.IsMasterClient){
-                    StartCoroutine(wait());
-                    GameObject g = PhotonNetwork.Instantiate(player1Prefab.name, new Vector3(BotManager.spawnX, BotManager.spawnY, 0), Quaternion.identity);
+                    StartCoroutine(wait(player1Prefab, "Player 1"));
+                    //GameObject g = PhotonNetwork.Instantiate(player1Prefab.name, new Vector3(BotManager.spawnX, BotManager.spawnY, 0), Quaternion.identity);
                     alreadyInstantiate = true;
-                    g.name = "Player 1";
+                    //g.name = "Player 1";
                     PhotonNetwork.Destroy(gameObject);
                 }else{
-                    StartCoroutine(wait());
-                    GameObject o = PhotonNetwork.Instantiate(player2Prefab.name, new Vector3(BotManager.spawnX + 20, BotManager.spawnY, 0), new Quaternion(0,0,180,0));
+                    StartCoroutine(wait(player2Prefab, "Player 2"));
+                    //GameObject o = PhotonNetwork.Instantiate(player2Prefab.name, new Vector3(BotManager.spawnX + 20, BotManager.spawnY, 0), new Quaternion(0,0,180,0));
                     alreadyInstantiate = true;
-                    o.name = "Player 2";
+                    //o.name = "Player 2";
                     //PhotonNetwork.Destroy(gameObject);
                 }
             }
         }
     }
-    public IEnumerator wait(){
+    public IEnumerator wait(GameObject a, string s){
         yield return new WaitForSeconds(0.2f);
+        GameObject g = PhotonNetwork.Instantiate(a.name, new Vector3(BotManager.spawnX, BotManager.spawnY, 0), Quaternion.identity);
+        g.name = s;
     }
 
     public void send_Ok(){
