@@ -478,7 +478,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: ddd8aca62f8a55e409ae93b98ef68378, type: 3}
-    m_FontSize: 12
+    m_FontSize: 30
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
@@ -486,7 +486,7 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1.5
   m_Text: 'Player:'
@@ -1900,9 +1900,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a1012de22f0754daf4202857505fdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnergy: 30
-  maxTraps: 9
-  maxWalls: 9
   maxEnergyLabel: {fileID: 411342978}
   maxTrapsLabel: {fileID: 1387221029}
   maxWallsLabel: {fileID: 795971099}
