@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class MapEditor : MonoBehaviour
 {
-    public int maxEnergy = 30;
-    public int maxTraps = 9;
-    public int maxWalls = 9;
+    private int maxEnergy = 30;
+    private int maxTraps = 12;
+    private int maxWalls = 12;
     public Text maxEnergyLabel;
     public Text maxTrapsLabel;
     public Text maxWallsLabel;
