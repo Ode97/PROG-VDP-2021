@@ -25,7 +25,7 @@ public class DamagePopUp : MonoBehaviour
         textMesh.SetText(damageAmount.ToString());
         textMesh.color = color;
         disappearTimer = disappearTimerMax;
-        moveVector = new Vector3(0.7f,1) * 10;
+        moveVector = new Vector3(0.7f,1, -3) * 10;
         sortingOrder ++;
         textMesh.sortingOrder = sortingOrder;
 
