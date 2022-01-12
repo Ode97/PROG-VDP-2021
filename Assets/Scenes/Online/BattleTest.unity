@@ -265,10 +265,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -653,6 +653,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 230855280}
     m_Modifications:
+    - target: {fileID: 5493113406373889648, guid: 45dc2c52d3e0e0e4cb04b0a388e4099a, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5493113406373889651, guid: 45dc2c52d3e0e0e4cb04b0a388e4099a, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2052,6 +2056,10 @@ PrefabInstance:
     - target: {fileID: 7094888137539737793, guid: efbe6be4dc3fd464299416653b5dc207, type: 3}
       propertyPath: m_Name
       value: ButtonSignal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7094888137539737797, guid: efbe6be4dc3fd464299416653b5dc207, type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efbe6be4dc3fd464299416653b5dc207, type: 3}

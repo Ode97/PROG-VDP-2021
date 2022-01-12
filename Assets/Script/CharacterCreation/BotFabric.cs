@@ -63,9 +63,10 @@ public class BotFabric : MonoBehaviourPun
                 legValue = bot.legV;
                 tailValue = bot.tailV;
                 bodyValue = bot.bodyV;
-                if(PhotonNetwork.IsConnected)
-                    send_RPC_nanobot();
             }
+
+            if(PhotonNetwork.IsConnected)
+                send_RPC_nanobot();
 
             Vector3 itemScale = creature.transform.localScale;
             Quaternion itemRotation = creature.transform.rotation;
@@ -175,6 +176,8 @@ public class BotFabric : MonoBehaviourPun
                 tailValue = b[3];
                 bodyValue = b[4];
             }
+
+            Debug.Log(b[1] + " " + b[2] + " " + b[3] + " " + b[4]);
 
             Vector3 itemScale = creature.transform.localScale;
             Quaternion itemRotation = creature.transform.rotation;

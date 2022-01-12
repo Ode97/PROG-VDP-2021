@@ -27,29 +27,30 @@ public class MapGeneratorOnline : MonoBehaviour
         g - e. generator
         */
 
-        if(PhotonNetwork.IsMasterClient){
-            char [,] playerMap = MapManager.mapMatrix; 
-            int mapH = 21;
-            int mapW = 41;
+        //if(PhotonNetwork.IsMasterClient){
+        char [,] playerMap = MapManager.mapMatrix; 
+        int mapH = 21;
+        int mapW = 41;
 
-            // 20hx40w
-            char[,] genMatrix = new char[mapW, mapH];
+        // 20hx40w
+        char[,] genMatrix = new char[mapW, mapH];
+
+        for(int i=0;i<mapW;i++){
+                genMatrix[i,0] = 'W';
+                genMatrix[i,mapH-1] = 'W';
+        }
+        for(int i=0;i<mapH;i++){
+            genMatrix[0,i] = 'W';
+            genMatrix[mapW-1,i] = 'W';
+        }
+        
+
+        if(PhotonNetwork.IsMasterClient){
             for(int x=1;x<mapW-1;x++){
                 for(int y=1;y<mapH-1;y++){
                     genMatrix[x,y] = 'v';
                 }
             }
-
-            // Place Map Borders
-            for(int i=0;i<mapW;i++){
-                genMatrix[i,0] = 'w';
-                genMatrix[i,mapH-1] = 'w';
-            }
-            for(int i=0;i<mapH;i++){
-                genMatrix[0,i] = 'w';
-                genMatrix[mapW-1,i] = 'w';
-            }
-        
             // Place Energy generators 3x3
             // setBig(10,20,genMatrix,'g');
             
@@ -71,8 +72,9 @@ public class MapGeneratorOnline : MonoBehaviour
                     genMatrix[i,j] = playerMap[i,j];
                 }
             }
-            instantiateMap(genMatrix);
+            
         }
+        instantiateMap(genMatrix);
     }
 
     void setBig(int x, int y, char[,] map, char tag){
@@ -110,7 +112,7 @@ public class MapGeneratorOnline : MonoBehaviour
                         }
                         break;
                     case 'W':
-                        tile = PhotonNetwork.Instantiate(wallTemplate.name, new Vector2(i, j), Quaternion.identity);
+                        tile = Instantiate(wallTemplate, new Vector2(i, j), Quaternion.identity);
                         tile.transform.SetParent(this.transform);
                         if(i == 0 || i == 40 || j == 0 || j == 20){
                             tile.tag = "map";
