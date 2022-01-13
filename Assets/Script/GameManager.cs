@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
             if (timeRemaining > 0)
             {
                 timeRemaining -= Time.deltaTime;
-                DisplayTime(timeRemaining);
+                DisplayTime(timeRemaining + 1);
             }
             else
             {
@@ -182,7 +182,7 @@ public class GameManager : MonoBehaviour
 
     void DisplayTime(float timeToDisplay) {
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);  
-        float seconds = Mathf.FloorToInt((timeToDisplay + 1) % 60);
+        float seconds = Mathf.FloorToInt((timeToDisplay) % 60);
 
         // c.SetText(string.Format("{0:00}:{1:00}", minutes, seconds));
         tc.text = string.Format("{0:00}:{1:00}", minutes, seconds);
