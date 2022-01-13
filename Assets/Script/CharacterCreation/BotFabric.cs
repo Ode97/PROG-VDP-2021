@@ -177,8 +177,6 @@ public class BotFabric : MonoBehaviourPun
                 bodyValue = b[4];
             }
 
-            Debug.Log(b[1] + " " + b[2] + " " + b[3] + " " + b[4]);
-
             Vector3 itemScale = creature.transform.localScale;
             Quaternion itemRotation = creature.transform.rotation;
             creature.transform.localScale = new Vector3(1,1,1);
