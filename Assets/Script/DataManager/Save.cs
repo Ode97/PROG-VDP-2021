@@ -9,7 +9,6 @@ using PlayFab.ClientModels;
  
  public class Save : MonoBehaviour {
     public static void savePlayerBotFile(BotData bot){
-        
         string destination = Application.persistentDataPath + "/" + PlayFabMan.username + "_playerBot.dat";
         FileStream file;
 
@@ -23,6 +22,7 @@ using PlayFab.ClientModels;
         BinaryFormatter bf = new BinaryFormatter();
         bf.Serialize(file, data);
         file.Close();
+        
     }
     public static BotData loadPlayerBotFile(){
         string destination = Application.persistentDataPath + "/" + PlayFabMan.username + "_playerBot.dat";

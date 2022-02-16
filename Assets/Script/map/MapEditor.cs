@@ -208,8 +208,8 @@ public class MapEditor : MonoBehaviour
                                 if(genMatrix[coorX,coorY] == 's') {
                                     spawnX = -2;
                                     spawnY = -2;
-                                    BotManager.spawnX = 5;
-                                    BotManager.spawnY = 10;
+                                    //BotManager.spawnX = 5;
+                                    //BotManager.spawnY = 10;
                                 }
                                 map[coorX,coorY] = Instantiate(selectedTemplate, new Vector2(obj.transform.position.x, obj.transform.position.y), Quaternion.identity);
                                 map[coorX,coorY].transform.SetParent(this.transform);
